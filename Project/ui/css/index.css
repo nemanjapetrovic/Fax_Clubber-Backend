@@ -1,5 +1,5 @@
 body {
-    width: 100%;
+	width: 100%;
     height: 100%;	
 	background-color: #09090c;
 	background-image: url("../img/bg.jpg");
@@ -7,10 +7,11 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;	
+	font-family: 'Raleway', sans-serif;
 }
 
 .main-text-color {
-	font-size: 120%;
+	font-size: 160%;
 	color:#fff;
 }
 
@@ -20,7 +21,7 @@ body {
 }
 
 html, body, .container {
-    height: 100%;
+    height: 100%;    
 }
 
 .container {
