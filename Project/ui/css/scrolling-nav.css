@@ -6,13 +6,9 @@
 
 body {
     width: 100%;
-    height: 100%;	
-	background-color: #201e2d;
-	background-image: url("../img/bg.jpg");
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;	
+    height: 100%;   
+    background-color: #09090c;
+    font-family: 'Raleway', sans-serif;
 }
 
 @media(min-width:767px) {
