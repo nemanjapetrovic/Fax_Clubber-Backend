@@ -60,13 +60,14 @@
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Manager.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="MongoRepository\IMongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MongoRepository\MongoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MongoRepository\" />
     <Folder Include="Neo4jRepository\" />
     <Folder Include="RedisRepository\" />
   </ItemGroup>
