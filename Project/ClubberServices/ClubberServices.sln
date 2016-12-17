@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clubber.Database", "Clubber.Database\Clubber.Database.csproj", "{F6F4CC15-8AAA-4827-ACFD-90F9CFD42C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clubber.WebAPI", "Clubber.WebAPI\Clubber.WebAPI.csproj", "{2F269AFA-30B4-4AE9-9F82-3A99AFCC5F81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6F4CC15-8AAA-4827-ACFD-90F9CFD42C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F4CC15-8AAA-4827-ACFD-90F9CFD42C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F4CC15-8AAA-4827-ACFD-90F9CFD42C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F4CC15-8AAA-4827-ACFD-90F9CFD42C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F269AFA-30B4-4AE9-9F82-3A99AFCC5F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F269AFA-30B4-4AE9-9F82-3A99AFCC5F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F269AFA-30B4-4AE9-9F82-3A99AFCC5F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F269AFA-30B4-4AE9-9F82-3A99AFCC5F81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
