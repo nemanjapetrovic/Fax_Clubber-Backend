@@ -1,32 +1,32 @@
-﻿using Clubber.Database.Helpers;
-using Clubber.Database.Model;
-using Clubber.Database.MongoRepository;
+﻿using Clubber.Backend.MongoDB.Helpers;
+using Clubber.Backend.Models.Model;
+using Clubber.Backend.MongoDB.MongoRepository;
 using MongoDB.Driver;
 using System.Configuration;
 
-namespace Clubber.Database.MongoManagers
+namespace Clubber.Backend.MongoDB.MongoManagers
 {
-    public class ManagerMongo
+    public class UserMongoManager
     {
         //Db
         private IMongoDatabase _database;
 
         //Repo
-        protected MongoRepository<Manager> _managerRepo;
-        public MongoRepository<Manager> ManagerRepository
+        protected MongoRepository<User> _userRepo = null;
+        public MongoRepository<User> UserRepository
         {
             get
             {
-                if (_managerRepo == null)
+                if (_userRepo == null)
                 {
-                    _managerRepo = new MongoRepository<Manager>(_database, "manager");
+                    _userRepo = new MongoRepository<User>(_database, "user");
                 }
-                return _managerRepo;
+                return _userRepo;
             }
         }
 
-        //Const
-        public ManagerMongo()
+        //Constructor
+        public UserMongoManager()
         {
             var connectionString = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBConectionString];
             var client = new MongoClient(connectionString);

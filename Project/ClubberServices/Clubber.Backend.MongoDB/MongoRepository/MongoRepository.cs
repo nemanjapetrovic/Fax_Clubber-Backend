@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using MongoDB.Driver;
 using MongoDB.Bson;
 
-namespace Clubber.Database.MongoRepository
+namespace Clubber.Backend.MongoDB.MongoRepository
 {
     public class MongoRepository<T> : IMongoRepository<T> where T : class
     {
@@ -39,7 +39,7 @@ namespace Clubber.Database.MongoRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public T Get(int id)
+        public T Get(ObjectId id)
         {
             var filter = Builders<T>.Filter.Eq("_id", id);
             return (T)_collection.Find<T>(filter);
@@ -60,7 +60,7 @@ namespace Clubber.Database.MongoRepository
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
         /// <param name="entity"></param>
-        public void Update(Expression<Func<T, int>> queryExpression, int id, T entity)
+        public void Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
             _collection.UpdateOne(query, new ObjectUpdateDefinition<T>(entity));
@@ -71,7 +71,7 @@ namespace Clubber.Database.MongoRepository
         /// </summary>
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
-        public void Delete(Expression<Func<T, int>> queryExpression, int id)
+        public void Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
             _collection.DeleteOne(query);

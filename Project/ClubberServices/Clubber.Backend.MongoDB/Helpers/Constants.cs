@@ -1,4 +1,4 @@
-﻿namespace Clubber.Database.Helpers
+﻿namespace Clubber.Backend.MongoDB.Helpers
 {
     internal static class Constants
     {

@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using System;
 
-namespace Clubber.Database.Model
+namespace Clubber.Backend.Models.Model
 {
     public class Event
     {

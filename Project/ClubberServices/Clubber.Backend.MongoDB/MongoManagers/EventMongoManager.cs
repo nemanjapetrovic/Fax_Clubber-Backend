@@ -1,17 +1,12 @@
-﻿using Clubber.Database.Helpers;
-using Clubber.Database.Model;
-using Clubber.Database.MongoRepository;
+﻿using Clubber.Backend.MongoDB.Helpers;
+using Clubber.Backend.Models.Model;
+using Clubber.Backend.MongoDB.MongoRepository;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Clubber.Database.MongoManagers
+namespace Clubber.Backend.MongoDB.MongoManagers
 {
-    public class EventMongo
+    public class EventMongoManager
     {
         //Db
         private IMongoDatabase _database;
@@ -31,7 +26,7 @@ namespace Clubber.Database.MongoManagers
         }
 
         //Const
-        public EventMongo()
+        public EventMongoManager()
         {
             var connectionString = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBConectionString];
             var client = new MongoClient(connectionString);

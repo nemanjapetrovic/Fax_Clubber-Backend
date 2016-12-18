@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Clubber.Database.Properties {
+namespace Clubber.Backend.MongoDB.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,7 +25,7 @@ namespace Clubber.Database.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://localhost:27017\"")]
         public string MongoDBConectionString {
             get {
                 return ((string)(this["MongoDBConectionString"]));
@@ -37,13 +37,13 @@ namespace Clubber.Database.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MongoDBDatabaseName {
+        [global::System.Configuration.DefaultSettingValueAttribute("clubbertest")]
+        public string MongoDBDatabaseNameTest {
             get {
-                return ((string)(this["MongoDBDatabaseName"]));
+                return ((string)(this["MongoDBDatabaseNameTest"]));
             }
             set {
-                this["MongoDBDatabaseName"] = value;
+                this["MongoDBDatabaseNameTest"] = value;
             }
         }
     }

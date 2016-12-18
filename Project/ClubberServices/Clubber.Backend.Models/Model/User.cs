@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson;
 
-namespace Clubber.Database.Model
+namespace Clubber.Backend.Models.Model
 {
     public class User
     {

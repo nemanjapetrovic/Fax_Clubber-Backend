@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using System.Collections.Generic;
 
-namespace Clubber.Database.Model
+namespace Clubber.Backend.Models.Model
 {
     public class Manager
     {
