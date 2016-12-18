@@ -6,7 +6,7 @@ using System.Configuration;
 
 namespace Clubber.Backend.MongoDB.MongoManagers
 {
-    public class ManagerMongoManager
+    internal class ManagerMongoManager
     {
         //Db
         private IMongoDatabase _database;

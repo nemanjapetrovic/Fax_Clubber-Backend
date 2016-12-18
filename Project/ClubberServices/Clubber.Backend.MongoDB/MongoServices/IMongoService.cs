@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Clubber.Backend.MongoDB.MongoServices
 {
-    interface IMongoService<T> where T : class
+    public interface IMongoService<T> where T : class
     {
         IQueryable<T> Get();
         T Get(ObjectId id);

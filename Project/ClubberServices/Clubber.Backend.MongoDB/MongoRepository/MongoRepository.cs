@@ -6,7 +6,7 @@ using MongoDB.Bson;
 
 namespace Clubber.Backend.MongoDB.MongoRepository
 {
-    public class MongoRepository<T> : IMongoRepository<T> where T : class
+    internal class MongoRepository<T> : IMongoRepository<T> where T : class
     {
         private IMongoDatabase _database;
         private IMongoCollection<T> _collection;
