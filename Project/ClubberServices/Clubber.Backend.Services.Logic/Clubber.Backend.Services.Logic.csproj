@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F6F4CC15-8AAA-4827-ACFD-90F9CFD42C2D}</ProjectGuid>
+    <ProjectGuid>{65BCD925-C122-4CFF-9A6E-A61CDABA4326}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Clubber.Backend.MongoDB</RootNamespace>
-    <AssemblyName>Clubber.Backend.MongoDB</AssemblyName>
+    <RootNamespace>Clubber.Backend.Services.Logic</RootNamespace>
+    <AssemblyName>Clubber.Backend.Services.Logic</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,7 +43,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
@@ -57,34 +56,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="MongoManagers\ClubMongoManager.cs" />
-    <Compile Include="MongoManagers\EventMongoManager.cs" />
-    <Compile Include="MongoManagers\ManagerMongoManager.cs" />
-    <Compile Include="MongoManagers\UserMongoManager.cs" />
-    <Compile Include="MongoRepository\IMongoRepository.cs" />
-    <Compile Include="MongoRepository\MongoRepository.cs" />
+    <Compile Include="Services\ClubService.cs" />
+    <Compile Include="Services\EventService.cs" />
+    <Compile Include="Services\IMongoService.cs" />
+    <Compile Include="Services\ManagerService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Clubber.Backend.Models\Clubber.Backend.Models.csproj">
       <Project>{6d6fc162-8142-435c-98b8-f9fa7fd60501}</Project>
       <Name>Clubber.Backend.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Clubber.Backend.MongoDB\Clubber.Backend.MongoDB.csproj">
+      <Project>{f6f4cc15-8aaa-4827-acfd-90f9cfd42c2d}</Project>
+      <Name>Clubber.Backend.MongoDB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
