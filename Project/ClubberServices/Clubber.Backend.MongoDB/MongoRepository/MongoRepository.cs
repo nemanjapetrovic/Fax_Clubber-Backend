@@ -10,7 +10,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
     {
         private IMongoDatabase _database;
         private IMongoCollection<T> _collection;
-        private string _tableName;
+        private string _collectionName;
 
         /// <summary>
         /// Sets the database, database table name and gets collection by database table name.
@@ -20,8 +20,8 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         public MongoRepository(IMongoDatabase db, string tableName)
         {
             _database = db;
-            _tableName = tableName;
-            _collection = _database.GetCollection<T>(_tableName);
+            _collectionName = tableName;
+            _collection = _database.GetCollection<T>(_collectionName);
         }
 
         /// <summary>
