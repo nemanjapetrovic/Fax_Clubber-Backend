@@ -33,13 +33,12 @@ namespace Managerber.WebAPI.Controllers
         public void Post([FromBody]Manager value)
         {
             _iManagerService.Add(value);
-
         }
 
         // PUT: api/Manager/5
         public void Put(string id, [FromBody]Manager value)
         {
-            value.ID = new ObjectId(id);
+            value._id = new ObjectId(id);
             _iManagerService.Update(value);
         }
 

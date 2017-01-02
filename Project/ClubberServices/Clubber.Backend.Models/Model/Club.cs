@@ -6,7 +6,7 @@ namespace Clubber.Backend.Models.Model
     public class Club
     {
         //Standard data      
-        public ObjectId ID { get; set; }
+        public ObjectId _id { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
         public string Address { get; set; }

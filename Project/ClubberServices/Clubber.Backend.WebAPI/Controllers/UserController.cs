@@ -33,13 +33,12 @@ namespace Userber.WebAPI.Controllers
         public void Post([FromBody]User value)
         {
             _iUserService.Add(value);
-
         }
 
         // PUT: api/User/5
         public void Put(string id, [FromBody]User value)
         {
-            value.ID = new ObjectId(id);
+            value._id = new ObjectId(id);
             _iUserService.Update(value);
         }
 

@@ -33,13 +33,12 @@ namespace Eventber.WebAPI.Controllers
         public void Post([FromBody]Event value)
         {
             _iEventService.Add(value);
-
         }
 
         // PUT: api/Event/5
         public void Put(string id, [FromBody]Event value)
         {
-            value.ID = new ObjectId(id);
+            value._id = new ObjectId(id);
             _iEventService.Update(value);
         }
 

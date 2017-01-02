@@ -2,6 +2,7 @@
 using Clubber.Backend.MongoDB.MongoServices;
 using MongoDB.Bson;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace Clubber.WebAPI.Controllers
@@ -33,13 +34,12 @@ namespace Clubber.WebAPI.Controllers
         public void Post([FromBody]Club value)
         {
             _iClubService.Add(value);
-
         }
 
         // PUT: api/Club/5
         public void Put(string id, [FromBody]Club value)
         {
-            value.ID = new ObjectId(id);
+            value._id = new ObjectId(id);
             _iClubService.Update(value);
         }
 

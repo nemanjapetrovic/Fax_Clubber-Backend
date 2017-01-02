@@ -26,17 +26,17 @@ namespace Clubber.Backend.MongoDB.MongoServices
 
         public Club Get(string id)
         {
-            return _clubMongoManager.ClubRepository.Get(id);
+            return _clubMongoManager.ClubRepository.Get(new ObjectId(id));
         }
 
         public void Update(Club entity)
         {
-            _clubMongoManager.ClubRepository.Update(item => item.ID.ToString(), entity.ID.ToString(), entity);
+            _clubMongoManager.ClubRepository.Update(item => item._id, entity._id, entity);
         }
 
         public void Delete(string id)
         {
-            _clubMongoManager.ClubRepository.Delete(item => item.ID.ToString(), id);
+            _clubMongoManager.ClubRepository.Delete(item => item._id, new ObjectId(id));
         }
     }
 }

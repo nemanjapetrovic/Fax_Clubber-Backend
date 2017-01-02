@@ -6,7 +6,7 @@ namespace Clubber.Backend.Models.Model
     public class Event
     {
         //Standrad data        
-        public ObjectId ID { get; set; }
+        public ObjectId _id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime StartDateTime { get; set; }

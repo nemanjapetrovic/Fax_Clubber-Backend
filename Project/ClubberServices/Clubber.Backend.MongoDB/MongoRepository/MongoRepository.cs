@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace Clubber.Backend.MongoDB.MongoRepository
 {
@@ -30,8 +31,8 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <returns></returns>
         public IQueryable<T> Get()
         {
-            var documents = _collection.AsQueryable<T>();
-            return documents;
+            var data = _collection.AsQueryable<T>();
+            return data;
         }
 
         /// <summary>
@@ -39,10 +40,10 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public T Get(string id)
+        public T Get(ObjectId id)
         {
             var filter = Builders<T>.Filter.Eq("_id", id);
-            return (T)_collection.Find<T>(filter);
+            return _collection.Find<T>(filter).FirstOrDefault<T>();
         }
 
         /// <summary>
@@ -60,10 +61,10 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
         /// <param name="entity"></param>
-        public void Update(Expression<Func<T, string>> queryExpression, string id, T entity)
+        public void Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
-            _collection.UpdateOne(query, new ObjectUpdateDefinition<T>(entity));
+            _collection.ReplaceOne(query, entity);
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// </summary>
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
-        public void Delete(Expression<Func<T, string>> queryExpression, string id)
+        public void Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
             _collection.DeleteOne(query);

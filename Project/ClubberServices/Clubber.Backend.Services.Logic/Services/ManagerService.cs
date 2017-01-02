@@ -26,17 +26,17 @@ namespace Clubber.Backend.MongoDB.MongoServices
 
         public Manager Get(string id)
         {
-            return _managerMongoManager.ManagerRepository.Get(id);
+            return _managerMongoManager.ManagerRepository.Get(new ObjectId(id));
         }
 
         public void Update(Manager entity)
         {
-            _managerMongoManager.ManagerRepository.Update(item => item.ID.ToString(), entity.ID.ToString(), entity);
+            _managerMongoManager.ManagerRepository.Update(item => item._id, entity._id, entity);
         }
 
         public void Delete(string id)
         {
-            _managerMongoManager.ManagerRepository.Delete(item => item.ID.ToString(), id);
+            _managerMongoManager.ManagerRepository.Delete(item => item._id, new ObjectId(id));
         }
     }
 }
