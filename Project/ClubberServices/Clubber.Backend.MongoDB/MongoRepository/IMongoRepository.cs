@@ -8,9 +8,9 @@ namespace Clubber.Backend.MongoDB.MongoRepository
     interface IMongoRepository<T> where T : class
     {
         IQueryable<T> Get();
-        T Get(ObjectId id);
+        T Get(string id);
         void Add(T entity);
-        void Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity);
-        void Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id);
+        void Update(Expression<Func<T, string>> queryExpression, string id, T entity);
+        void Delete(Expression<Func<T, string>> queryExpression, string id);
     }
 }

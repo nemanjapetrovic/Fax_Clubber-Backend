@@ -39,7 +39,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public T Get(ObjectId id)
+        public T Get(string id)
         {
             var filter = Builders<T>.Filter.Eq("_id", id);
             return (T)_collection.Find<T>(filter);
@@ -60,7 +60,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
         /// <param name="entity"></param>
-        public void Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity)
+        public void Update(Expression<Func<T, string>> queryExpression, string id, T entity)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
             _collection.UpdateOne(query, new ObjectUpdateDefinition<T>(entity));
@@ -71,7 +71,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// </summary>
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
-        public void Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
+        public void Delete(Expression<Func<T, string>> queryExpression, string id)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
             _collection.DeleteOne(query);

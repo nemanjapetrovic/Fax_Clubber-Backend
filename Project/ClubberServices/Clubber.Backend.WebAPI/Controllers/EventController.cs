@@ -1,5 +1,6 @@
 ﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoServices;
+using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -22,7 +23,7 @@ namespace Eventber.WebAPI.Controllers
         }
 
         // GET: api/Event/5
-        public Event Get(ObjectId id)
+        public Event Get(string id)
         {
             var obj = _iEventService.Get(id);
             return obj;
@@ -36,14 +37,14 @@ namespace Eventber.WebAPI.Controllers
         }
 
         // PUT: api/Event/5
-        public void Put(ObjectId id, [FromBody]Event value)
+        public void Put(string id, [FromBody]Event value)
         {
-            value.ID = id;
+            value.ID = new ObjectId(id);
             _iEventService.Update(value);
         }
 
         // DELETE: api/Event/5
-        public void Delete(ObjectId id)
+        public void Delete(string id)
         {
             _iEventService.Delete(id);
         }

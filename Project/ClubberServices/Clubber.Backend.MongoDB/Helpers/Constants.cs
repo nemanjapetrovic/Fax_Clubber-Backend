@@ -4,8 +4,8 @@
     {
         internal class MongoDB
         {
-            internal static string MongoDBConectionString = "MongoDBConectionString";
-            internal static string MongoDBDatabaseNameTest = "MongoDBDatabaseNameTest";
+            internal static string MongoDBConectionString = "mongodb://localhost:27017";
+            internal static string MongoDBDatabaseNameTest = "clubbertest";
         }
     }
 }

@@ -28,9 +28,9 @@ namespace Clubber.Backend.MongoDB.MongoManagers
         //Constructor
         public ClubMongoManager()
         {
-            var connectionString = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBConectionString];
+            var connectionString = Constants.MongoDB.MongoDBConectionString;
             var client = new MongoClient(connectionString);
-            var databaseName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseNameTest];
+            var databaseName = Constants.MongoDB.MongoDBDatabaseNameTest;
             _database = client.GetDatabase(databaseName);
         }
     }
