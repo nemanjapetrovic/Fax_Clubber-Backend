@@ -5,7 +5,6 @@
         internal class RedisDB
         {
             internal static string RedisDBConectionString = "localhost:6379";
-            internal static string RedisDBDatabaseNameTest = "clubbertest";
         }
     }
 }

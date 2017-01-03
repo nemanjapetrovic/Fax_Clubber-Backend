@@ -12,7 +12,7 @@ namespace Clubber.Backend.MongoDB.MongoManagers
         private IMongoDatabase _database;
 
         //Repo
-        protected IMongoRepository<Event> _eventRepo;
+        protected IMongoRepository<Event> _eventRepo = null;
         public IMongoRepository<Event> EventRepository
         {
             get
