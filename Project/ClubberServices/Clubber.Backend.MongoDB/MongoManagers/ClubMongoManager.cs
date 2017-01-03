@@ -2,7 +2,6 @@
 using Clubber.Backend.MongoDB.Helpers;
 using Clubber.Backend.MongoDB.MongoRepository;
 using MongoDB.Driver;
-using System.Configuration;
 
 namespace Clubber.Backend.MongoDB.MongoManagers
 {

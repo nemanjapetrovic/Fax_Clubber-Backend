@@ -2,7 +2,6 @@
 using Clubber.Backend.MongoDB.MongoServices;
 using MongoDB.Bson;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Clubber.WebAPI.Controllers

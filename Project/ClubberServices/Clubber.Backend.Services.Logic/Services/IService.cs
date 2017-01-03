@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Clubber.Backend.MongoDB.MongoServices
 {

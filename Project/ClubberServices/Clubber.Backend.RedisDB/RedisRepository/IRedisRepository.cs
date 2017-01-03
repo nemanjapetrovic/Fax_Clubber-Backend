@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Clubber.Backend.RedisDB.RedisRepository
+﻿namespace Clubber.Backend.RedisDB.RedisRepository
 {
     /// <summary>
     /// This repository will be used only with Club and Events models.
