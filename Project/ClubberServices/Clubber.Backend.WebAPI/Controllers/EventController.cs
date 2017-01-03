@@ -8,7 +8,7 @@ namespace Eventber.WebAPI.Controllers
 {
     public class EventController : ApiController
     {
-        private readonly IMongoService<Event> _iEventService;
+        private readonly IService<Event> _iEventService;
 
         public EventController()
         {

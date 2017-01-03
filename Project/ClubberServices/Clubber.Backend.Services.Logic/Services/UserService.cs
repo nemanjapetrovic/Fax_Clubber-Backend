@@ -5,38 +5,38 @@ using MongoDB.Bson;
 
 namespace Clubber.Backend.MongoDB.MongoServices
 {
-    public class UserService : IMongoService<User>
+    public class UserService : IService<User>
     {
-        private readonly UserMongoManager _userMongoManager;
+        private readonly UserMongoManager _mongoUserManager;
 
         public UserService()
         {
-            _userMongoManager = new UserMongoManager();
+            _mongoUserManager = new UserMongoManager();
         }
 
         public void Add(User entity)
         {
-            _userMongoManager.UserRepository.Add(entity);
+            _mongoUserManager.UserRepository.Add(entity);
         }
 
         public IQueryable<User> Get()
         {
-            return _userMongoManager.UserRepository.Get();
+            return _mongoUserManager.UserRepository.Get();
         }
 
         public User Get(string id)
         {
-            return _userMongoManager.UserRepository.Get(new ObjectId(id));
+            return _mongoUserManager.UserRepository.Get(new ObjectId(id));
         }
 
         public void Update(User entity)
         {
-            _userMongoManager.UserRepository.Update(item => item._id, entity._id, entity);
+            _mongoUserManager.UserRepository.Update(item => item._id, entity._id, entity);
         }
 
         public void Delete(string id)
         {
-            _userMongoManager.UserRepository.Delete(item => item._id, new ObjectId(id));
+            _mongoUserManager.UserRepository.Delete(item => item._id, new ObjectId(id));
         }
     }
 }

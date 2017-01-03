@@ -5,38 +5,38 @@ using MongoDB.Bson;
 
 namespace Clubber.Backend.MongoDB.MongoServices
 {
-    public class EventService : IMongoService<Event>
+    public class EventService : IService<Event>
     {
-        private readonly EventMongoManager _eventMongoManager;
+        private readonly EventMongoManager _mongoEventManager;
 
         public EventService()
         {
-            _eventMongoManager = new EventMongoManager();
+            _mongoEventManager = new EventMongoManager();
         }
 
         public void Add(Event entity)
         {
-            _eventMongoManager.EventRepository.Add(entity);
+            _mongoEventManager.EventRepository.Add(entity);
         }
 
         public IQueryable<Event> Get()
         {
-            return _eventMongoManager.EventRepository.Get();
+            return _mongoEventManager.EventRepository.Get();
         }
 
         public Event Get(string id)
         {
-            return _eventMongoManager.EventRepository.Get(new ObjectId(id));
+            return _mongoEventManager.EventRepository.Get(new ObjectId(id));
         }
 
         public void Update(Event entity)
         {
-            _eventMongoManager.EventRepository.Update(item => item._id, entity._id, entity);
+            _mongoEventManager.EventRepository.Update(item => item._id, entity._id, entity);
         }
 
         public void Delete(string id)
         {
-            _eventMongoManager.EventRepository.Delete(item => item._id, new ObjectId(id));
+            _mongoEventManager.EventRepository.Delete(item => item._id, new ObjectId(id));
         }
     }
 }

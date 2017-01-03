@@ -8,7 +8,7 @@ namespace Userber.WebAPI.Controllers
 {
     public class UserController : ApiController
     {
-        private readonly IMongoService<User> _iUserService;
+        private readonly IService<User> _iUserService;
 
         public UserController()
         {

@@ -9,7 +9,7 @@ namespace Clubber.WebAPI.Controllers
 {
     public class ClubController : ApiController
     {
-        private readonly IMongoService<Club> _iClubService;
+        private readonly IService<Club> _iClubService;
 
         public ClubController()
         {

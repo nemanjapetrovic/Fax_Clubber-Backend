@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="Services\ClubService.cs" />
     <Compile Include="Services\EventService.cs" />
-    <Compile Include="Services\IMongoService.cs" />
+    <Compile Include="Services\IService.cs" />
     <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

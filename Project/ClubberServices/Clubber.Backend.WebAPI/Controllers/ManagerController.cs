@@ -8,7 +8,7 @@ namespace Managerber.WebAPI.Controllers
 {
     public class ManagerController : ApiController
     {
-        private readonly IMongoService<Manager> _iManagerService;
+        private readonly IService<Manager> _iManagerService;
 
         public ManagerController()
         {
