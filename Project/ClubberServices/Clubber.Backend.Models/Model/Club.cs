@@ -18,9 +18,6 @@ namespace Clubber.Backend.Models.Model
         public string Instagram { get; set; }
         public string Twitter { get; set; }
 
-        //Connections
-        public ObjectId ManagerID { get; set; }
-
         public Club()
         {
             PhoneNumber = new List<string>();

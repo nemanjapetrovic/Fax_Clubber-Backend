@@ -10,13 +10,5 @@ namespace Clubber.Backend.Models.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Image { get; set; }
-
-        //Connections
-        public IList<ObjectId> ClubID { get; set; }
-
-        public Manager()
-        {
-            ClubID = new List<ObjectId>();
-        }
     }
 }
