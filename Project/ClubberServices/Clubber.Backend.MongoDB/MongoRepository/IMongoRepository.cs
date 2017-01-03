@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Clubber.Backend.MongoDB.MongoRepository
 {
-    interface IMongoRepository<T> where T : class
+    public interface IMongoRepository<T> where T : class
     {
         IQueryable<T> Get();
         T Get(ObjectId id);

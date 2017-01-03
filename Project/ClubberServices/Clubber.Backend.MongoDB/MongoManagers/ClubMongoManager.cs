@@ -12,8 +12,8 @@ namespace Clubber.Backend.MongoDB.MongoManagers
         private IMongoDatabase _database;
 
         //Repo
-        protected MongoRepository<Club> _clubRepo = null;
-        public MongoRepository<Club> ClubRepository
+        protected IMongoRepository<Club> _clubRepo = null;
+        public IMongoRepository<Club> ClubRepository
         {
             get
             {

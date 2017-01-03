@@ -12,8 +12,8 @@ namespace Clubber.Backend.MongoDB.MongoManagers
         private IMongoDatabase _database;
 
         //Repo
-        protected MongoRepository<Event> _eventRepo;
-        public MongoRepository<Event> EventRepository
+        protected IMongoRepository<Event> _eventRepo;
+        public IMongoRepository<Event> EventRepository
         {
             get
             {
