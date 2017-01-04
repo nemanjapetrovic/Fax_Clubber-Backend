@@ -9,9 +9,11 @@ namespace Clubber.Backend.MongoDB.MongoServices
     {
         private readonly ClubMongoManager _mongoClubManager;
 
-        public ClubService()
+        public ClubService(string mongoConStr,
+                           string mongoDbName,
+                           string redisConStr)
         {
-            _mongoClubManager = new ClubMongoManager();
+            _mongoClubManager = new ClubMongoManager(mongoConStr, mongoDbName);
         }
 
         public void Add(Club entity)

@@ -61,7 +61,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="MongoManagers\ClubMongoManager.cs" />
     <Compile Include="MongoManagers\EventMongoManager.cs" />
     <Compile Include="MongoManagers\ManagerMongoManager.cs" />

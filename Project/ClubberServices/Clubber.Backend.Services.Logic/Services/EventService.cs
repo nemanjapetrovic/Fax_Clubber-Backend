@@ -9,9 +9,11 @@ namespace Clubber.Backend.MongoDB.MongoServices
     {
         private readonly EventMongoManager _mongoEventManager;
 
-        public EventService()
+        public EventService(string mongoConStr,
+                           string mongoDbName,
+                           string redisConStr)
         {
-            _mongoEventManager = new EventMongoManager();
+            _mongoEventManager = new EventMongoManager(mongoConStr, mongoDbName);
         }
 
         public void Add(Event entity)

@@ -1,5 +1,4 @@
-﻿using Clubber.Backend.MongoDB.Helpers;
-using Clubber.Backend.Models.Model;
+﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoRepository;
 using MongoDB.Driver;
 
@@ -10,7 +9,7 @@ namespace Clubber.Backend.MongoDB.MongoManagers
         //Db
         private IMongoDatabase _database;
 
-        //Repo
+        //Repository
         protected IMongoRepository<Event> _eventRepo = null;
         public IMongoRepository<Event> EventRepository
         {
@@ -24,12 +23,10 @@ namespace Clubber.Backend.MongoDB.MongoManagers
             }
         }
 
-        //Const
-        public EventMongoManager()
+        //Constructor
+        public EventMongoManager(string connectionString, string databaseName)
         {
-            var connectionString = Constants.MongoDB.MongoDBConectionString;
             var client = new MongoClient(connectionString);
-            var databaseName = Constants.MongoDB.MongoDBDatabaseNameTest;
             _database = client.GetDatabase(databaseName);
         }
     }

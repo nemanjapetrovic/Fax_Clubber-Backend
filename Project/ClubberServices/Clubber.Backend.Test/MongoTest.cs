@@ -21,8 +21,8 @@ namespace Clubber.Backend.Test
                 Instagram = "url url instagram",
                 Twitter = "url url twitter"
             };
-            ClubService tmp = new ClubService();
-            tmp.Add(b);
+            //  ClubService tmp = new ClubService();
+            //tmp.Add(b);
         }
 
         public void UpdateClub()
@@ -42,14 +42,14 @@ namespace Clubber.Backend.Test
             };
             b._id = new ObjectId("586a4d0c9df8d523c44f284d");
 
-            ClubService tmp = new ClubService();
-            tmp.Update(b);
+            //  ClubService tmp = new ClubService();
+            //tmp.Update(b);
         }
 
         public void DeleteClub()
         {
-            ClubService tmp = new ClubService();
-            tmp.Delete("586a4d0c9df8d523c44f284d");
+            //  ClubService tmp = new ClubService();
+            //tmp.Delete("586a4d0c9df8d523c44f284d");
         }
     }
 }

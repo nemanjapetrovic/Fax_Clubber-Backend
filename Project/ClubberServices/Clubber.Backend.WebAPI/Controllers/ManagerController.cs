@@ -3,6 +3,8 @@ using Clubber.Backend.MongoDB.MongoServices;
 using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Web.Http;
+using Clubber.Backend.WebAPI.Helpers;
+using System.Configuration;
 
 namespace Managerber.WebAPI.Controllers
 {
@@ -12,7 +14,13 @@ namespace Managerber.WebAPI.Controllers
 
         public ManagerController()
         {
-            _iManagerService = new ManagerService();
+            //connection strings
+            string mongoConStr = ConfigurationManager.ConnectionStrings[Constants.MongoDB.MongoDBConectionString].ConnectionString;
+            string redisConStr = ConfigurationManager.ConnectionStrings[Constants.RedisDB.RedisDBConectionString].ConnectionString;
+            //mongodb name
+            string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
+
+            _iManagerService = new ManagerService(mongoConStr, mongoDbName, redisConStr);
         }
 
         // GET: api/Manager

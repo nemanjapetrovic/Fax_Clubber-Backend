@@ -1,5 +1,4 @@
-﻿using Clubber.Backend.RedisDB.Helpers;
-using ServiceStack.Redis;
+﻿using ServiceStack.Redis;
 
 namespace Clubber.Backend.RedisDB.RedisRepository
 {
@@ -7,9 +6,9 @@ namespace Clubber.Backend.RedisDB.RedisRepository
     {
         private readonly IRedisClient _redisClient;
 
-        public RedisRepository()
+        public RedisRepository(string connectionString)
         {
-            _redisClient = new RedisClient(Constants.RedisDB.RedisDBConectionString);
+            _redisClient = new RedisClient(connectionString);
         }
 
         public string Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue)

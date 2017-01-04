@@ -1,7 +1,9 @@
 ﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoServices;
+using Clubber.Backend.WebAPI.Helpers;
 using MongoDB.Bson;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Http;
 
 namespace Eventber.WebAPI.Controllers
@@ -12,7 +14,13 @@ namespace Eventber.WebAPI.Controllers
 
         public EventController()
         {
-            _iEventService = new EventService();
+            //connection strings
+            string mongoConStr = ConfigurationManager.ConnectionStrings[Constants.MongoDB.MongoDBConectionString].ConnectionString;
+            string redisConStr = ConfigurationManager.ConnectionStrings[Constants.RedisDB.RedisDBConectionString].ConnectionString;
+            //mongodb name
+            string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
+
+            _iEventService = new EventService(mongoConStr, mongoDbName, redisConStr);
         }
 
         // GET: api/Event

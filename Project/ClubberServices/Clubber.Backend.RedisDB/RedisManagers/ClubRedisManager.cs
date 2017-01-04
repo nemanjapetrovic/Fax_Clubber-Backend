@@ -4,6 +4,8 @@ namespace Clubber.Backend.RedisDB.RedisManagers
 {
     public class ClubRedisManager
     {
+        private string _connectionString;
+
         protected IRedisRepository _clubRepo = null;
         public IRedisRepository ClubRepository
         {
@@ -11,10 +13,15 @@ namespace Clubber.Backend.RedisDB.RedisManagers
             {
                 if (_clubRepo == null)
                 {
-                    _clubRepo = new RedisRepository.RedisRepository();
+                    _clubRepo = new RedisRepository.RedisRepository(_connectionString);
                 }
                 return _clubRepo;
             }
+        }
+
+        public ClubRedisManager(string connectionString)
+        {
+            _connectionString = connectionString;
         }
     }
 }
