@@ -1,4 +1,5 @@
 ﻿using ServiceStack.Redis;
+using System.Collections.Generic;
 
 namespace Clubber.Backend.RedisDB.RedisRepository
 {
@@ -11,22 +12,43 @@ namespace Clubber.Backend.RedisDB.RedisRepository
             _redisClient = new RedisClient(connectionString);
         }
 
-        public string Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
+        public HashSet<string> Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
         {
+            //Create key
             var key = $"{keyModel}:{keyAdditionalInfo}:{keyUniqueValue}";
-            return _redisClient.Get<string>(key);
+
+            //Get all items from the key
+            return _redisClient.GetAllItemsFromSet(key);
         }
 
         public bool Store(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue)
         {
+            //Create key
             var key = $"{keyModel}:{keyAdditionalInfo}:{keyUniqueValue}";
-            return _redisClient.SetValueIfNotExists(key, storeValue);
+
+            //Count
+            long countBefore = _redisClient.GetSetCount(key);
+            //Add item
+            _redisClient.AddItemToSet(key, storeValue);
+            //Count
+            long countAfter = _redisClient.GetSetCount(key);
+
+            return (countAfter - countBefore > 0) ? true : false;
         }
 
-        public bool Update(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue)
+        public bool Remove(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storedValue)
         {
+            //Create key
             var key = $"{keyModel}:{keyAdditionalInfo}:{keyUniqueValue}";
-            return _redisClient.SetValueIfExists(key, storeValue);
+
+            //Count
+            long countBefore = _redisClient.GetSetCount(key);
+            //Remove item
+            _redisClient.RemoveItemFromSet(key, storedValue);
+            //Count
+            long countAfter = _redisClient.GetSetCount(key);
+
+            return (countBefore - countAfter > 0) ? true : false;
         }
     }
 }
