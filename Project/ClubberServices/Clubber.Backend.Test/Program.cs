@@ -14,7 +14,8 @@ namespace Clubber.Backend.Test
             Console.ReadLine();
             MongoTest mongo = new MongoTest();
             //mongo.AddClub();
-            mongo.DeleteClub();
+            //mongo.DeleteClub();
+            mongo.UpdateClub();
         }
     }
 }

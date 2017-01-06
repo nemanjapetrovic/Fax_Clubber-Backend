@@ -10,7 +10,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         IQueryable<T> Get();
         T Get(ObjectId id);
         void Add(T entity);
-        void Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity);
-        void Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id);
+        bool Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity);
+        T Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Clubber.Backend.Models.Model
 {
@@ -22,6 +23,11 @@ namespace Clubber.Backend.Models.Model
         {
             PhoneNumber = new List<string>();
             Email = new List<string>();
+        }
+
+        public string GetNameWithoutSpaces()
+        {
+            return Regex.Replace(this.Name, @"\s+", "");
         }
     }
 }

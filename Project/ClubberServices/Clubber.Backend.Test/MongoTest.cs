@@ -6,6 +6,10 @@ namespace Clubber.Backend.Test
 {
     public class MongoTest
     {
+        public static string RedisDBConectionString = "localhost:6379";
+        public static string MongoDBConectionString = "mongodb://localhost:27017";
+        public static string MongoDBDatabaseName = "clubbertest";
+
         public void AddClub()
         {
             Club b = new Club()
@@ -21,8 +25,8 @@ namespace Clubber.Backend.Test
                 Instagram = "url url instagram",
                 Twitter = "url url twitter"
             };
-            //  ClubService tmp = new ClubService();
-            //tmp.Add(b);
+            ClubService tmp = new ClubService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
+            tmp.Add(b);
         }
 
         public void UpdateClub()
@@ -40,16 +44,16 @@ namespace Clubber.Backend.Test
                 Instagram = "url url instagram",
                 Twitter = "url url twitter"
             };
-            b._id = new ObjectId("586a4d0c9df8d523c44f284d");
+            b._id = new ObjectId("586d2e029df8d51da04f8d70");
 
-            //  ClubService tmp = new ClubService();
-            //tmp.Update(b);
+            ClubService tmp = new ClubService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
+            tmp.Update(b);
         }
 
         public void DeleteClub()
         {
-            //  ClubService tmp = new ClubService();
-            //tmp.Delete("586a4d0c9df8d523c44f284d");
+            ClubService tmp = new ClubService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
+            tmp.Delete("586d2a519df8d521a4451bd9");
         }
     }
 }

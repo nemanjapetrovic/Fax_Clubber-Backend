@@ -61,10 +61,10 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
         /// <param name="entity"></param>
-        public void Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity)
+        public bool Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
-            _collection.ReplaceOne(query, entity);
+            return _collection.ReplaceOne(query, entity).IsAcknowledged;
         }
 
         /// <summary>
@@ -72,10 +72,17 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// </summary>
         /// <param name="queryExpression"></param>
         /// <param name="id"></param>
-        public void Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
+        public T Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
         {
+            //Get an entity we want to remove
+            var entity = this.Get(id);
+
+            //Remove the entity
             var query = Builders<T>.Filter.Eq(queryExpression, id);
-            _collection.DeleteOne(query);
+            var count = _collection.DeleteOne(query).DeletedCount;
+
+            //Return entity or null if it's not removed
+            return (count > 0) ? entity : null;
         }
     }
 }

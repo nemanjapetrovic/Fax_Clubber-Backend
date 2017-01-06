@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Clubber.Backend.Models.Model
 {
@@ -12,5 +13,10 @@ namespace Clubber.Backend.Models.Model
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public string Address { get; set; }
+
+        public string GetNameWithoutSpaces()
+        {
+            return Regex.Replace(this.Name, @"\s+", "");
+        }
     }
 }
