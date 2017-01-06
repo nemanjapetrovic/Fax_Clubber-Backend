@@ -31,7 +31,7 @@ namespace Eventber.WebAPI.Controllers
         }
 
         // GET: api/Event/5
-        public Event Get(string id)
+        public IEnumerable<Event> Get(string id)
         {
             var obj = _iEventService.Get(id);
             return obj;

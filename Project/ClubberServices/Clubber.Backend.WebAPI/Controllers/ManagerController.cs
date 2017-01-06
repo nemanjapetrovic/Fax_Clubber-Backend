@@ -31,7 +31,7 @@ namespace Managerber.WebAPI.Controllers
         }
 
         // GET: api/Manager/5
-        public Manager Get(string id)
+        public IEnumerable<Manager> Get(string id)
         {
             var obj = _iManagerService.Get(id);
             return obj;

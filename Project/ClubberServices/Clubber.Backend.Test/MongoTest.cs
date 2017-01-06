@@ -55,5 +55,42 @@ namespace Clubber.Backend.Test
             ClubService tmp = new ClubService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
             tmp.Delete("586d2a519df8d521a4451bd9");
         }
+
+
+        public void AddEvent()
+        {
+            Event b = new Event()
+            {
+                Address = "test adresa",
+                EndDateTime = new System.DateTime(),
+                StartDateTime = new System.DateTime(),
+                Name = "intheclubevent"
+            };
+            EventService tmp = new EventService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
+            tmp.Add(b);
+        }
+
+        public void UpdateEvent()
+        {
+            Event b = new Event()
+            {
+                Address = "mosha adresa",
+                EndDateTime = new System.DateTime(),
+                StartDateTime = new System.DateTime(),
+                Name = "intheclubevent",
+                Description = "testic"
+            };
+
+            b._id = new ObjectId("586fbd7b9df8d52744bc597b");
+
+            EventService tmp = new EventService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
+            tmp.Update(b);
+        }
+
+        public void DeleteEvent()
+        {
+            EventService tmp = new EventService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
+            tmp.Delete("586fbd7b9df8d52744bc597b");
+        }
     }
 }

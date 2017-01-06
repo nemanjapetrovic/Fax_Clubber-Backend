@@ -31,7 +31,7 @@ namespace Userber.WebAPI.Controllers
         }
 
         // GET: api/User/5
-        public User Get(string id)
+        public IEnumerable<User> Get(string id)
         {
             var obj = _iUserService.Get(id);
             return obj;

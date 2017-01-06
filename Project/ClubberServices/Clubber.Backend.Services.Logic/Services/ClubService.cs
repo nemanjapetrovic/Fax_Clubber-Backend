@@ -4,6 +4,7 @@ using Clubber.Backend.MongoDB.MongoManagers;
 using MongoDB.Bson;
 using Clubber.Backend.Services.Logic.Helpers;
 using Clubber.Backend.RedisDB.RedisManagers;
+using System.Collections.Generic;
 
 namespace Clubber.Backend.MongoDB.MongoServices
 {
@@ -34,12 +35,26 @@ namespace Clubber.Backend.MongoDB.MongoServices
 
         public IQueryable<Club> Get()
         {
+            //Get all items from MongoDB
             return _mongoClubManager.ClubRepository.Get();
         }
 
-        public Club Get(string id)
+        public IQueryable<Club> Get(string value)
         {
-            return _mongoClubManager.ClubRepository.Get(new ObjectId(id));
+            //Load from RedisDB
+            var objs = _redisClubManager.ClubRepository.Get(
+                Constants.RedisDB.ClubEntityName,
+                Constants.RedisDB.AdditionalInfoName,
+                value);
+
+            //Load from MongoDB
+            List<Club> clubs = new List<Club>();
+            foreach (var item in objs)
+            {
+                clubs.Add(_mongoClubManager.ClubRepository.Get(new ObjectId(item)));
+            }
+
+            return clubs.AsQueryable<Club>();
         }
 
         public void Update(Club entity)
@@ -53,7 +68,8 @@ namespace Clubber.Backend.MongoDB.MongoServices
             //Remove from MongoDB
             var entity = _mongoClubManager.ClubRepository.Delete(item => item._id, new ObjectId(id));
             //Remove from RedisDB
-            _redisClubManager.ClubRepository.Remove(Constants.RedisDB.ClubEntityName,
+            _redisClubManager.ClubRepository.Remove(
+                Constants.RedisDB.ClubEntityName,
                 Constants.RedisDB.AdditionalInfoName,
                 entity.GetNameWithoutSpaces(),
                 entity._id.ToString());

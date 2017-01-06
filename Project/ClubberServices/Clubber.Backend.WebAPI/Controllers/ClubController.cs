@@ -31,10 +31,10 @@ namespace Clubber.WebAPI.Controllers
         }
 
         // GET: api/Club/5
-        public Club Get(string id)
+        public IEnumerable<Club> Get(string id)
         {
-            var obj = _iClubService.Get(id);
-            return obj;
+            var objs = _iClubService.Get(id);
+            return objs;
         }
 
         // POST: api/Club
@@ -55,5 +55,7 @@ namespace Clubber.WebAPI.Controllers
         {
             _iClubService.Delete(id);
         }
+
+
     }
 }

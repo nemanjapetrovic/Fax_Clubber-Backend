@@ -26,9 +26,10 @@ namespace Clubber.Backend.MongoDB.MongoServices
             return _mongoUserManager.UserRepository.Get();
         }
 
-        public User Get(string id)
+        public IQueryable<User> Get(string id)
         {
-            return _mongoUserManager.UserRepository.Get(new ObjectId(id));
+            //return _mongoUserManager.UserRepository.Get(new ObjectId(id));
+            return null;
         }
 
         public void Update(User entity)
