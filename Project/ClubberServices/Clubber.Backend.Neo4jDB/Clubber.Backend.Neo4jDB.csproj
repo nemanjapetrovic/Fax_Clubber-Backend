@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Models\NodeModel.cs" />
+    <Compile Include="Neo4jManagers\Neo4jManager.cs" />
     <Compile Include="Neo4jRepository\INeo4jRepository.cs" />
     <Compile Include="Neo4jRepository\Neo4jRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
