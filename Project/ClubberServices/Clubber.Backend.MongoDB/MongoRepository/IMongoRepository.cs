@@ -5,6 +5,9 @@ using System.Linq.Expressions;
 
 namespace Clubber.Backend.MongoDB.MongoRepository
 {
+    /// <summary>
+    /// MongoDB is used to store all the "hard" data, typically it's all Models from Model project.
+    /// </summary>
     public interface IMongoRepository<T> where T : class
     {
         IQueryable<T> Get();

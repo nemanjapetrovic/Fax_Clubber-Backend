@@ -62,10 +62,6 @@
     <Compile Include="Neo4jRepository\INeo4jRepository.cs" />
     <Compile Include="Neo4jRepository\Neo4jRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Relationships\FollowRelationship.cs" />
-    <Compile Include="Relationships\GoingRelationship.cs" />
-    <Compile Include="Relationships\ManageRelationship.cs" />
-    <Compile Include="Relationships\PlaceRelationship.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

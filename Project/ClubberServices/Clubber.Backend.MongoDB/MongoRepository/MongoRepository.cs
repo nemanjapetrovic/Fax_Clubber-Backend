@@ -3,7 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using MongoDB.Driver;
 using MongoDB.Bson;
-using Newtonsoft.Json;
 
 namespace Clubber.Backend.MongoDB.MongoRepository
 {
@@ -16,8 +15,6 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <summary>
         /// Sets the database, database table name and gets collection by database table name.
         /// </summary>
-        /// <param name="db"></param>
-        /// <param name="collectionName"></param>
         public MongoRepository(IMongoDatabase db, string collectionName)
         {
             if (string.IsNullOrEmpty(collectionName))
@@ -43,7 +40,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <summary>
         /// Get all entities.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns list of all entities from the Mongo as IQueryable.</returns>
         public IQueryable<T> Get()
         {
             var data = _collection.AsQueryable<T>();
@@ -53,8 +50,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <summary>
         /// Get entity by id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Returns one entity from Mongo where _id == id.</returns>
         public T Get(ObjectId id)
         {
             var filter = Builders<T>.Filter.Eq("_id", id);
@@ -64,18 +60,14 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <summary>
         /// Add a new entity to collection.
         /// </summary>
-        /// <param name="entity"></param>
         public void Add(T entity)
         {
             _collection.InsertOne(entity);
         }
 
         /// <summary>
-        /// Update entity in collection
+        /// Update entity in a collection.
         /// </summary>
-        /// <param name="queryExpression"></param>
-        /// <param name="id"></param>
-        /// <param name="entity"></param>
         public bool Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
@@ -83,10 +75,8 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         }
 
         /// <summary>
-        /// Remove entity from collection.
+        /// Remove entity from a collection.
         /// </summary>
-        /// <param name="queryExpression"></param>
-        /// <param name="id"></param>
         public T Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
         {
             //Get an entity we want to remove

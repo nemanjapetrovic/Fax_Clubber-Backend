@@ -7,6 +7,9 @@
         internal const string ManageRelationship = "MANAGE";
         internal const string PlaceRelationship = "PLACE";
 
+        /// <summary>
+        /// Used to validate the type of Relationship.
+        /// </summary>
         public bool validate(string value)
         {
             if (string.IsNullOrEmpty(value))
@@ -31,6 +34,9 @@
     {
         internal const string tmpLabel = "tmp";
 
+        /// <summary>
+        /// Used to validate the type of Node Labels.
+        /// </summary>
         public bool validate(string value)
         {
             if (string.IsNullOrEmpty(value))

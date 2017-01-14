@@ -7,10 +7,8 @@ namespace Clubber.Backend.MongoDB.MongoManagers
 {
     public class EventMongoManager
     {
-        //Db
         private IMongoDatabase _database;
 
-        //Repository
         protected IMongoRepository<Event> _eventRepo = null;
         public IMongoRepository<Event> EventRepository
         {
@@ -24,7 +22,6 @@ namespace Clubber.Backend.MongoDB.MongoManagers
             }
         }
 
-        //Constructor
         public EventMongoManager(string connectionString, string databaseName)
         {
             if (string.IsNullOrEmpty(connectionString))
@@ -37,6 +34,7 @@ namespace Clubber.Backend.MongoDB.MongoManagers
                 throw new Exception("Mongo database name is empty!");
             }
 
+            // Create a client and get a database.
             var client = new MongoClient(connectionString);
             _database = client.GetDatabase(databaseName);
         }

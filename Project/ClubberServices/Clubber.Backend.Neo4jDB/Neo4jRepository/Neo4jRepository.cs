@@ -77,7 +77,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         {
             IsConnected();
 
-            // Get node item
             var node = client.Cypher
                 .Match($"(n:{entityType})")
                 .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
