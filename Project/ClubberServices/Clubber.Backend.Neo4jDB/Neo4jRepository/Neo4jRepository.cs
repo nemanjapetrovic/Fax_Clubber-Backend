@@ -2,6 +2,7 @@
 using System.Linq;
 using System;
 using Clubber.Backend.Neo4jDB.Models;
+using Clubber.Backend.Neo4jDB.Helpers;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
@@ -33,21 +34,27 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         }
 
         /// <summary>
-        /// Validation for relationship name. Check if the relValue exists in Constants.Relationships
-        /// </summary>
-        /// <param name="relValue">Is a name of relationship.</param>
-        private void IsRelationshipValid(string relValue)
-        {
-
-        }
-
-        /// <summary>
         /// Validation for node label name. Check if the lblValue exists in Constants.NodeLabels
         /// </summary>
         /// <param name="lblValue">Is a name of a node, node type.</param>
         private void IsNodeLabelValid(string lblValue)
         {
+            if (!Validator.ValidateNodeLabelsNames(lblValue))
+            {
+                throw new Exception("Node label string is not valid!");
+            }
+        }
 
+        /// <summary>
+        /// Validation for relationship name. Check if the relValue exists in Constants.Relationships
+        /// </summary>
+        /// <param name="relValue">Is a name of relationship.</param>
+        private void IsRelationshipValid(string relValue)
+        {
+            if (!Validator.ValidateRelationshipsNames(relValue))
+            {
+                throw new Exception("Relationship type string is not valid!");
+            }
         }
 
         /// <summary>
@@ -58,6 +65,7 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         public void AddNode(string nodeLabel, string id)
         {
             IsConnected();
+            IsNodeLabelValid(nodeLabel);
 
             var newNode = new NodeModel() { _id = id, _nodeType = nodeLabel };
             client.Cypher
@@ -76,6 +84,8 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         public void AddRelationship(string relationshipTypeKey, string nodeLabel, string idBeginUser, string idEndUser)
         {
             IsConnected();
+            IsNodeLabelValid(nodeLabel);
+            IsRelationshipValid(relationshipTypeKey);
 
             client.Cypher
                 .Match($"(n1:{nodeLabel})", $"(n2:{nodeLabel})")
@@ -94,6 +104,7 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         public NodeModel GetNode(string nodeLabel, string id)
         {
             IsConnected();
+            IsNodeLabelValid(nodeLabel);
 
             var node = client.Cypher
                 .Match($"(n:{nodeLabel})")
@@ -113,6 +124,7 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         public void RemoveNode(string nodeLabel, string id)
         {
             IsConnected();
+            IsNodeLabelValid(nodeLabel);
 
             client.Cypher
                 .Match($"(n:{nodeLabel})")
@@ -130,6 +142,8 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         public void RemoveNodeAndRelationship(string relationshipTypeKey, string nodeLabel, string id)
         {
             IsConnected();
+            IsNodeLabelValid(nodeLabel);
+            IsRelationshipValid(relationshipTypeKey);
 
             client.Cypher
                 .OptionalMatch($"(n:{nodeLabel})<-[{relationshipTypeKey}]-()")
