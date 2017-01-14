@@ -34,8 +34,16 @@ namespace Clubber.Backend.MongoDB.MongoManagers
                 throw new Exception("Mongo database name is empty!");
             }
 
-            // Create a client and get a database.
+            // Create a client
             var client = new MongoClient(connectionString);
+
+            // Check the connection
+            if (client.Cluster.Description.State.ToString().ToLower().Equals("disconnected"))
+            {
+                throw new Exception("MongoDB is not connected!");
+            }
+
+            // Get a database
             _database = client.GetDatabase(databaseName);
         }
     }
