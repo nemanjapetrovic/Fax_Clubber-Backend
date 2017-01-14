@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\Validator.cs" />
     <Compile Include="Models\NodeModel.cs" />
     <Compile Include="Neo4jManagers\Neo4jManager.cs" />
     <Compile Include="Neo4jRepository\INeo4jRepository.cs" />

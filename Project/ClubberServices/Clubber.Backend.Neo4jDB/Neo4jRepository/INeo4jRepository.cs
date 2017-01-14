@@ -7,10 +7,10 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
     /// </summary>
     public interface INeo4jRepository
     {
-        void AddNode(string entityType, string id);
-        void RemoveNode(string entityType, string id);
-        void AddRelationship(string relationshipTypeKey, string entityType, string idBeginUser, string idEndUser);
-        void RemoveNodeAndRelationship(string relationshipTypeKey, string entityType, string id);
-        NodeModel GetNode(string entityType, string id);
+        void AddNode(string nodeLabel, string id);
+        void RemoveNode(string nodeLabel, string id);
+        void AddRelationship(string relationshipTypeKey, string nodeLabel, string idBeginUser, string idEndUser);
+        void RemoveNodeAndRelationship(string relationshipTypeKey, string nodeLabel, string id);
+        NodeModel GetNode(string nodeLabel, string id);
     }
 }
