@@ -17,12 +17,27 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// Sets the database, database table name and gets collection by database table name.
         /// </summary>
         /// <param name="db"></param>
-        /// <param name="tableName"></param>
-        public MongoRepository(IMongoDatabase db, string tableName)
+        /// <param name="collectionName"></param>
+        public MongoRepository(IMongoDatabase db, string collectionName)
         {
+            if (string.IsNullOrEmpty(collectionName))
+            {
+                throw new Exception("Mongo collection name is empty!");
+            }
+
             _database = db;
-            _collectionName = tableName;
+            _collectionName = collectionName;
             _collection = _database.GetCollection<T>(_collectionName);
+
+            if (_database == null)
+            {
+                throw new Exception("Mongo database is null!");
+            }
+
+            if (_collection == null)
+            {
+                throw new Exception("Mongo collection is null!");
+            }
         }
 
         /// <summary>
