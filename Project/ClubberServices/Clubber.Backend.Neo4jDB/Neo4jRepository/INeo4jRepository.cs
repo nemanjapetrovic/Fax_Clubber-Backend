@@ -1,14 +1,13 @@
 ﻿using Clubber.Backend.Neo4jDB.Models;
-using Neo4jClient;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
     public interface INeo4jRepository
     {
-        NodeReference AddNode(string entityType, string id);
-        void RemoveNode(string id);
-        RelationshipReference AddRelationship(string relationshipTypeKey, NodeReference<string> beginNode, NodeReference<string> endNode);
-        void RemoveRelationship(string relationshipTypeKey);
+        void AddNode(string entityType, string id);
+        void RemoveNode(string entityType, string id);
+        void AddRelationship(string relationshipTypeKey, string entityType, string idBeginUser, string idEndUser);
+        void RemoveNodeAndRelationship(string relationshipTypeKey, string entityType, string id);
         NodeModel GetNode(string entityType, string id);
     }
 }

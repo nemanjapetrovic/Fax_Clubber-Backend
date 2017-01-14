@@ -1,6 +1,4 @@
-﻿using Clubber.Backend.Neo4jDB.Relationships;
-using System.Globalization;
-using Neo4jClient;
+﻿using Neo4jClient;
 using System.Linq;
 using System;
 using Clubber.Backend.Neo4jDB.Models;
@@ -26,7 +24,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <summary>
         /// Validation for client connectivity.
         /// </summary>
-        /// <returns></returns>
         private void IsConnected()
         {
             if (!client.IsConnected)
@@ -40,46 +37,34 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// </summary>
         /// <param name="id">MongoDB _id value.</param>
         /// <param name="entityType">Type of the node.</param>
-        /// <returns>NodeReference to a created node.</returns>
-        public NodeReference AddNode(string entityType, string id)
+        public void AddNode(string entityType, string id)
         {
             IsConnected();
 
-            //Creating new node in database
-            var refEntity = client.Create(new NodeModel { _id = id, _nodeType = entityType });
-            return refEntity;
+            var newNode = new NodeModel() { _id = id, _nodeType = entityType };
+            client.Cypher
+                .Create($"(n:{entityType} {entityType})")
+                .WithParam($"{entityType}", newNode)
+                .ExecuteWithoutResults();
         }
 
         /// <summary>
         /// Used to create a new relationship based on a realtionshipTypeKey.
         /// </summary>
         /// <param name="relationshipTypeKey">Type of the relationship.</param>
-        /// <param name="beginNode">Relationship direction from this node.</param>
-        /// <param name="endNode">End of the relationship. End direction.</param>
-        /// <returns>RelationshipReference to a created relationship.</returns>
-        public RelationshipReference AddRelationship(string relationshipTypeKey, NodeReference<string> beginNode, NodeReference<string> endNode)
+        /// <param name="entityType">Type of the node.</param>
+        /// <param name="idBeginUser">Relationship direction from this node.</param>
+        /// <param name="idEndUser">End of the relationship. End direction.</param>
+        public void AddRelationship(string relationshipTypeKey, string entityType, string idBeginUser, string idEndUser)
         {
             IsConnected();
 
-            RelationshipReference refRelationship = null;
-            //Creating new relationship in database            
-            switch (relationshipTypeKey)
-            {
-                case Constants.Neo4jTypeKeys.FollowRelationship:
-                    refRelationship = client.CreateRelationship(beginNode, new FollowRelationship(endNode));
-                    break;
-                case Constants.Neo4jTypeKeys.GoingRelationship:
-                    refRelationship = client.CreateRelationship(beginNode, new GoingRelationship(endNode));
-                    break;
-                case Constants.Neo4jTypeKeys.ManageRelationship:
-                    refRelationship = client.CreateRelationship(beginNode, new ManageRelationship(endNode));
-                    break;
-                case Constants.Neo4jTypeKeys.PlaceRelationship:
-                    refRelationship = client.CreateRelationship(beginNode, new PlaceRelationship(endNode));
-                    break;
-            }
-
-            return refRelationship;
+            client.Cypher
+                .Match($"(n1:{entityType})", $"(n2:{entityType})")
+                .Where((NodeModel node1) => node1._id.Equals(idBeginUser))
+                .AndWhere((NodeModel node2) => node2._id.Equals(idEndUser))
+                .Create($"n1-[:{relationshipTypeKey}]->n2")
+                .ExecuteWithoutResults();
         }
 
         /// <summary>
@@ -92,14 +77,9 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         {
             IsConnected();
 
-            // Convert to lower case
-            entityType = entityType.ToLower();
-            // Upper case only first letter in a string
-            string entityTypeUpper = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(entityType);
-
             // Get node item
             var node = client.Cypher
-                .Match($"({entityType}:{entityTypeUpper})")
+                .Match($"(n:{entityType})")
                 .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
                 .Return(nodeModel => nodeModel.As<NodeModel>())
                 .Results
@@ -108,18 +88,37 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
             return node;
         }
 
-        public void RemoveNode(string id)
+        /// <summary>
+        /// Used to remove only one node from db where node _id == id.
+        /// </summary>
+        /// <param name="entityType">Type of a node.</param>
+        /// <param name="id">MongoDB _id value.</param>
+        public void RemoveNode(string entityType, string id)
         {
             IsConnected();
-            throw new NotImplementedException();
+
+            client.Cypher
+                .Match($"(n:{entityType})")
+                    .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
+                    .Delete("n")
+                    .ExecuteWithoutResults();
         }
 
-        public void RemoveRelationship(string relationshipTypeKey)
+        /// <summary>
+        /// Used to remove node and it's all inbound relationships where node _id == id.
+        /// </summary>
+        /// <param name="relationshipTypeKey">Type of a relationship.</param>
+        /// <param name="entityType">Type of a node.</param>
+        /// <param name="id">MongoDB _id value</param>
+        public void RemoveNodeAndRelationship(string relationshipTypeKey, string entityType, string id)
         {
             IsConnected();
-            throw new NotImplementedException();
+
+            client.Cypher
+                .OptionalMatch($"(n:{entityType})<-[{relationshipTypeKey}]-()")
+                    .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
+                    .Delete($"{relationshipTypeKey}, n")
+                    .ExecuteWithoutResults();
         }
-
-
     }
 }
