@@ -6,7 +6,6 @@ namespace Clubber.Backend.Models.Model
 {
     public class Club
     {
-        //Standard data      
         public ObjectId _id { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
@@ -25,6 +24,10 @@ namespace Clubber.Backend.Models.Model
             Email = new List<string>();
         }
 
+        /// <summary>
+        /// Returns club name without spaces in it.
+        /// </summary>
+        /// <returns>String: club name without spaces.</returns>
         public string GetNameWithoutSpaces()
         {
             return Regex.Replace(this.Name, @"\s+", "").ToLower();
