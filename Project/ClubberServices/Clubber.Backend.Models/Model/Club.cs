@@ -27,7 +27,7 @@ namespace Clubber.Backend.Models.Model
 
         public string GetNameWithoutSpaces()
         {
-            return Regex.Replace(this.Name, @"\s+", "");
+            return Regex.Replace(this.Name, @"\s+", "").ToLower();
         }
     }
 }

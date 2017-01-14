@@ -21,6 +21,11 @@ namespace Clubber.Backend.RedisDB.RedisManagers
 
         public EventRedisManager(string connectionString)
         {
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new System.Exception("Redis connection string is empty!");
+            }
+
             _connectionString = connectionString;
         }
     }

@@ -1,5 +1,4 @@
-﻿using ServiceStack.DataAnnotations;
-using ServiceStack.Redis;
+﻿using ServiceStack.Redis;
 using System.Collections.Generic;
 
 namespace Clubber.Backend.RedisDB.RedisRepository
@@ -15,6 +14,11 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         public RedisRepository(string connectionString)
         {
             _redisClient = new RedisClient(connectionString);
+
+            if (_redisClient == null)
+            {
+                throw new System.Exception("Redis client is null!");
+            }
         }
 
         /// <summary>
