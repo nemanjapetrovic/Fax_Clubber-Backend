@@ -1,0 +1,51 @@
+﻿About Neo4j Licenses
+Neo4j is an open source project, whose source and copyright is owned and maintained by Neo Technology. This page is intended to clarify the licenses and terms under which Neo4j is made available. If you want to learn more about Neo4j editions, please visit Neo4j Editions.
+Need help or additional information? Contact us.
+
+Neo4j Community Edition
+Neo4j Community is a fully featured, best-in-class graph database that uses the GPL v3 license. We chose GPL because it means that Neo4j Community Edition can be used for free with your project: whether in the cloud or behind the firewall. If you’re building an application that accesses a Neo4j database running inside your organization (or on any personal device), then you are free to use Community Edition, whether or not your software is closed source. Download Neo4j →
+
+Neo4j Enterprise Edition
+Neo4j Enterprise is designed for commercial deployments where scale and availability are important. To use Neo4j Enterprise, select the licensing option that best matches your needs: Learn More →
+
+Neo4j Commercial License
+Use of Neo4j Enterprise by closed-source software applications requires a commercial license, offered under a subscription agreement. In addition to granting the right to use the software as part of a closed-source project, it also includes world-class support, and commercial backing by Neo Technology. Learn more→
+
+Neo4j Evaluation License
+Users seeking to evaluate Neo4j Enterprise Edition may do so under an Evaluation License. This provides the full set of Enterprise Edition features for a trial period in commericial use. Evaluations typically include not just software, but expert assistance from Neo Technology to help you get your project successfully off the ground.
+
+Neo4j Educational License
+Most needs of students and educators can be fully met with Neo4j Community Edition. However there are some cases where it can be useful to have access to the full set of scaling & operational features available in Neo4j Enterprise. In this case, Neo Technology offers an educational license. Please contact us and we will be happy to provide you with one.
+
+Neo4j Loves Open Source
+If you’re interested in using Neo4j Enterprise for your open source project, learn more about our Fair Trade Licensing option under the AGPL for open source projects.
+
+Frequently Asked Questions
+What’s the best option for startups that need to use Neo4j Enterprise?
+We have a great program to help you up your game. Our Startup Program has two levels designed to suit the full range: from individuals and bootstrapped startups in a garage to later stage startups with venture funding. Learn more →
+
+I’m an educator interested in including Neo4j in my curriculum; is that allowed?
+Absolutely, that’s great to hear. You have two options: Neo4j Community Edition, and Neo4j Enterprise Edition under an Education License. We also have lots of learning material which we are happy to share. Contact us and we’ll be happy to help you get started.
+
+I’m a student learning Neo4j. Which license is right for me?
+Neo4j Community gives you everything you need to learn the basics. If you want to explore more advanced usage scenarios with Neo4j Enterprise, we invite you to contact us for an Educational License.
+
+I’m building a personal hobby project using Neo4j. What’s my next step?
+A lot of startups begin life as hobbies. Our Startup Program has two levels designed to suit the full range: from individuals and bootstrapped startups in a garage to later stage startups with venture funding. Please check out our Startup program and see if it suits your needs. Learn more or contact us and we’ll talk it through.
+
+I’d like to evaluate Neo4j for a business application; which license and edition should I use?
+It’s best to do your evaluation and testing with your target edition. First, determine which edition you want to go live with, and if you’re not sure, ask us and we’ll be happy to help you decide. The best way to evaluate Neo4j Enterprise is with a trial license, which provides you not only with an evaluation license but also ensures that you get the right level of support during your evaluation to ensure your success.
+
+I want to include Neo4j in software that I’m shipping. What are my options?
+Neo Technology offers a mature OEM program tailored to your needs. Learn more →
+
+I’m using an Apache-licensed driver to access Neo4j. What does this mean for my application?
+That’s great. Apache-licensed drivers allow you to redistribute your own code. Of course you still need to abide by the same Neo4j license terms as you normally would.
+
+I’m a cloud provider interested in offering Neo4j as a database-as-a-service (DBaaS). How can I get started?
+Aw, shucks! We think that’s a great idea. We have a structured program for this sort of arrangement, so your customers will know you are backed by Neo4j and Neo Technology, Inc.
+
+Is there a familiar license to which I can compare the Community Edition license? Are there any limits around its use?
+If you’re building a database application that will run inside your organization (or for your personal use), then you are free to use Community Edition, whether or not your software is closed source. A very close analogy is MySQL®(1), which is also licensed under the GPL.
+
+Still have questions? We’ll work with you to find your answer. Drop us a line at licensing@neotechnology.com

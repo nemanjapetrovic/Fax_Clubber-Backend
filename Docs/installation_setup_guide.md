@@ -1,3 +1,5 @@
+# ```Clubber``` **clubber.co**
+****
 # ```Installing the databases```
 ------
 
@@ -19,7 +21,7 @@
 
 ## MongoDB
 
-### Initialization for the first time
+### Initialization
 - Open MongoDB installation folder
 - Run in ```CMD```: **mongod --port 27017 --dbpath C:\MongoDB\data\db**
 

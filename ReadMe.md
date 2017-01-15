@@ -17,3 +17,10 @@ This software is made by Nemanja Petrović student @ Faculty of Electronic Engin
 - **..\Licenses\software_license.md** Contains information about licenses for the servers, services and libraries used in this project.
 - **LICENSE.md** Contains license information about Clubber software.
  
+# Contact information
+---
+**Nemanja Petrović**
+
+ - E-mail: nemanjapetrovic1794@gmail.com
+ - Linkedin: nemanjapetrovic1994
+ - Github: nemanjapetrovic
