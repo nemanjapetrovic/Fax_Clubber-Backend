@@ -64,7 +64,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="nodeLabel">Type of the node.</param>
         public void AddNode(string nodeLabel, string id)
         {
-            IsConnected();
             IsNodeLabelValid(nodeLabel);
 
             var newNode = new NodeModel() { _id = id, _nodeType = nodeLabel };
@@ -83,7 +82,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="idEndUser">End of the relationship. End direction.</param>
         public void AddRelationship(string relationshipTypeKey, string nodeLabel, string idBeginUser, string idEndUser)
         {
-            IsConnected();
             IsNodeLabelValid(nodeLabel);
             IsRelationshipValid(relationshipTypeKey);
 
@@ -103,7 +101,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <returns>Node that is stored in a database with _id == id value.</returns>
         public NodeModel GetNode(string nodeLabel, string id)
         {
-            IsConnected();
             IsNodeLabelValid(nodeLabel);
 
             var node = client.Cypher
@@ -123,7 +120,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="id">MongoDB _id value.</param>
         public void RemoveNode(string nodeLabel, string id)
         {
-            IsConnected();
             IsNodeLabelValid(nodeLabel);
 
             client.Cypher
@@ -141,7 +137,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="id">MongoDB _id value</param>
         public void RemoveNodeAndRelationship(string relationshipTypeKey, string nodeLabel, string id)
         {
-            IsConnected();
             IsNodeLabelValid(nodeLabel);
             IsRelationshipValid(relationshipTypeKey);
 
