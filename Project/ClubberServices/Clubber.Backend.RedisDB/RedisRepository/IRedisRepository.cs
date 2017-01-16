@@ -7,7 +7,6 @@ namespace Clubber.Backend.RedisDB.RedisRepository
     /// In this project we only need to use Sets Redis data structure storage.
     /// We don't have need for any other of 4 Redis data structure types of storage.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public interface IRedisRepository
     {
         HashSet<string> Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue);

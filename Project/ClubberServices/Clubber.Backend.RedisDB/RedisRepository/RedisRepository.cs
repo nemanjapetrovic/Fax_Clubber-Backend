@@ -26,7 +26,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyModel">Type of a entity.</param>
         /// <param name="keyAdditionalInfo">Type of a data that will be stored.</param>
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
-        /// <returns></returns>
+        /// <returns>Generated key.</returns>
         private string KeyCreation(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
         {
             return $"{keyModel}:{keyAdditionalInfo}:{keyUniqueValue}";
@@ -38,7 +38,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyModel">Type of a entity.</param>
         /// <param name="keyAdditionalInfo">Type of a data that will be stored.</param>
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
-        /// <returns></returns>
+        /// <returns>All values from Redis SETS.</returns>
         public HashSet<string> Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
@@ -53,7 +53,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyAdditionalInfo">Type of a data that will be stored.</param>
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
         /// <param name="storeValue">Value that will be stored.</param>
-        /// <returns></returns>
+        /// <returns>If value is stored it will return true, if not will return false.</returns>
         public bool Store(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue)
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
@@ -76,7 +76,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyAdditionalInfo">Type of a data that will be stored.</param>
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
         /// <param name="storedValue">Stored value in redis, thats already exists.</param>
-        /// <returns></returns>
+        /// <returns>Will return true if value is removed, if not will return false.</returns>
         public bool Remove(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storedValue)
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
