@@ -2,7 +2,6 @@
 using System.Linq;
 using System;
 using Clubber.Backend.Neo4jDB.Models;
-using Clubber.Backend.Neo4jDB.Helpers;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
@@ -34,38 +33,12 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         }
 
         /// <summary>
-        /// Validation for node label name. Check if the lblValue exists in Constants.NodeLabels
-        /// </summary>
-        /// <param name="lblValue">Is a name of a node, node type.</param>
-        private void IsNodeLabelValid(string lblValue)
-        {
-            if (!Validator.ValidateNodeLabelsNames(lblValue))
-            {
-                throw new Exception("Node label string is not valid!");
-            }
-        }
-
-        /// <summary>
-        /// Validation for relationship name. Check if the relValue exists in Constants.Relationships
-        /// </summary>
-        /// <param name="relValue">Is a name of relationship.</param>
-        private void IsRelationshipValid(string relValue)
-        {
-            if (!Validator.ValidateRelationshipsNames(relValue))
-            {
-                throw new Exception("Relationship type string is not valid!");
-            }
-        }
-
-        /// <summary>
         /// Used to create a new node in the neo4j database.
         /// </summary>
         /// <param name="id">MongoDB _id value.</param>
         /// <param name="nodeLabel">Type of the node.</param>
         public void AddNode(string nodeLabel, string id)
         {
-            IsNodeLabelValid(nodeLabel);
-
             var newNode = new NodeModel() { _id = id, _nodeType = nodeLabel };
             client.Cypher
                 .Create($"(n:{nodeLabel} {nodeLabel})")
@@ -82,9 +55,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="idEndUser">End of the relationship. End direction.</param>
         public void AddRelationship(string relationshipTypeKey, string nodeLabel, string idBeginUser, string idEndUser)
         {
-            IsNodeLabelValid(nodeLabel);
-            IsRelationshipValid(relationshipTypeKey);
-
             client.Cypher
                 .Match($"(n1:{nodeLabel})", $"(n2:{nodeLabel})")
                 .Where((NodeModel node1) => node1._id.Equals(idBeginUser))
@@ -101,8 +71,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <returns>Node that is stored in a database with _id == id value.</returns>
         public NodeModel GetNode(string nodeLabel, string id)
         {
-            IsNodeLabelValid(nodeLabel);
-
             var node = client.Cypher
                 .Match($"(n:{nodeLabel})")
                 .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
@@ -120,8 +88,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="id">MongoDB _id value.</param>
         public void RemoveNode(string nodeLabel, string id)
         {
-            IsNodeLabelValid(nodeLabel);
-
             client.Cypher
                 .Match($"(n:{nodeLabel})")
                     .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
@@ -137,9 +103,6 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="id">MongoDB _id value</param>
         public void RemoveNodeAndRelationship(string relationshipTypeKey, string nodeLabel, string id)
         {
-            IsNodeLabelValid(nodeLabel);
-            IsRelationshipValid(relationshipTypeKey);
-
             client.Cypher
                 .OptionalMatch($"(n:{nodeLabel})<-[{relationshipTypeKey}]-()")
                     .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
