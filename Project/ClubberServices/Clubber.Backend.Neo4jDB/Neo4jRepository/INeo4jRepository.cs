@@ -3,7 +3,7 @@
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
     /// <summary>
-    /// Used to store data with relationships.
+    /// Used to store data with relationships. Data will only contain _id hashes from Mongo.
     /// </summary>
     public interface INeo4jRepository
     {

@@ -9,7 +9,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         private readonly IDatabase _redisDatabase;
 
         /// <summary>
-        /// Creates RedisClient.
+        /// Creates RedisDatabase reference.
         /// </summary>
         public RedisRepository(string connectionString)
         {
