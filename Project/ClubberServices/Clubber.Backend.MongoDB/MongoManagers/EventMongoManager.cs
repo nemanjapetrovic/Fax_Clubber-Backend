@@ -1,4 +1,5 @@
 ﻿using Clubber.Backend.Models.Model;
+using Clubber.Backend.MongoDB.DependencyContainerRef;
 using Clubber.Backend.MongoDB.MongoRepository;
 using MongoDB.Driver;
 using System;
@@ -34,11 +35,9 @@ namespace Clubber.Backend.MongoDB.MongoManagers
                 throw new Exception("Mongo database name is empty!");
             }
 
-            // Create a client
-            var client = new MongoClient(connectionString);
-
             // Get a database
-            _database = client.GetDatabase(databaseName);
+            _database = DependencyContainer.Instance
+                .MongoClient(connectionString).GetDatabase(databaseName);
         }
     }
 }

@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyContainerRef\DependencyContainer.cs" />
     <Compile Include="MongoManagers\ClubMongoManager.cs" />
     <Compile Include="MongoManagers\EventMongoManager.cs" />
     <Compile Include="MongoManagers\ManagerMongoManager.cs" />
