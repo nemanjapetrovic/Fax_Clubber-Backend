@@ -13,9 +13,10 @@ namespace Clubber.Backend.Test
             Console.WriteLine("Click enter to add club");
             Console.ReadLine();
             MongoTest mongo = new MongoTest();
-            mongo.DeleteEvent();
+            //mongo.DeleteEvent();
             //mongo.AddEvent();
-            //mongo.DeleteClub();
+            //mongo.AddClub();
+            mongo.DeleteClub();
             //mongo.UpdateClub();
         }
     }

@@ -14,9 +14,9 @@ namespace Clubber.Backend.Test
         {
             Club b = new Club()
             {
-                Name = "in da club",
+                Name = "Nis Nocu",
                 Country = "srbistan",
-                Address = "Nis vrezina",
+                Address = "KOMREN",
                 PhoneNumber = { "018800619", "21812912" },
                 Email = { "swaba@test.com", "test@test.com" },
                 Image = "img test",
@@ -53,7 +53,7 @@ namespace Clubber.Backend.Test
         public void DeleteClub()
         {
             ClubService tmp = new ClubService(MongoDBConectionString, MongoDBDatabaseName, RedisDBConectionString);
-            tmp.Delete("586d2a519df8d521a4451bd9");
+            tmp.Delete("587e7dd89df8d507d0411d98");
         }
 
 

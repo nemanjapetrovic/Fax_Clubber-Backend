@@ -37,12 +37,6 @@ namespace Clubber.Backend.MongoDB.MongoManagers
             // Create a client
             var client = new MongoClient(connectionString);
 
-            // Check the connection
-            if (client.Cluster.Description.State.ToString().ToLower().Equals("disconnected"))
-            {
-                throw new Exception("MongoDB is not connected!");
-            }
-
             // Get a database
             _database = client.GetDatabase(databaseName);
         }

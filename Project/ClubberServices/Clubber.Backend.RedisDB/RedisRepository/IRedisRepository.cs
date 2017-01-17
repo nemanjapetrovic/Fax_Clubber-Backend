@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Clubber.Backend.RedisDB.RedisRepository
+﻿namespace Clubber.Backend.RedisDB.RedisRepository
 {
     /// <summary>
     /// This repository will be used only with Club and Events models.
@@ -9,7 +7,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
     /// </summary>
     public interface IRedisRepository
     {
-        HashSet<string> Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue);
+        string[] Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue);
         bool Store(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue);
         bool Remove(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storedValue);
     }

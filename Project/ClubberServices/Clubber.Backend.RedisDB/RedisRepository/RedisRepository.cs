@@ -1,22 +1,29 @@
-﻿using ServiceStack.Redis;
-using System.Collections.Generic;
+﻿using StackExchange.Redis;
+using System;
 
 namespace Clubber.Backend.RedisDB.RedisRepository
 {
     public class RedisRepository : IRedisRepository
     {
-        private readonly IRedisClient _redisClient;
+        private readonly ConnectionMultiplexer _redisClient;
+        private readonly IDatabase _redisDatabase;
 
         /// <summary>
         /// Creates RedisClient.
         /// </summary>
         public RedisRepository(string connectionString)
         {
-            _redisClient = new RedisClient(connectionString);
+            _redisClient = ConnectionMultiplexer.Connect(connectionString);
+            _redisDatabase = _redisClient.GetDatabase();
+
+            if (_redisDatabase == null)
+            {
+                throw new Exception("Redis database is null!");
+            }
 
             if (_redisClient == null)
             {
-                throw new System.Exception("Redis client is null!");
+                throw new Exception("Redis client is null!");
             }
         }
 
@@ -39,11 +46,14 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyAdditionalInfo">Type of a data that will be stored.</param>
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
         /// <returns>All values from Redis SETS.</returns>
-        public HashSet<string> Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
+        public string[] Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
 
-            return _redisClient.GetAllItemsFromSet(key);
+            // Get all items from "SMEMBERS"
+            var items = _redisDatabase.SetMembers(key);
+
+            return items.ToStringArray();
         }
 
         /// <summary>
@@ -58,15 +68,11 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
 
-            // Count before adding
-            long countBefore = _redisClient.GetSetCount(key);
-            // Add item
-            _redisClient.AddItemToSet(key, storeValue);
-            // Count after adding a new value
-            long countAfter = _redisClient.GetSetCount(key);
+            // Add item to the "SADD"
+            _redisDatabase.SetAdd(key, storeValue);
 
-            // Check if item is stored properly in redis
-            return (countAfter - countBefore > 0) ? true : false;
+            // Check if value is stored
+            return _redisDatabase.SetContains(key, storeValue);
         }
 
         /// <summary>
@@ -81,15 +87,11 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
 
-            // Count before
-            long countBefore = _redisClient.GetSetCount(key);
-            // Remove item
-            _redisClient.RemoveItemFromSet(key, storedValue);
-            // Count after removing
-            long countAfter = _redisClient.GetSetCount(key);
+            // Remove value from the "SREM"
+            _redisDatabase.SetRemove(key, storedValue);
 
             // Check if it's properly removed
-            return (countBefore - countAfter > 0) ? true : false;
+            return _redisDatabase.SetContains(key, storedValue);
         }
     }
 }
