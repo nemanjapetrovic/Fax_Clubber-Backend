@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 
-namespace Clubber.Backend.MongoDB.DependencyContainerRef
+namespace Clubber.Backend.MongoDB.DependencyInjectionContainer
 {
     public sealed class DependencyContainer
     {

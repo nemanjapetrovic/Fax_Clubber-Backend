@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyInjectionContainer\DependencyContainer.cs" />
     <Compile Include="Models\NodeModel.cs" />
     <Compile Include="Neo4jManagers\Neo4jManager.cs" />
     <Compile Include="Neo4jRepository\INeo4jRepository.cs" />

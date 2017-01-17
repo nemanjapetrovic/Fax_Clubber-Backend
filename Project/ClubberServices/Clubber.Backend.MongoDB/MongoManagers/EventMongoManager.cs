@@ -1,5 +1,5 @@
 ﻿using Clubber.Backend.Models.Model;
-using Clubber.Backend.MongoDB.DependencyContainerRef;
+using Clubber.Backend.MongoDB.DependencyInjectionContainer;
 using Clubber.Backend.MongoDB.MongoRepository;
 using MongoDB.Driver;
 using System;
