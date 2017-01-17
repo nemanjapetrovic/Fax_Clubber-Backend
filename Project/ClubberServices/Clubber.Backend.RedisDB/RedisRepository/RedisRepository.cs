@@ -30,7 +30,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// </summary>
         private void IsConnected()
         {
-            if (DependencyContainer.Instance.RedisClient().IsConnected)
+            if (!DependencyContainer.Instance.RedisClient().IsConnected)
             {
                 throw new Exception("Redis client is not connected!");
             }
