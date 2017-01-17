@@ -1,11 +1,11 @@
-﻿using StackExchange.Redis;
+﻿using Clubber.Backend.RedisDB.DependencyInjectionContainer;
+using StackExchange.Redis;
 using System;
 
 namespace Clubber.Backend.RedisDB.RedisRepository
 {
     public class RedisRepository : IRedisRepository
     {
-        private readonly ConnectionMultiplexer _redisClient;
         private readonly IDatabase _redisDatabase;
 
         /// <summary>
@@ -13,17 +13,26 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// </summary>
         public RedisRepository(string connectionString)
         {
-            _redisClient = ConnectionMultiplexer.Connect(connectionString);
-            _redisDatabase = _redisClient.GetDatabase();
+
+            _redisDatabase = DependencyContainer.Instance.RedisClient(connectionString).GetDatabase();
 
             if (_redisDatabase == null)
             {
                 throw new Exception("Redis database is null!");
             }
 
-            if (_redisClient == null)
+            // Validate the connection
+            IsConnected();
+        }
+
+        /// <summary>
+        /// Validation for client connectivity.
+        /// </summary>
+        private void IsConnected()
+        {
+            if (DependencyContainer.Instance.RedisClient().IsConnected)
             {
-                throw new Exception("Redis client is null!");
+                throw new Exception("Redis client is not connected!");
             }
         }
 
