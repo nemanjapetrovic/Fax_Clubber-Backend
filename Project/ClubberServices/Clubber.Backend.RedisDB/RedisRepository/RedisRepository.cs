@@ -1,6 +1,7 @@
 ﻿using Clubber.Backend.RedisDB.DependencyInjectionContainer;
 using StackExchange.Redis;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Clubber.Backend.RedisDB.RedisRepository
 {
@@ -45,7 +46,11 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <returns>Generated key.</returns>
         private string KeyCreation(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
         {
-            return $"{keyModel}:{keyAdditionalInfo}:{keyUniqueValue}";
+            var tmpKeyModel = Regex.Replace(keyModel, @"\s+", "").ToLower();
+            var tmpKeyAdditionalInfo = Regex.Replace(keyAdditionalInfo, @"\s+", "").ToLower();
+            var tmpKeyUniqueValue = Regex.Replace(keyUniqueValue, @"\s+", "").ToLower();
+
+            return $"{tmpKeyModel}:{tmpKeyAdditionalInfo}:{tmpKeyUniqueValue}";
         }
 
         /// <summary>
@@ -99,8 +104,8 @@ namespace Clubber.Backend.RedisDB.RedisRepository
             // Remove value from the "SREM"
             _redisDatabase.SetRemove(key, storedValue);
 
-            // Check if it's properly removed
-            return _redisDatabase.SetContains(key, storedValue);
+            // Return true if the value is removed
+            return !_redisDatabase.SetContains(key, storedValue);
         }
     }
 }
