@@ -48,11 +48,11 @@ namespace Clubber.Backend.MongoDB.Test
         {
             Club club = new Club()
             {
-                Name = "Nis Nocu",
-                Country = "Srbija",
-                Address = "KOMREN",
+                Name = "Nis Night",
+                Country = "Serbia",
+                Address = "Komren",
                 PhoneNumber = { "018800619", "21812912" },
-                Email = { "swaba@test.com", "test@test.com" },
+                Email = { "some@test.com", "test@test.com" },
                 Image = "img test",
                 Website = "url url web",
                 Facebook = "url url facebook",
@@ -82,18 +82,18 @@ namespace Clubber.Backend.MongoDB.Test
 
             // Get only one
             ObjectId id = new ObjectId(listItems[0]._id.ToString());
-            var item = _club.ClubRepository.Get(id);
+            var itemToUpdate = _club.ClubRepository.Get(id);
 
             //Update
             var r = new Random();
             var ran = r.Next(100);
             Club club = new Club()
             {
-                Name = "Nis Nocu",
-                Country = "Srbija",
-                Address = "DonjaVrezina Test",
+                Name = "Nis Night",
+                Country = "Serbia",
+                Address = "Komren",
                 PhoneNumber = { "018800619", "21812912" },
-                Email = { "swaba@test.com", "test@test.com" },
+                Email = { "some@test.com", "test@test.com" },
                 Image = "img test",
                 Website = "url url web " + ran.ToString(),
                 Facebook = "url url facebook " + ran.ToString(),
@@ -106,6 +106,12 @@ namespace Clubber.Backend.MongoDB.Test
 
             Assert.IsNotNull(club._id);
             Assert.AreEqual(added, test);
+
+            var updatedItem = _club.ClubRepository.Get(id);
+            if (updatedItem.Facebook.Equals(itemToUpdate.Facebook))
+            {
+                Assert.Fail();
+            }
         }
 
         [TestMethod]
@@ -129,6 +135,9 @@ namespace Clubber.Backend.MongoDB.Test
             var deletedClub = _club.ClubRepository.Delete(item => item._id, id);
 
             Assert.IsNotNull(deletedClub);
+
+            var isRemoved = _club.ClubRepository.Get(id);
+            Assert.IsNull(isRemoved);
         }
     }
 }
