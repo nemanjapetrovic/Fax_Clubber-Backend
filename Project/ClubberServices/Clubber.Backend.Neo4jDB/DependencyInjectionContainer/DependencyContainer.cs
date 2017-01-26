@@ -37,7 +37,8 @@ namespace Clubber.Backend.Neo4jDB.DependencyInjectionContainer
         /// </summary>
         /// <param name="connectionString">Connection string to the Neo4j database.</param>
         /// <returns>Always the same instance of a Neo4j Graph Client.</returns>
-        public GraphClient Neo4jClient(string connectionString = null)
+        public GraphClient Neo4jClient(string connectionString = null,
+            string username = null, string password = null)
         {
             if (_neoGraphClient == null)
             {
@@ -46,7 +47,7 @@ namespace Clubber.Backend.Neo4jDB.DependencyInjectionContainer
                     throw new Exception("DependencyContainer Neo4j Client connection string is null or empty!");
                 }
 
-                _neoGraphClient = new GraphClient(new Uri(connectionString));
+                _neoGraphClient = new GraphClient(new Uri(connectionString), username, password);
             }
             return _neoGraphClient;
         }

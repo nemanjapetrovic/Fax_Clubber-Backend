@@ -1,4 +1,5 @@
 ﻿using Clubber.Backend.Neo4jDB.Models;
+using System.Collections.Generic;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
@@ -8,9 +9,12 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
     public interface INeo4jRepository
     {
         void AddNode(string nodeLabel, string id);
-        void RemoveNode(string nodeLabel, string id);
-        void AddRelationship(string relationshipTypeKey, string nodeLabel, string idBeginUser, string idEndUser);
-        void RemoveNodeAndRelationship(string relationshipTypeKey, string nodeLabel, string id);
-        NodeModel GetNode(string nodeLabel, string id);
+        void RemoveNodeAndItsRelationships(string nodeLabel, string id);
+
+        void AddRelationship(string relationshipTypeKey, string startNodeLabel, string endNodeLabel, string idBeginNode, string idEndNode);
+        void RemoveRelationship(string relationshipTypeKey, string startNodeLabel, string endNodeLabel, string idBeginNode, string idEndNode);
+
+        string GetNode(string nodeLabel, string id);
+        IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string idBeginNode);
     }
 }

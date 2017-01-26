@@ -19,7 +19,11 @@
 
         internal class Neo4jDBNodeLabels
         {
-            internal const string tmpLabel = "tmp";
+            internal const string LabelNodeUser = "User";
+            internal const string LabelNodeManager = "Manager";
+            internal const string LabelNodeEvent = "Event";
+            internal const string LabelNodeClub = "Club";
+
         }
     }
 }

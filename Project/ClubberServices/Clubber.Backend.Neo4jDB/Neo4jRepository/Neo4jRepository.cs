@@ -2,6 +2,7 @@
 using System;
 using Clubber.Backend.Neo4jDB.Models;
 using Clubber.Backend.Neo4jDB.DependencyInjectionContainer;
+using System.Collections.Generic;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
@@ -11,9 +12,11 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// Creating client for neo4j db.
         /// </summary>
         /// <param name="connectionString">ConnectionString for neo4j database.</param>
-        public Neo4jRepository(string connectionString)
+        public Neo4jRepository(string connectionString, string username, string password)
         {
-            DependencyContainer.Instance.Neo4jClient(connectionString).Connect();
+            DependencyContainer.Instance
+                .Neo4jClient(connectionString, username, password)
+                .Connect();
 
             // Validate the connection
             IsConnected();
@@ -32,6 +35,7 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 
         /// <summary>
         /// Used to create a new node in the neo4j database.
+        /// This will create a node only if there is no existing one in database.
         /// </summary>
         /// <param name="id">MongoDB _id value.</param>
         /// <param name="nodeLabel">Type of the node.</param>
@@ -40,8 +44,14 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
             var newNode = new NodeModel() { _id = id, _nodeType = nodeLabel };
             DependencyContainer.Instance
                 .Neo4jClient().Cypher
-                .Create($"(n:{nodeLabel} {nodeLabel})")
-                .WithParam($"{nodeLabel}", newNode)
+                .Merge($"(n:{nodeLabel} {{_id: {{newNode}}._id}})")
+                .OnCreate()
+                .Set($"n = {{newNode}}")
+                .WithParams(new
+                {
+                    id = newNode._id,
+                    newNode
+                })
                 .ExecuteWithoutResults();
         }
 
@@ -49,37 +59,69 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// Used to create a new relationship based on a realtionshipTypeKey.
         /// </summary>
         /// <param name="relationshipTypeKey">Type of the relationship.</param>
-        /// <param name="nodeLabel">Type of the node.</param>
+        /// <param name="startNodeLabel">Type of the start node.</param>
+        /// <param name="endNodeLabel">Type of the end node.</param>
         /// <param name="idBeginUser">Relationship direction from this node.</param>
         /// <param name="idEndUser">End of the relationship. End direction.</param>
-        public void AddRelationship(string relationshipTypeKey, string nodeLabel, string idBeginUser, string idEndUser)
+        public void AddRelationship(string relationshipTypeKey, string startNodeLabel,
+                                string endNodeLabel, string idBeginNode, string idEndNode)
         {
             DependencyContainer.Instance
                 .Neo4jClient().Cypher
-                .Match($"(n1:{nodeLabel})", $"(n2:{nodeLabel})")
-                .Where((NodeModel node1) => node1._id.Equals(idBeginUser))
-                .AndWhere((NodeModel node2) => node2._id.Equals(idEndUser))
-                .Create($"n1-[:{relationshipTypeKey}]->n2")
+                .Match($"(n1:{startNodeLabel})", $"(n2:{endNodeLabel})")
+                .Where((NodeModel n1) => n1._id == idBeginNode)
+                .AndWhere((NodeModel n2) => n2._id == idEndNode)
+                .Create($"(n1)-[:{relationshipTypeKey}]->(n2)")
                 .ExecuteWithoutResults();
         }
 
         /// <summary>
         /// Used to get a node from neo4j database.
+        /// Will return null if the node doesn't exists.
         /// </summary>
         /// <param name="nodeLabel">Type of a node.</param>
         /// <param name="id">MongoDB _id, we get a node with this id.</param>
-        /// <returns>Node that is stored in a database with _id == id value.</returns>
-        public NodeModel GetNode(string nodeLabel, string id)
+        /// <returns>Node that is stored in a database with _id == id value. Will return null if the node doesn't exists.</returns>
+        public string GetNode(string nodeLabel, string id)
         {
             var node = DependencyContainer.Instance
                 .Neo4jClient().Cypher
                 .Match($"(n:{nodeLabel})")
-                .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
-                .Return(nodeModel => nodeModel.As<NodeModel>())
+                .Where((NodeModel n) => n._id == id)
+                .Return(n => n.As<NodeModel>())
                 .Results
                 .SingleOrDefault();
 
-            return node;
+            if (node == null)
+            {
+                return null;
+            }
+
+            return node._id;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>        
+        /// <param name="relationshipTypeKey">Type of the relationship.</param>
+        /// <param name="startNodeLabel">Type of the start node.</param>
+        /// <param name="idBeginUser">Relationship direction from this node.</param>
+        /// <returns></returns>
+        public IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string idBeginNode)
+        {
+            var nodes = DependencyContainer.Instance
+                .Neo4jClient().Cypher
+                .Match($"(n1)-[{relationshipTypeKey}]->(n2)")
+                .Where((NodeModel n1) => n1._id == idBeginNode)
+                .Return<NodeModel>("n2")
+                .Results;
+
+            if (nodes == null)
+            {
+                return null;
+            }
+
+            return nodes.Select(item => item._id).ToList();
         }
 
         /// <summary>
@@ -87,30 +129,35 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// </summary>
         /// <param name="nodeLabel">Type of a node.</param>
         /// <param name="id">MongoDB _id value.</param>
-        public void RemoveNode(string nodeLabel, string id)
+        public void RemoveNodeAndItsRelationships(string nodeLabel, string id)
         {
             DependencyContainer.Instance
                 .Neo4jClient().Cypher
                 .Match($"(n:{nodeLabel})")
-                    .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
-                    .Delete("n")
+                    .Where((NodeModel n) => n._id == id)
+                    .DetachDelete("n")
                     .ExecuteWithoutResults();
         }
 
         /// <summary>
-        /// Used to remove node and it's all inbound relationships where node _id == id.
+        /// Used to remove relationship between two nodes.
         /// </summary>
-        /// <param name="relationshipTypeKey">Type of a relationship.</param>
-        /// <param name="nodeLabel">Type of a node.</param>
-        /// <param name="id">MongoDB _id value</param>
-        public void RemoveNodeAndRelationship(string relationshipTypeKey, string nodeLabel, string id)
+        /// <param name="relationshipTypeKey">Type of the relationship.</param>
+        /// <param name="startNodeLabel">Type of the start node.</param>
+        /// <param name="endNodeLabel">Type of the end node.</param>
+        /// <param name="idBeginUser">Relationship direction from this node.</param>
+        /// <param name="idEndUser">End of the relationship. End direction.</param>
+        public void RemoveRelationship(string relationshipTypeKey, string startNodeLabel,
+                                string endNodeLabel, string idBeginNode, string idEndNode)
         {
             DependencyContainer.Instance
                 .Neo4jClient().Cypher
-                .OptionalMatch($"(n:{nodeLabel})<-[{relationshipTypeKey}]-()")
-                    .Where((NodeModel nodeModel) => nodeModel._id.Equals(id))
-                    .Delete($"{relationshipTypeKey}, n")
-                    .ExecuteWithoutResults();
+                .Match($"(n1)-[{relationshipTypeKey}]->(n2)")
+                .Where((NodeModel n1) => n1._id == idBeginNode)
+                .AndWhere((NodeModel n2) => n2._id == idEndNode)
+                .Delete($"{relationshipTypeKey}")
+                .ExecuteWithoutResults();
         }
+
     }
 }

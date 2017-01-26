@@ -52,6 +52,7 @@
 - Run neo4j client
 - Change database location
 - Start the server
+- Change username and password for database authorization
 
 # ```Setting up the Azure platform```
 ------
