@@ -101,11 +101,10 @@ namespace Clubber.Backend.MongoDB.Test
                 Twitter = "url url twitter " + ran.ToString()
             };
             club._id = id;
-            bool added = _club.ClubRepository.Update(x => x._id, club._id, club);
-            bool test = true;
+            bool updated = _club.ClubRepository.Update(x => x._id, club._id, club);
 
             Assert.IsNotNull(club._id);
-            Assert.AreEqual(added, test);
+            Assert.IsTrue(updated);
 
             var updatedItem = _club.ClubRepository.Get(id);
             if (updatedItem.Facebook.Equals(itemToUpdate.Facebook))
@@ -134,7 +133,7 @@ namespace Clubber.Backend.MongoDB.Test
             ObjectId id = new ObjectId(listItems[0]._id.ToString());
             var deletedClub = _club.ClubRepository.Delete(item => item._id, id);
 
-            Assert.IsNotNull(deletedClub);
+            Assert.IsTrue(deletedClub);
 
             var isRemoved = _club.ClubRepository.Get(id);
             Assert.IsNull(isRemoved);
