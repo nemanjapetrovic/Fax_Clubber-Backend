@@ -54,8 +54,10 @@
 - Start the server
 - Change username and password for database authorization
 
+
 # ```Setting up the Azure platform```
 ------
+
 
 # ```Installing the WebAPI```
 ------
