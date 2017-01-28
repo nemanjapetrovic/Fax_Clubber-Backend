@@ -62,8 +62,9 @@ namespace Clubber.Backend.MongoDB.MongoRepository
 
         /// <summary>
         /// Add a new entity to collection.
-        /// You will need to validate if the entity has _id != null,
-        /// because this function will not do any validation.
+        /// You will need to validate if the entity has _id != null after the call of this function.
+        /// It will NOT check if the entity is stored after call of this function.
+        /// Check the entity persistence in database is on you.        
         /// </summary>
         /// <param name="entity">An entity that will be stored in database.</param>
         public void Add(T entity)
