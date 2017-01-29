@@ -35,9 +35,8 @@ namespace Clubber.Backend.RedisDB.Test
                 keyAdditionalInfo,
                 keyUniqueValue,
                 hash);
-            bool tmp = true;
 
-            Assert.AreEqual(added, tmp);
+            Assert.IsTrue(added);
 
             // Load from RedisDB
             var objs = _redisClubManager.ClubRepository.Get(
@@ -66,9 +65,8 @@ namespace Clubber.Backend.RedisDB.Test
                 keyAdditionalInfo,
                 keyUniqueValue,
                 hash);
-            bool tmp = true;
 
-            Assert.AreEqual(removed, tmp);
+            Assert.IsTrue(removed);
 
             // Load from RedisDB
             var objs = _redisClubManager.ClubRepository.Get(
