@@ -49,8 +49,7 @@ namespace Clubber.Backend.MongoDB.Test
             Manager manager = new Manager()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName",
-                Image = "some image"
+                LastName = "TestLastName"
             };
             _manager.ManagerRepository.Add(manager);
 
@@ -83,8 +82,7 @@ namespace Clubber.Backend.MongoDB.Test
             Manager manager = new Manager()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName",
-                Image = "some image " + ran.ToString()
+                LastName = "TestLastName" + ran.ToString()
             };
             manager._id = id;
             bool added = _manager.ManagerRepository.Update(x => x._id, manager._id, manager);
@@ -94,7 +92,7 @@ namespace Clubber.Backend.MongoDB.Test
             Assert.AreEqual(added, test);
 
             var updatedItem = _manager.ManagerRepository.Get(id);
-            if (updatedItem.Image.Equals(itemToUpdate.Image))
+            if (updatedItem.LastName.Equals(itemToUpdate.LastName))
             {
                 Assert.Fail();
             }

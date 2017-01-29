@@ -8,11 +8,12 @@ namespace Clubber.Backend.Models.Model
     {
         public ObjectId _id { get; set; }
         public string Name { get; set; }
+        public string City { get; set; }
         public string Country { get; set; }
+        public string PostalCode { get; set; }
         public string Address { get; set; }
         public IList<string> PhoneNumber { get; set; }
         public IList<string> Email { get; set; }
-        public string Image { get; set; }
         public string Website { get; set; }
         public string Facebook { get; set; }
         public string Instagram { get; set; }

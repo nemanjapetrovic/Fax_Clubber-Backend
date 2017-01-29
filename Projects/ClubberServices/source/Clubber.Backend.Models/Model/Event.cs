@@ -11,7 +11,6 @@ namespace Clubber.Backend.Models.Model
         public string Description { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public string Address { get; set; }
 
         /// <summary>
         /// Returns club name without spaces in it.

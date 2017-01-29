@@ -49,8 +49,7 @@ namespace Clubber.Backend.MongoDB.Test
             User someUser = new User()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName",
-                Image = "some image"
+                LastName = "TestLastName"
             };
             _user.UserRepository.Add(someUser);
 
@@ -83,8 +82,7 @@ namespace Clubber.Backend.MongoDB.Test
             User someUser = new User()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName",
-                Image = "some image " + ran.ToString()
+                LastName = "TestLastName" + ran.ToString()
             };
             someUser._id = id;
             bool added = _user.UserRepository.Update(x => x._id, someUser._id, someUser);
@@ -94,7 +92,7 @@ namespace Clubber.Backend.MongoDB.Test
             Assert.AreEqual(added, test);
 
             var updatedItem = _user.UserRepository.Get(id);
-            if (updatedItem.Image.Equals(itemToUpdate.Image))
+            if (updatedItem.LastName.Equals(itemToUpdate.LastName))
             {
                 Assert.Fail();
             }

@@ -50,7 +50,6 @@ namespace Clubber.Backend.MongoDB.Test
             {
                 Name = "In the club event",
                 Description = "Playhouse",
-                Address = "Somewhere",
                 EndDateTime = new DateTime(),
                 StartDateTime = new DateTime(),
             };
@@ -85,8 +84,7 @@ namespace Clubber.Backend.MongoDB.Test
             Event eventt = new Event()
             {
                 Name = "In the club event",
-                Description = "Playhouse",
-                Address = "Somewhere " + ran.ToString(),
+                Description = "Playhouse" + ran.ToString(),
                 EndDateTime = new DateTime(),
                 StartDateTime = new DateTime(),
             };
@@ -98,7 +96,7 @@ namespace Clubber.Backend.MongoDB.Test
             Assert.AreEqual(added, test);
 
             var updatedItem = _event.EventRepository.Get(id);
-            if (updatedItem.Address.Equals(itemToUpdate.Address))
+            if (updatedItem.Description.Equals(itemToUpdate.Description))
             {
                 Assert.Fail();
             }
