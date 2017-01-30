@@ -131,7 +131,7 @@ namespace Clubber.Backend.MongoDB.Test
             ObjectId id = new ObjectId(listItems[0]._id.ToString());
             var deletedClub = _club.ClubRepository.Delete(item => item._id, id);
 
-            Assert.IsTrue(deletedClub);
+            Assert.IsNotNull(deletedClub);
 
             var isRemoved = _club.ClubRepository.Get(id);
             Assert.IsNull(isRemoved);

@@ -93,12 +93,17 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <param name="queryExpression">Lambda expression. item=>item.id</param>
         /// <param name="id">Id of the entity stored in database.</param>
         /// <returns>True if the entity is removed from database.</returns>
-        public bool Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
+        public T Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
         {
-            var query = Builders<T>.Filter.Eq(queryExpression, id);
-            var isDeleted = _collection.DeleteOne(query).DeletedCount;
+            //Get an entity we want to remove
+            var entity = this.Get(id);
 
-            return (isDeleted > 0);
+            //Remove the entity
+            var query = Builders<T>.Filter.Eq(queryExpression, id);
+            var count = _collection.DeleteOne(query).DeletedCount;
+
+            //Return entity or null if it's not removed
+            return (count > 0) ? entity : null;
         }
     }
 }
