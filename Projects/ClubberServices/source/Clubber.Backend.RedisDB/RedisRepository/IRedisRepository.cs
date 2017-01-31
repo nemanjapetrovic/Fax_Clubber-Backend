@@ -7,8 +7,12 @@
     /// </summary>
     public interface IRedisRepository
     {
-        string[] Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue);
-        bool Store(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue);
-        bool Remove(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storedValue);
+        string GetString(string keyModel, string keyAdditionalInfo, string keyUniqueValue);
+        bool StoreString(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue);
+        bool RemoveString(string keyModel, string keyAdditionalInfo, string keyUniqueValue);
+
+        string[] GetSet(string keyModel, string keyAdditionalInfo, string keyUniqueValue);
+        bool StoreSet(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue);
+        bool RemoveSet(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storedValue);
     }
 }

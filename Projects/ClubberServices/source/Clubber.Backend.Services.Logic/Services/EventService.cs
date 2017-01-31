@@ -33,12 +33,6 @@ namespace Clubber.Backend.MongoDB.MongoServices
                 entity._id.ToString());
         }
 
-        public IQueryable<Event> Get()
-        {
-            //Get all items from MongoDB
-            return _mongoEventManager.EventRepository.Get();
-        }
-
         public IQueryable<Event> Get(string value)
         {
             //Load from RedisDB

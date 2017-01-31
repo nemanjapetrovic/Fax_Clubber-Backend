@@ -5,7 +5,6 @@ namespace Clubber.Backend.MongoDB.MongoServices
 {
     public interface IService<T> where T : class
     {
-        IQueryable<T> Get();
         IQueryable<T> Get(string id);
         void Add(T entity);
         void Update(T entity);

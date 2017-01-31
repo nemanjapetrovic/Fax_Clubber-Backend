@@ -60,7 +60,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyAdditionalInfo">Type of a data that will be stored.</param>
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
         /// <returns>All values from Redis SETS.</returns>
-        public string[] Get(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
+        public string[] GetSet(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
 
@@ -78,7 +78,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
         /// <param name="storeValue">Value that will be stored.</param>
         /// <returns>If value is stored it will return true, if not will return false.</returns>
-        public bool Store(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue)
+        public bool StoreSet(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue)
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
 
@@ -97,7 +97,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         /// <param name="keyUniqueValue">Unique value for redis keys.</param>
         /// <param name="storedValue">Stored value in redis, thats already exists.</param>
         /// <returns>Will return true if value is removed, if not will return false.</returns>
-        public bool Remove(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storedValue)
+        public bool RemoveSet(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storedValue)
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
 
@@ -106,6 +106,55 @@ namespace Clubber.Backend.RedisDB.RedisRepository
 
             // Return true if the value is removed
             return !_redisDatabase.SetContains(key, storedValue);
+        }
+
+
+        public string GetString(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
+        {
+            var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
+
+            var item = (string)_redisDatabase.StringGet(key);
+
+            if (string.IsNullOrEmpty(item))
+            {
+                return null;
+            }
+
+            if (item.Equals("nil", StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            return item;
+        }
+
+        public bool StoreString(string keyModel, string keyAdditionalInfo, string keyUniqueValue, string storeValue)
+        {
+            var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
+
+            _redisDatabase.StringSet(key, storeValue);
+
+            var item = (string)_redisDatabase.StringGet(key);
+
+            if (string.IsNullOrEmpty(item))
+            {
+                return false;
+            }
+
+            if (item.Equals("nil", StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool RemoveString(string keyModel, string keyAdditionalInfo, string keyUniqueValue)
+        {
+            var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
+
+            //proveri da li vraca true i ako key ne postoji
+            return _redisDatabase.KeyDelete(key);
         }
     }
 }
