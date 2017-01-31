@@ -16,5 +16,8 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 
         string GetNode(string nodeLabel, string id);
         IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string idBeginNode);
+
+        long CountRelationshipsEndNodes(string relationshipTypeKey, string startNodeLabel, string idBeginNode);
+        bool IsInARelationship(string id, bool bothDirections = false);
     }
 }

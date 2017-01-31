@@ -61,8 +61,8 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="relationshipTypeKey">Type of the relationship.</param>
         /// <param name="startNodeLabel">Type of the start node.</param>
         /// <param name="endNodeLabel">Type of the end node.</param>
-        /// <param name="idBeginUser">Relationship direction from this node.</param>
-        /// <param name="idEndUser">End of the relationship. End direction.</param>
+        /// <param name="idBeginNode">Relationship direction from this node.</param>
+        /// <param name="idEndNode">End of the relationship. End direction.</param>
         public void AddRelationship(string relationshipTypeKey, string startNodeLabel,
                                 string endNodeLabel, string idBeginNode, string idEndNode)
         {
@@ -71,7 +71,7 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
                 .Match($"(n1:{startNodeLabel})", $"(n2:{endNodeLabel})")
                 .Where((NodeModel n1) => n1._id == idBeginNode)
                 .AndWhere((NodeModel n2) => n2._id == idEndNode)
-                .Create($"(n1)-[:{relationshipTypeKey}]->(n2)")
+                .CreateUnique($"(n1)-[:{relationshipTypeKey}]->(n2)")
                 .ExecuteWithoutResults();
         }
 
@@ -101,12 +101,60 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         }
 
         /// <summary>
-        /// 
+        /// Use this function to return the number of the nodes that is connected to the begin node.
+        /// You can select type of the relationship with the parameter relationshipTypeKey.
+        /// </summary>
+        /// <param name="relationshipTypeKey">Type of the relationship.</param>
+        /// <param name="startNodeLabel">Type of the start node.</param>        
+        /// <param name="idBeginNode">Relationship direction from this node.</param>        
+        /// <returns>Returns number of nodes that begin node is in a relationship with.</returns>
+        public long CountRelationshipsEndNodes(string relationshipTypeKey, string startNodeLabel, string idBeginNode)
+        {
+            long count = DependencyContainer.Instance
+                  .Neo4jClient().Cypher
+                  .OptionalMatch($"(n1)-[{relationshipTypeKey}]->(n2)")
+                  .Where((NodeModel n1) => n1._id == idBeginNode)
+                  .Return(n2 => n2.Count())
+                  .Results
+                  .Single();
+
+            return count;
+        }
+
+        /// <summary>
+        /// Call this function to check if the node is in a relationship.
+        /// Will return true if node is in a relationship with some other node, false if not.
+        /// RELATIONSHIP in BOTH DIRECTIONS or SINGLE DIRECTION can be tested.
+        /// </summary>
+        /// <param name="id">MongoDB _id, we get a node with this id.</param>
+        /// <returns>Return true if the node is not in any relationship.</returns>
+        public bool IsInARelationship(string id, bool bothDirections = false)
+        {
+            string bothDirectionsStr = "";
+            if (bothDirections)
+            {
+                bothDirectionsStr = "<";
+            }
+
+            // Count = 0 if there is no any relationship.
+            var count = DependencyContainer.Instance
+                .Neo4jClient().Cypher
+                .Match($"(n1){bothDirectionsStr}-[r]->()")
+                .Where((NodeModel n1) => n1._id == id)
+                .Return(n1 => n1.Count())
+                .Results
+                .Single();
+
+            return (count != 0);
+        }
+
+        /// <summary>
+        /// Call this function to get nodes on the other side of the relationship.
         /// </summary>        
         /// <param name="relationshipTypeKey">Type of the relationship.</param>
         /// <param name="startNodeLabel">Type of the start node.</param>
-        /// <param name="idBeginUser">Relationship direction from this node.</param>
-        /// <returns></returns>
+        /// <param name="idBeginNode">Relationship direction from this node.</param>
+        /// <returns>Returns node on the other side of the relationship.</returns>
         public IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string idBeginNode)
         {
             var nodes = DependencyContainer.Instance
@@ -116,21 +164,21 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
                 .Return<NodeModel>("n2")
                 .Results;
 
-            if (nodes == null)
-            {
-                return null;
-            }
-
             return nodes.Select(item => item._id).ToList();
         }
 
         /// <summary>
         /// Used to remove only one node from db where node _id == id.
+        /// Will remove the node only if there is no any relationship attached to the node.
         /// </summary>
         /// <param name="nodeLabel">Type of a node.</param>
         /// <param name="id">MongoDB _id value.</param>
         public void RemoveNodeAndItsRelationships(string nodeLabel, string id)
         {
+            if (this.IsInARelationship(id, true))
+            {
+                return;
+            }
             DependencyContainer.Instance
                 .Neo4jClient().Cypher
                 .Match($"(n:{nodeLabel})")
@@ -145,8 +193,8 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="relationshipTypeKey">Type of the relationship.</param>
         /// <param name="startNodeLabel">Type of the start node.</param>
         /// <param name="endNodeLabel">Type of the end node.</param>
-        /// <param name="idBeginUser">Relationship direction from this node.</param>
-        /// <param name="idEndUser">End of the relationship. End direction.</param>
+        /// <param name="idBeginNode">Relationship direction from this node.</param>
+        /// <param name="idEndNode">End of the relationship. End direction.</param>
         public void RemoveRelationship(string relationshipTypeKey, string startNodeLabel,
                                 string endNodeLabel, string idBeginNode, string idEndNode)
         {
