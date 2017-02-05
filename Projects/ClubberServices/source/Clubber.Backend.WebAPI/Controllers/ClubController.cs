@@ -1,5 +1,5 @@
 ﻿using Clubber.Backend.Models.Model;
-using Clubber.Backend.MongoDB.MongoServices;
+using Clubber.Backend.Services.Logic.Services;
 using Clubber.Backend.WebAPI.Helpers;
 using MongoDB.Bson;
 using System.Collections.Generic;
@@ -21,13 +21,6 @@ namespace Clubber.WebAPI.Controllers
             string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
 
             _iClubService = new ClubService(mongoConStr, mongoDbName, redisConStr);
-        }
-
-        // GET: api/Club
-        public IEnumerable<Club> Get()
-        {
-            var objs = _iClubService.Get();
-            return objs;
         }
 
         // GET: api/Club/5
@@ -55,7 +48,5 @@ namespace Clubber.WebAPI.Controllers
         {
             _iClubService.Delete(id);
         }
-
-
     }
 }

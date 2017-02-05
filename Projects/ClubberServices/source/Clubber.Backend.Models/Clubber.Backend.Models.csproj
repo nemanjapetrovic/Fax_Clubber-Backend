@@ -60,6 +60,7 @@
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Manager.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="ParameterModels\NodeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

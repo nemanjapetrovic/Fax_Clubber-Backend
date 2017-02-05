@@ -1,10 +1,10 @@
 ﻿using Clubber.Backend.Models.Model;
-using Clubber.Backend.MongoDB.MongoServices;
 using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Web.Http;
 using Clubber.Backend.WebAPI.Helpers;
 using System.Configuration;
+using Clubber.Backend.Services.Logic.Services;
 
 namespace Userber.WebAPI.Controllers
 {
@@ -21,13 +21,6 @@ namespace Userber.WebAPI.Controllers
             string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
 
             _iUserService = new UserService(mongoConStr, mongoDbName, redisConStr);
-        }
-
-        // GET: api/User
-        public IEnumerable<User> Get()
-        {
-            var objs = _iUserService.Get();
-            return objs;
         }
 
         // GET: api/User/5

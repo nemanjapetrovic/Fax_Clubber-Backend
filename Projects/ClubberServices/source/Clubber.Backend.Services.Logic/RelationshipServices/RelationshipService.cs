@@ -40,6 +40,8 @@ namespace Clubber.Backend.Services.Logic.RelationshipServices
         public void RemoveRelationship(string relationshipKey, string beginNodeLabel, string endNodeLabel, string beginNodeId, string endNodeId)
         {
             _neoManager.Neo4jRepository.RemoveRelationship(relationshipKey, beginNodeLabel, endNodeLabel, beginNodeId, endNodeId);
+            _neoManager.Neo4jRepository.RemoveNodeAndItsRelationships(beginNodeLabel, beginNodeId);
+            _neoManager.Neo4jRepository.RemoveNodeAndItsRelationships(endNodeLabel, endNodeId);
         }
     }
 }

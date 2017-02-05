@@ -1,5 +1,5 @@
 ﻿using Clubber.Backend.Models.Model;
-using Clubber.Backend.MongoDB.MongoServices;
+using Clubber.Backend.Services.Logic.Services;
 using Clubber.Backend.WebAPI.Helpers;
 using MongoDB.Bson;
 using System.Collections.Generic;
@@ -21,13 +21,6 @@ namespace Eventber.WebAPI.Controllers
             string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
 
             _iEventService = new EventService(mongoConStr, mongoDbName, redisConStr);
-        }
-
-        // GET: api/Event
-        public IEnumerable<Event> Get()
-        {
-            var objs = _iEventService.Get();
-            return objs;
         }
 
         // GET: api/Event/5
