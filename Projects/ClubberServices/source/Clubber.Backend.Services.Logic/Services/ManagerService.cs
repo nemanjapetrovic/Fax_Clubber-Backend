@@ -2,8 +2,9 @@
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
 using MongoDB.Bson;
+using System.Collections.Generic;
 
-namespace Clubber.Backend.MongoDB.MongoServices
+namespace Clubber.Backend.Services.Logic.Services
 {
     public class ManagerService : IService<Manager>
     {
@@ -23,8 +24,11 @@ namespace Clubber.Backend.MongoDB.MongoServices
 
         public IQueryable<Manager> Get(string id)
         {
-            //return _mongoManagerManager.ManagerRepository.Get(new ObjectId(id));
-            return null;
+            var manager = _mongoManagerManager.ManagerRepository.Get(new ObjectId(id));
+            IList<Manager> list = new List<Manager>();
+            list.Add(manager);
+
+            return list.AsQueryable();
         }
 
         public void Update(Manager entity)

@@ -153,7 +153,6 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         {
             var key = KeyCreation(keyModel, keyAdditionalInfo, keyUniqueValue);
 
-            //proveri da li vraca true i ako key ne postoji
             return _redisDatabase.KeyDelete(key);
         }
     }

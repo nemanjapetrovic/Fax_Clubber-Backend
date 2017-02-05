@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="RelationshipServices\RelationshipService.cs" />
+    <Compile Include="RelationshipServices\IRelationshipServices.cs" />
     <Compile Include="Services\ClubService.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\IService.cs" />
@@ -72,6 +74,10 @@
     <ProjectReference Include="..\Clubber.Backend.MongoDB\Clubber.Backend.MongoDB.csproj">
       <Project>{f6f4cc15-8aaa-4827-acfd-90f9cfd42c2d}</Project>
       <Name>Clubber.Backend.MongoDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Clubber.Backend.Neo4jDB\Clubber.Backend.Neo4jDB.csproj">
+      <Project>{377E4D22-1863-4788-9844-9AA9336DEE6E}</Project>
+      <Name>Clubber.Backend.Neo4jDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\Clubber.Backend.RedisDB\Clubber.Backend.RedisDB.csproj">
       <Project>{073f26dd-0254-4f34-9963-9098c6a0d2a8}</Project>

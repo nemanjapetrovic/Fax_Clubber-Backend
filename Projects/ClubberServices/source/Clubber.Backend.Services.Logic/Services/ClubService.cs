@@ -5,8 +5,9 @@ using MongoDB.Bson;
 using Clubber.Backend.Services.Logic.Helpers;
 using Clubber.Backend.RedisDB.RedisManagers;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace Clubber.Backend.MongoDB.MongoServices
+namespace Clubber.Backend.Services.Logic.Services
 {
     public class ClubService : IService<Club>
     {
@@ -23,29 +24,47 @@ namespace Clubber.Backend.MongoDB.MongoServices
 
         public void Add(Club entity)
         {
-            //Add to MongoDB
+            // Add to MongoDB
             _mongoClubManager.ClubRepository.Add(entity);
-            //Add _id to RedisDB Sets
-            _redisClubManager.ClubRepository.Store(
+            // Add _id to RedisDB id cache
+            _redisClubManager.ClubRepository.StoreSet(
                 Constants.RedisDB.ClubEntityName,
                 Constants.RedisDB.AdditionalInfoName,
                 entity.GetNameWithoutSpaces(),
                 entity._id.ToString());
+            // Add obj to RedisDB obj cache
+            _redisClubManager.ClubRepository.StoreString(
+                Constants.RedisDB.ClubEntityName,
+                Constants.RedisDB.AdditionalInfoId,
+                entity._id.ToString(),
+                JsonConvert.SerializeObject(entity));
         }
 
         public IQueryable<Club> Get(string value)
         {
-            //Load from RedisDB
-            var objs = _redisClubManager.ClubRepository.Get(
+            // Load from RedisDB id cache
+            var objs = _redisClubManager.ClubRepository.GetSet(
                 Constants.RedisDB.ClubEntityName,
                 Constants.RedisDB.AdditionalInfoName,
                 value);
 
-            //Load from MongoDB
+            // Load from RedisDB obj cache
             List<Club> clubs = new List<Club>();
             foreach (var item in objs)
             {
-                clubs.Add(_mongoClubManager.ClubRepository.Get(new ObjectId(item)));
+                var club = _redisClubManager.ClubRepository.GetString(
+                    Constants.RedisDB.ClubEntityName,
+                    Constants.RedisDB.AdditionalInfoId,
+                    item);
+
+                // Load then from MongoDB
+                if (club == null)
+                {
+                    clubs.Add(_mongoClubManager.ClubRepository.Get(new ObjectId(item)));
+                    continue;
+                }
+                // Load then from RedisDB obj cache
+                clubs.Add((Club)JsonConvert.DeserializeObject(club));
             }
 
             return clubs.AsQueryable<Club>();
@@ -53,19 +72,36 @@ namespace Clubber.Backend.MongoDB.MongoServices
 
         public void Update(Club entity)
         {
-            //Only update in MongoDB
+            // Update _id to RedisDB id cache
+            _redisClubManager.ClubRepository.StoreSet(
+                Constants.RedisDB.ClubEntityName,
+                Constants.RedisDB.AdditionalInfoName,
+                entity.GetNameWithoutSpaces(),
+                entity._id.ToString());
+            // Update obj to RedisDB obj cache
+            _redisClubManager.ClubRepository.StoreString(
+                Constants.RedisDB.ClubEntityName,
+                Constants.RedisDB.AdditionalInfoId,
+                entity._id.ToString(),
+                JsonConvert.SerializeObject(entity));
+            // Update MongoDB
             _mongoClubManager.ClubRepository.Update(item => item._id, entity._id, entity);
         }
 
         public void Delete(string id)
         {
-            //Remove from MongoDB
+            // Remove from MongoDB
             var entity = _mongoClubManager.ClubRepository.Delete(item => item._id, new ObjectId(id));
-            //Remove from RedisDB
-            _redisClubManager.ClubRepository.Remove(
+            // Remove from RedisDB id cache
+            _redisClubManager.ClubRepository.RemoveSet(
                 Constants.RedisDB.ClubEntityName,
                 Constants.RedisDB.AdditionalInfoName,
                 entity.GetNameWithoutSpaces(),
+                entity._id.ToString());
+            // Remove from RedisDB obj cache
+            _redisClubManager.ClubRepository.RemoveString(
+                Constants.RedisDB.ClubEntityName,
+                Constants.RedisDB.AdditionalInfoId,
                 entity._id.ToString());
         }
     }

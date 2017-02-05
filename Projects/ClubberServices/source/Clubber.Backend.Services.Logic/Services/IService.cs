@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
-namespace Clubber.Backend.MongoDB.MongoServices
+namespace Clubber.Backend.Services.Logic.Services
 {
     public interface IService<T> where T : class
     {

@@ -1,5 +1,4 @@
-﻿using Clubber.Backend.Neo4jDB.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
