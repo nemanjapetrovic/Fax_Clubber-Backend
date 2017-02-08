@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
+using Clubber.Common.ValidationAttributes.ValidationAttributes;
 
 namespace Clubber.Backend.Models.Model
 {
@@ -36,7 +37,7 @@ namespace Clubber.Backend.Models.Model
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
 
-        //[RegularExpression(@"^\(?(?P<prefix>(?=1)|\+|(?:0(?:0(?:0|1|9)?|1(?:0|1))?|119))[-. ]?\(?(?P<CC>1([-. ]?)[0-9]{3}|2(?:0|[0-9]{2})|3(?:[0-469]|[0-9]{2})|4(?:[013-9]|[0-9]{2})|5(?:[1-8]|[0-9]{2})|6(?:[0-6]|[0-9]{2})|7(?:[-. ]?[67]|[0-9]{3})|8(?:[1246]|[0-9]{2})|9(?:[0-58]|[0-9]{2}))(?:\)?[-. ])?(?P<number>(?:[0-9]+[-. ]?)+)$", ErrorMessage = "Invalid phone number")]
+        [PhoneNumber]
         public List<string> PhoneNumber { get; set; }
 
         [Url(ErrorMessage = "Invalid Website url")]

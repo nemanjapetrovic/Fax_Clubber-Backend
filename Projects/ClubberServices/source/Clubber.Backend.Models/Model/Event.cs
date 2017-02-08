@@ -20,9 +20,11 @@ namespace Clubber.Backend.Models.Model
         public string Description { get; set; }
 
         [Required(ErrorMessage = "The start date is required")]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public DateTime StartDateTime { get; set; }
 
         [Required(ErrorMessage = "The end date is required")]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public DateTime EndDateTime { get; set; }
 
         /// <summary>
