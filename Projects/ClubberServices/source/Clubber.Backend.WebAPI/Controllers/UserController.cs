@@ -33,6 +33,11 @@ namespace Userber.WebAPI.Controllers
         // POST: api/User
         public void Post([FromBody]User value)
         {
+            if (!ModelState.IsValid)
+            {
+                return;
+            }
+
             _iUserService.Add(value);
         }
 

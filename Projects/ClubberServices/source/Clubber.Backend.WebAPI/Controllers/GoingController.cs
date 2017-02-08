@@ -1,7 +1,6 @@
 ﻿using Clubber.Backend.Models.ParameterModels;
 using Clubber.Backend.Services.Logic.RelationshipServices;
 using Clubber.Backend.WebAPI.Helpers;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Http;
@@ -25,7 +24,7 @@ namespace Clubber.Backend.WebAPI.Controllers
                                                            password);
         }
 
-        // GET: api/Place/5
+        // GET: api/Going/5
         public IEnumerable<string> Get(string id)
         {
             var items = _relationshipService.GetElementsInRelationshipWith(
@@ -36,7 +35,7 @@ namespace Clubber.Backend.WebAPI.Controllers
             return items;
         }
 
-        // POST: api/Place
+        // POST: api/Going
         public void Post([FromBody]NodeData nodeData)
         {
             _relationshipService.CreateRelationship(
@@ -47,7 +46,7 @@ namespace Clubber.Backend.WebAPI.Controllers
                 nodeData.idNodeEnd);
         }
 
-        // DELETE: api/Place/5
+        // DELETE: api/Going/5
         public void Delete([FromBody]NodeData nodeData)
         {
             _relationshipService.RemoveRelationship(

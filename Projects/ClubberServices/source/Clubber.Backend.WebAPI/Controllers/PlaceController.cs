@@ -1,7 +1,6 @@
 ﻿using Clubber.Backend.Models.ParameterModels;
 using Clubber.Backend.Services.Logic.RelationshipServices;
 using Clubber.Backend.WebAPI.Helpers;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Http;

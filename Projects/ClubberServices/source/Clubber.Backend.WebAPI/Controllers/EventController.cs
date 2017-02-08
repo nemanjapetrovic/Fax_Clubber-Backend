@@ -33,6 +33,11 @@ namespace Eventber.WebAPI.Controllers
         // POST: api/Event
         public void Post([FromBody]Event value)
         {
+            if (!ModelState.IsValid)
+            {
+                return;
+            }
+
             _iEventService.Add(value);
         }
 

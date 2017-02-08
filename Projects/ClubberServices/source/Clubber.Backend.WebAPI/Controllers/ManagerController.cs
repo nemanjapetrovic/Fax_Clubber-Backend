@@ -33,6 +33,11 @@ namespace Managerber.WebAPI.Controllers
         // POST: api/Manager
         public void Post([FromBody]Manager value)
         {
+            if (!ModelState.IsValid)
+            {
+                return;
+            }
+
             _iManagerService.Add(value);
         }
 

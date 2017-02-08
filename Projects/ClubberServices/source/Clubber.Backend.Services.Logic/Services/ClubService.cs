@@ -64,7 +64,7 @@ namespace Clubber.Backend.Services.Logic.Services
                     continue;
                 }
                 // Load then from RedisDB obj cache
-                clubs.Add((Club)JsonConvert.DeserializeObject(club));
+                clubs.Add(JsonConvert.DeserializeObject<Club>(club));
             }
 
             return clubs.AsQueryable<Club>();

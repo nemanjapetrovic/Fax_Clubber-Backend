@@ -33,6 +33,11 @@ namespace Clubber.WebAPI.Controllers
         // POST: api/Club
         public void Post([FromBody]Club value)
         {
+            if (!ModelState.IsValid)
+            {
+                return;
+            }
+
             _iClubService.Add(value);
         }
 

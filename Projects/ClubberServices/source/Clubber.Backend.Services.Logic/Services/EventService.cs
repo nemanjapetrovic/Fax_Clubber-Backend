@@ -6,6 +6,7 @@ using Clubber.Backend.RedisDB.RedisManagers;
 using Clubber.Backend.Services.Logic.Helpers;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace Clubber.Backend.Services.Logic.Services
 {
@@ -62,8 +63,8 @@ namespace Clubber.Backend.Services.Logic.Services
                     events.Add(_mongoEventManager.EventRepository.Get(new ObjectId(item)));
                     continue;
                 }
-                // Load then from RedisDB obj cache
-                events.Add((Event)JsonConvert.DeserializeObject(eventt));
+                // Load then from RedisDB obj cache                
+                events.Add(JsonConvert.DeserializeObject<Event>(eventt));
             }
 
             return events.AsQueryable<Event>();
