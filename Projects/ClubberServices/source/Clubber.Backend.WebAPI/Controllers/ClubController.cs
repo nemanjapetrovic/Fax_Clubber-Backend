@@ -44,7 +44,7 @@ namespace Clubber.WebAPI.Controllers
         // PUT: api/Club/5
         public void Put(string id, [FromBody]Club value)
         {
-            value._id = new ObjectId(id);
+            value._id = id;
             _iClubService.Update(value);
         }
 

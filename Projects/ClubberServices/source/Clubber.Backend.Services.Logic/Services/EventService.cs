@@ -73,7 +73,7 @@ namespace Clubber.Backend.Services.Logic.Services
         public void Update(Event entity)
         {
             // Update in MongoDB
-            _mongoEventManager.EventRepository.Update(item => item._id, entity._id, entity);
+            _mongoEventManager.EventRepository.Update(item => new ObjectId(item._id), new ObjectId(entity._id), entity);
             // Update _id to RedisDB id cache
             _redisClubManager.ClubRepository.StoreSet(
                 Constants.RedisDB.EventEntityName,
@@ -91,7 +91,7 @@ namespace Clubber.Backend.Services.Logic.Services
         public void Delete(string id)
         {
             // Remove from MongoDB
-            var entity = _mongoEventManager.EventRepository.Delete(item => item._id, new ObjectId(id));
+            var entity = _mongoEventManager.EventRepository.Delete(item => new ObjectId(item._id), new ObjectId(id));
             // Remove from RedisDB id cache
             _redisClubManager.ClubRepository.RemoveSet(
                 Constants.RedisDB.EventEntityName,

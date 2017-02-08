@@ -44,7 +44,7 @@ namespace Userber.WebAPI.Controllers
         // PUT: api/User/5
         public void Put(string id, [FromBody]User value)
         {
-            value._id = new ObjectId(id);
+            value._id = id;
             _iUserService.Update(value);
         }
 

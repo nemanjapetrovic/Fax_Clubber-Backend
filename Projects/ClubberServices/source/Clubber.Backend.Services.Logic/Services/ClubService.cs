@@ -85,13 +85,13 @@ namespace Clubber.Backend.Services.Logic.Services
                 entity._id.ToString(),
                 JsonConvert.SerializeObject(entity));
             // Update MongoDB
-            _mongoClubManager.ClubRepository.Update(item => item._id, entity._id, entity);
+            _mongoClubManager.ClubRepository.Update(item => new ObjectId(item._id), new ObjectId(entity._id), entity);
         }
 
         public void Delete(string id)
         {
             // Remove from MongoDB
-            var entity = _mongoClubManager.ClubRepository.Delete(item => item._id, new ObjectId(id));
+            var entity = _mongoClubManager.ClubRepository.Delete(item => new ObjectId(item._id), new ObjectId(id));
             // Remove from RedisDB id cache
             _redisClubManager.ClubRepository.RemoveSet(
                 Constants.RedisDB.ClubEntityName,

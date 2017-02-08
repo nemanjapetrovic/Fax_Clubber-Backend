@@ -44,7 +44,7 @@ namespace Eventber.WebAPI.Controllers
         // PUT: api/Event/5
         public void Put(string id, [FromBody]Event value)
         {
-            value._id = new ObjectId(id);
+            value._id = id;
             _iEventService.Update(value);
         }
 

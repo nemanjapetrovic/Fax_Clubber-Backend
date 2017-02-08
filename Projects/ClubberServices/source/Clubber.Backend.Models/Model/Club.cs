@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Clubber.Backend.Models.Model
 {
     public class Club
     {
-        public ObjectId _id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "The name is required")]
         [StringLength(100, ErrorMessage = "The length of name is over max value")]

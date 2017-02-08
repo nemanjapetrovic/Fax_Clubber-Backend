@@ -33,12 +33,12 @@ namespace Clubber.Backend.Services.Logic.Services
 
         public void Update(User entity)
         {
-            _mongoUserManager.UserRepository.Update(item => item._id, entity._id, entity);
+            _mongoUserManager.UserRepository.Update(item => new ObjectId(item._id), new ObjectId(entity._id), entity);
         }
 
         public void Delete(string id)
         {
-            _mongoUserManager.UserRepository.Delete(item => item._id, new ObjectId(id));
+            _mongoUserManager.UserRepository.Delete(item => new ObjectId(item._id), new ObjectId(id));
         }
     }
 }

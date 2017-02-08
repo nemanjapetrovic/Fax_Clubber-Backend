@@ -1,11 +1,14 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace Clubber.Backend.Models.Model
 {
     public class User
     {
-        public ObjectId _id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string _id { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "The username is required")]
         [StringLength(50, ErrorMessage = "The length of username is over max value")]

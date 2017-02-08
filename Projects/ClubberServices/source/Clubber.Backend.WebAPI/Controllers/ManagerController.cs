@@ -44,7 +44,7 @@ namespace Managerber.WebAPI.Controllers
         // PUT: api/Manager/5
         public void Put(string id, [FromBody]Manager value)
         {
-            value._id = new ObjectId(id);
+            value._id = id;
             _iManagerService.Update(value);
         }
 
