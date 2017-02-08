@@ -58,9 +58,15 @@ namespace Clubber.Backend.Services.Logic.Services
                     item);
 
                 // Load then from MongoDB
-                if (eventt == null)
+                if (string.IsNullOrEmpty(eventt))
                 {
-                    events.Add(_mongoEventManager.EventRepository.Get(new ObjectId(item)));
+                    var entity = _mongoEventManager.EventRepository.Get(new ObjectId(item));
+                    if (entity != null)
+                    {
+                        events.Add(entity);
+                    }
+                    // TODO: here we can have the situation where there are elements in RedisDB but they do not exist in MongoDB
+                    // make this so when the redis have and MongoDB doesn't remove it from redis.                    
                     continue;
                 }
                 // Load then from RedisDB obj cache                
