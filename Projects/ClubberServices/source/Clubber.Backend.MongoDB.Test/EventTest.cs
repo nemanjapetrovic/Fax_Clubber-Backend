@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
 using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var item = _event.EventRepository.Get(id);
 
             Assert.IsNotNull(item);
@@ -51,7 +50,7 @@ namespace Clubber.Backend.MongoDB.Test
                 Name = "In the club event",
                 Description = "Playhouse",
                 EndDateTime = new DateTime(),
-                StartDateTime = new DateTime(),
+                StartDateTime = new DateTime()
             };
             _event.EventRepository.Add(eventt);
 
@@ -75,7 +74,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var itemToUpdate = _event.EventRepository.Get(id);
 
             //Update
@@ -86,7 +85,7 @@ namespace Clubber.Backend.MongoDB.Test
                 Name = "In the club event",
                 Description = "Playhouse" + ran.ToString(),
                 EndDateTime = new DateTime(),
-                StartDateTime = new DateTime(),
+                StartDateTime = new DateTime()
             };
             eventt._id = id;
             bool added = _event.EventRepository.Update(x => x._id, eventt._id, eventt);
@@ -119,7 +118,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var deletedClub = _event.EventRepository.Delete(item => item._id, id);
 
             Assert.IsNotNull(deletedClub);

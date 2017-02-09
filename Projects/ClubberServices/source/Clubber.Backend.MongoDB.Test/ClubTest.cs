@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
 using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var item = _club.ClubRepository.Get(id);
 
             Assert.IsNotNull(item);
@@ -52,11 +51,11 @@ namespace Clubber.Backend.MongoDB.Test
                 Country = "Serbia",
                 Address = "Komren",
                 PhoneNumber = { "018800619", "21812912" },
-                Email = { "some@test.com", "test@test.com" },
-                Website = "url url web",
-                Facebook = "url url facebook",
-                Instagram = "url url instagram",
-                Twitter = "url url twitter"
+                Email = "some@test.com",
+                Website = "http://test.com",
+                Facebook = "http://test.com",
+                Instagram = "http://test.com",
+                Twitter = "http://test.com"
             };
             _club.ClubRepository.Add(club);
 
@@ -80,7 +79,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var itemToUpdate = _club.ClubRepository.Get(id);
 
             //Update
@@ -92,11 +91,11 @@ namespace Clubber.Backend.MongoDB.Test
                 Country = "Serbia",
                 Address = "Komren",
                 PhoneNumber = { "018800619", "21812912" },
-                Email = { "some@test.com", "test@test.com" },
-                Website = "url url web " + ran.ToString(),
-                Facebook = "url url facebook " + ran.ToString(),
-                Instagram = "url url instagram " + ran.ToString(),
-                Twitter = "url url twitter " + ran.ToString()
+                Email = "some@test.com",
+                Website = "http://test" + ran.ToString() + ".com",
+                Facebook = "http://test" + ran.ToString() + ".com",
+                Twitter = "http://test" + ran.ToString() + ".com",
+                Instagram = "http://test" + ran.ToString() + ".com"
             };
             club._id = id;
             bool updated = _club.ClubRepository.Update(x => x._id, club._id, club);
@@ -128,7 +127,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var deletedClub = _club.ClubRepository.Delete(item => item._id, id);
 
             Assert.IsNotNull(deletedClub);

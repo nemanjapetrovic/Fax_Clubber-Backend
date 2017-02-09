@@ -54,7 +54,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// </summary>
         /// <param name="id">Id of the entity stored in database.</param>
         /// <returns>Returns one entity from Mongo where _id == id.</returns>
-        public T Get(ObjectId id)
+        public T Get(string id)
         {
             var filter = Builders<T>.Filter.Eq("_id", id);
             return _collection.Find<T>(filter).FirstOrDefault<T>();
@@ -79,7 +79,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <param name="id">Id of the entity stored in database.</param>
         /// <param name="entity">Entity with updated values.</param>
         /// <returns>True if the entity is updated.</returns>
-        public bool Update(Expression<Func<T, ObjectId>> queryExpression, ObjectId id, T entity)
+        public bool Update(Expression<Func<T, string>> queryExpression, string id, T entity)
         {
             var query = Builders<T>.Filter.Eq(queryExpression, id);
             var isUpdated = _collection.ReplaceOne(query, entity).ModifiedCount;
@@ -93,7 +93,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         /// <param name="queryExpression">Lambda expression. item=>item.id</param>
         /// <param name="id">Id of the entity stored in database.</param>
         /// <returns>True if the entity is removed from database.</returns>
-        public T Delete(Expression<Func<T, ObjectId>> queryExpression, ObjectId id)
+        public T Delete(Expression<Func<T, string>> queryExpression, string id)
         {
             //Get an entity we want to remove
             var entity = this.Get(id);

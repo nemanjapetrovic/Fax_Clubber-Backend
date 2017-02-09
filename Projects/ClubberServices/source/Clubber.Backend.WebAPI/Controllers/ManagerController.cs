@@ -1,10 +1,11 @@
 ﻿using Clubber.Backend.Models.Model;
-using MongoDB.Bson;
 using System.Collections.Generic;
 using System.Web.Http;
 using Clubber.Backend.WebAPI.Helpers;
 using System.Configuration;
 using Clubber.Backend.Services.Logic.Services;
+using System;
+using System.Linq;
 
 namespace Managerber.WebAPI.Controllers
 {
@@ -14,10 +15,10 @@ namespace Managerber.WebAPI.Controllers
 
         public ManagerController()
         {
-            //connection strings
+            // Connection strings
             string mongoConStr = ConfigurationManager.ConnectionStrings[Constants.MongoDB.MongoDBConectionString].ConnectionString;
             string redisConStr = ConfigurationManager.ConnectionStrings[Constants.RedisDB.RedisDBConectionString].ConnectionString;
-            //mongodb name
+            // MongoDB name
             string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
 
             _iManagerService = new ManagerService(mongoConStr, mongoDbName, redisConStr);
@@ -31,27 +32,58 @@ namespace Managerber.WebAPI.Controllers
         }
 
         // POST: api/Manager
-        public void Post([FromBody]Manager value)
+        public IHttpActionResult Post([FromBody]Manager value)
         {
+            // Validation
             if (!ModelState.IsValid)
             {
-                return;
+                string messages = string.Join(Environment.NewLine, ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+                return BadRequest(messages);
             }
 
+            // Call
             _iManagerService.Add(value);
+
+            // Ret
+            return Ok();
         }
 
         // PUT: api/Manager/5
-        public void Put(string id, [FromBody]Manager value)
+        public IHttpActionResult Put(string id, [FromBody]Manager value)
         {
+            // Validation
+            if (!ModelState.IsValid)
+            {
+                string messages = string.Join(Environment.NewLine, ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+                return BadRequest(messages);
+            }
+
+            // Call
             value._id = id;
             _iManagerService.Update(value);
+
+            // Ret
+            return Ok();
         }
 
         // DELETE: api/Manager/5
-        public void Delete(string id)
+        public IHttpActionResult Delete(string id)
         {
+            // Validation
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("Id is empty");
+            }
+
+            // Call
             _iManagerService.Delete(id);
+
+            // Ret
+            return Ok();
         }
     }
 }

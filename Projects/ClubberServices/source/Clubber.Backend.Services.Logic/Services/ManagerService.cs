@@ -24,7 +24,7 @@ namespace Clubber.Backend.Services.Logic.Services
 
         public IQueryable<Manager> Get(string id)
         {
-            var manager = _mongoManagerManager.ManagerRepository.Get(new ObjectId(id));
+            var manager = _mongoManagerManager.ManagerRepository.Get(id);
             IList<Manager> list = new List<Manager>();
             list.Add(manager);
 
@@ -33,12 +33,12 @@ namespace Clubber.Backend.Services.Logic.Services
 
         public void Update(Manager entity)
         {
-            _mongoManagerManager.ManagerRepository.Update(item => new ObjectId(item._id), new ObjectId(entity._id), entity);
+            _mongoManagerManager.ManagerRepository.Update(item => item._id, entity._id, entity);
         }
 
         public void Delete(string id)
         {
-            _mongoManagerManager.ManagerRepository.Delete(item => new ObjectId(item._id), new ObjectId(id));
+            _mongoManagerManager.ManagerRepository.Delete(item => item._id, id);
         }
     }
 }

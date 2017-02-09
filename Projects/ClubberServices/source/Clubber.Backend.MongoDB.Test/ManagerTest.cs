@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
 using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var item = _manager.ManagerRepository.Get(id);
 
             Assert.IsNotNull(item);
@@ -49,7 +48,12 @@ namespace Clubber.Backend.MongoDB.Test
             Manager manager = new Manager()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName"
+                LastName = "TestLastName",
+                City = "Neki",
+                Country = "neka",
+                Email = "nemanja@test.com",
+                Password = "Test12345@",
+                PostalCode = "18220"
             };
             _manager.ManagerRepository.Add(manager);
 
@@ -73,7 +77,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var itemToUpdate = _manager.ManagerRepository.Get(id);
 
             //Update
@@ -82,7 +86,12 @@ namespace Clubber.Backend.MongoDB.Test
             Manager manager = new Manager()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName" + ran.ToString()
+                LastName = "TestLastName" + ran.ToString(),
+                City = "Neki",
+                Country = "neka",
+                Email = "nemanja@test.com",
+                Password = "Test12345@",
+                PostalCode = "18220"
             };
             manager._id = id;
             bool added = _manager.ManagerRepository.Update(x => x._id, manager._id, manager);
@@ -115,7 +124,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var deletedClub = _manager.ManagerRepository.Delete(item => item._id, id);
 
             Assert.IsNotNull(deletedClub);

@@ -1,10 +1,11 @@
 ﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.Services.Logic.Services;
 using Clubber.Backend.WebAPI.Helpers;
-using MongoDB.Bson;
+using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Http;
+using System;
 
 namespace Clubber.WebAPI.Controllers
 {
@@ -14,10 +15,10 @@ namespace Clubber.WebAPI.Controllers
 
         public ClubController()
         {
-            //connection strings
+            // Connection strings
             string mongoConStr = ConfigurationManager.ConnectionStrings[Constants.MongoDB.MongoDBConectionString].ConnectionString;
             string redisConStr = ConfigurationManager.ConnectionStrings[Constants.RedisDB.RedisDBConectionString].ConnectionString;
-            //mongodb name
+            // MongoDB name
             string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
 
             _iClubService = new ClubService(mongoConStr, mongoDbName, redisConStr);
@@ -31,27 +32,58 @@ namespace Clubber.WebAPI.Controllers
         }
 
         // POST: api/Club
-        public void Post([FromBody]Club value)
+        public IHttpActionResult Post([FromBody]Club value)
         {
+            // Validation
             if (!ModelState.IsValid)
             {
-                return;
+                string messages = string.Join(Environment.NewLine, ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+                return BadRequest(messages);
             }
 
+            // Call
             _iClubService.Add(value);
+
+            // Ret
+            return Ok();
         }
 
         // PUT: api/Club/5
-        public void Put(string id, [FromBody]Club value)
+        public IHttpActionResult Put(string id, [FromBody]Club value)
         {
+            // Validation
+            if (!ModelState.IsValid)
+            {
+                string messages = string.Join(Environment.NewLine, ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+                return BadRequest(messages);
+            }
+
+            // Call
             value._id = id;
             _iClubService.Update(value);
+
+            // Ret
+            return Ok();
         }
 
         // DELETE: api/Club/5
-        public void Delete(string id)
+        public IHttpActionResult Delete(string id)
         {
+            // Validation
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest("Id is empty");
+            }
+
+            // Call
             _iClubService.Delete(id);
+
+            // Ret
+            return Ok();
         }
     }
 }

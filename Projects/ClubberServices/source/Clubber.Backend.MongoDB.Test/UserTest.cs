@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Bson;
 using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var item = _user.UserRepository.Get(id);
 
             Assert.IsNotNull(item);
@@ -49,7 +48,8 @@ namespace Clubber.Backend.MongoDB.Test
             User someUser = new User()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName"
+                LastName = "TestLastName",
+                Username = "TesticNeki"
             };
             _user.UserRepository.Add(someUser);
 
@@ -73,7 +73,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var itemToUpdate = _user.UserRepository.Get(id);
 
             //Update
@@ -82,7 +82,8 @@ namespace Clubber.Backend.MongoDB.Test
             User someUser = new User()
             {
                 FirstName = "TestName",
-                LastName = "TestLastName" + ran.ToString()
+                LastName = "TestLastName" + ran.ToString(),
+                Username = "TesticNeki"
             };
             someUser._id = id;
             bool added = _user.UserRepository.Update(x => x._id, someUser._id, someUser);
@@ -115,7 +116,7 @@ namespace Clubber.Backend.MongoDB.Test
             }
 
             // Get only one
-            ObjectId id = new ObjectId(listItems[0]._id.ToString());
+            var id = listItems[0]._id.ToString();
             var deletedClub = _user.UserRepository.Delete(item => item._id, id);
 
             Assert.IsNotNull(deletedClub);

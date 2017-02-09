@@ -4,6 +4,9 @@ using Clubber.Backend.WebAPI.Helpers;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Http;
+using System.Linq;
+using System;
+
 namespace Clubber.Backend.WebAPI.Controllers
 {
     public class GoingController : ApiController
@@ -36,25 +39,51 @@ namespace Clubber.Backend.WebAPI.Controllers
         }
 
         // POST: api/Going
-        public void Post([FromBody]NodeData nodeData)
+        public IHttpActionResult Post([FromBody]NodeData nodeData)
         {
+            // Validation
+            if (!ModelState.IsValid)
+            {
+                string messages = string.Join(Environment.NewLine, ModelState.Values
+                                           .SelectMany(x => x.Errors)
+                                           .Select(x => x.ErrorMessage));
+                return BadRequest(messages);
+            }
+
+            // Call
             _relationshipService.CreateRelationship(
                 _RelationshipKey,
                 _BeginNodeLabel,
                 _EndNodeLabel,
                 nodeData.idNodeBegin,
                 nodeData.idNodeEnd);
+
+            // Ret
+            return Ok();
         }
 
         // DELETE: api/Going/5
-        public void Delete([FromBody]NodeData nodeData)
+        public IHttpActionResult Delete([FromBody]NodeData nodeData)
         {
+            // Validation
+            if (!ModelState.IsValid)
+            {
+                string messages = string.Join(Environment.NewLine, ModelState.Values
+                                           .SelectMany(x => x.Errors)
+                                           .Select(x => x.ErrorMessage));
+                return BadRequest(messages);
+            }
+
+            // Call
             _relationshipService.RemoveRelationship(
                 _RelationshipKey,
                 _BeginNodeLabel,
                 _EndNodeLabel,
                 nodeData.idNodeBegin,
                 nodeData.idNodeEnd);
+
+            // Ret
+            return Ok();
         }
     }
 }
