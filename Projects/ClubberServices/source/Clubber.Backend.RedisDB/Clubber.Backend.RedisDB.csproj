@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Clubber.Common.Exceptions">
+      <HintPath>..\..\..\ClubberCommon\source\Clubber.Common.Exceptions\bin\Debug\Clubber.Common.Exceptions.dll</HintPath>
+    </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.0\lib\net45\StackExchange.Redis.dll</HintPath>
       <Private>True</Private>

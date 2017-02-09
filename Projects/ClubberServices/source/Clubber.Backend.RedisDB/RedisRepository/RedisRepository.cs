@@ -1,4 +1,5 @@
 ﻿using Clubber.Backend.RedisDB.DependencyInjectionContainer;
+using Clubber.Common.Exceptions.Exceptions;
 using StackExchange.Redis;
 using System;
 using System.Text.RegularExpressions;
@@ -19,7 +20,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
 
             if (_redisDatabase == null)
             {
-                throw new Exception("Redis database is null!");
+                throw new InternalServerErrorException("Redis database is null!");
             }
 
             // Validate the connection
@@ -33,7 +34,7 @@ namespace Clubber.Backend.RedisDB.RedisRepository
         {
             if (!DependencyContainer.Instance.RedisClient().IsConnected)
             {
-                throw new Exception("Redis client is not connected!");
+                throw new InternalServerErrorException("Redis client is not connected!");
             }
         }
 

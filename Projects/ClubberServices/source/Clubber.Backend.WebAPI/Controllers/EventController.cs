@@ -1,6 +1,7 @@
 ﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.Services.Logic.Services;
 using Clubber.Backend.WebAPI.Helpers;
+using Clubber.Common.Exceptions.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,63 +28,107 @@ namespace Eventber.WebAPI.Controllers
         // GET: api/Event/5
         public IEnumerable<Event> Get(string id)
         {
-            var obj = _iEventService.Get(id);
-            return obj;
+            try
+            {
+                var obj = _iEventService.Get(id);
+                return obj;
+            }
+            catch (InternalServerErrorException ex)
+            {
+                return new List<Event>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Event>();
+            }
         }
 
         // POST: api/Event
         public IHttpActionResult Post([FromBody]Event value)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                           .SelectMany(x => x.Errors)
-                                           .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                               .SelectMany(x => x.Errors)
+                                               .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                _iEventService.Add(value);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _iEventService.Add(value);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // PUT: api/Event/5
         public IHttpActionResult Put(string id, [FromBody]Event value)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                            .SelectMany(x => x.Errors)
+                                            .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                value._id = id;
+                _iEventService.Update(value);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            value._id = id;
-            _iEventService.Update(value);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // DELETE: api/Event/5
         public IHttpActionResult Delete(string id)
         {
-            // Validation
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                return BadRequest("Id is empty");
+                // Validation
+                if (string.IsNullOrEmpty(id))
+                {
+                    return BadRequest("Id is empty");
+                }
+
+                // Call
+                _iEventService.Delete(id);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _iEventService.Delete(id);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
     }
 }

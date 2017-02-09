@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Http;
 using System;
+using Clubber.Common.Exceptions.Exceptions;
 
 namespace Clubber.WebAPI.Controllers
 {
@@ -27,63 +28,107 @@ namespace Clubber.WebAPI.Controllers
         // GET: api/Club/5
         public IEnumerable<Club> Get(string id)
         {
-            var objs = _iClubService.Get(id);
-            return objs;
+            try
+            {
+                var objs = _iClubService.Get(id);
+                return objs;
+            }
+            catch (InternalServerErrorException ex)
+            {
+                return new List<Club>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Club>();
+            }
         }
 
         // POST: api/Club
         public IHttpActionResult Post([FromBody]Club value)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                            .SelectMany(x => x.Errors)
+                                            .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                _iClubService.Add(value);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _iClubService.Add(value);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // PUT: api/Club/5
         public IHttpActionResult Put(string id, [FromBody]Club value)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                            .SelectMany(x => x.Errors)
+                                            .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                value._id = id;
+                _iClubService.Update(value);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            value._id = id;
-            _iClubService.Update(value);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // DELETE: api/Club/5
         public IHttpActionResult Delete(string id)
         {
-            // Validation
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                return BadRequest("Id is empty");
+                // Validation
+                if (string.IsNullOrEmpty(id))
+                {
+                    return BadRequest("Id is empty");
+                }
+
+                // Call
+                _iClubService.Delete(id);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _iClubService.Delete(id);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
     }
 }

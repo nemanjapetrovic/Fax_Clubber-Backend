@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Web.Http;
 using System.Linq;
 using System;
+using Clubber.Common.Exceptions.Exceptions;
 
 namespace Clubber.Backend.WebAPI.Controllers
 {
@@ -30,60 +31,93 @@ namespace Clubber.Backend.WebAPI.Controllers
         // GET: api/Place/5
         public IEnumerable<string> Get(string id)
         {
-            var items = _relationshipService.GetElementsInRelationshipWith(
-                _RelationshipKey,
-                _BeginNodeLabel,
-                id);
+            try
+            {
+                var items = _relationshipService.GetElementsInRelationshipWith(
+                    _RelationshipKey,
+                    _BeginNodeLabel,
+                    id);
 
-            return items;
+                return items;
+            }
+            catch (InternalServerErrorException ex)
+            {
+                return new List<string>();
+            }
+            catch (Exception ex)
+            {
+                return new List<string>();
+            }
         }
 
         // POST: api/Place
         public IHttpActionResult Post([FromBody]NodeData nodeData)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                           .SelectMany(x => x.Errors)
-                                           .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                               .SelectMany(x => x.Errors)
+                                               .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                _relationshipService.CreateRelationship(
+                    _RelationshipKey,
+                    _BeginNodeLabel,
+                    _EndNodeLabel,
+                    nodeData.idNodeBegin,
+                    nodeData.idNodeEnd);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _relationshipService.CreateRelationship(
-                _RelationshipKey,
-                _BeginNodeLabel,
-                _EndNodeLabel,
-                nodeData.idNodeBegin,
-                nodeData.idNodeEnd);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // DELETE: api/Place/5
         public IHttpActionResult Delete([FromBody]NodeData nodeData)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                           .SelectMany(x => x.Errors)
-                                           .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                               .SelectMany(x => x.Errors)
+                                               .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                _relationshipService.RemoveRelationship(
+                    _RelationshipKey,
+                    _BeginNodeLabel,
+                    _EndNodeLabel,
+                    nodeData.idNodeBegin,
+                    nodeData.idNodeEnd);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _relationshipService.RemoveRelationship(
-                _RelationshipKey,
-                _BeginNodeLabel,
-                _EndNodeLabel,
-                nodeData.idNodeBegin,
-                nodeData.idNodeEnd);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
     }
 }

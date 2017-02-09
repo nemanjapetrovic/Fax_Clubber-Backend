@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Clubber.Common.Exceptions.Exceptions;
+using MongoDB.Driver;
 using System;
 
 namespace Clubber.Backend.MongoDB.DependencyInjectionContainer
@@ -43,7 +44,7 @@ namespace Clubber.Backend.MongoDB.DependencyInjectionContainer
             {
                 if (string.IsNullOrEmpty(connectionString))
                 {
-                    throw new Exception("DependencyContainer MongoClient connection string is null or empty!");
+                    throw new InternalServerErrorException("DependencyContainer MongoClient connection string is null or empty!");
                 }
 
                 _mongoClient = new MongoClient(connectionString);

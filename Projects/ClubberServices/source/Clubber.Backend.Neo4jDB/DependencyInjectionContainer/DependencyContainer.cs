@@ -1,4 +1,5 @@
-﻿using Neo4jClient;
+﻿using Clubber.Common.Exceptions.Exceptions;
+using Neo4jClient;
 using System;
 
 namespace Clubber.Backend.Neo4jDB.DependencyInjectionContainer
@@ -44,7 +45,7 @@ namespace Clubber.Backend.Neo4jDB.DependencyInjectionContainer
             {
                 if (string.IsNullOrEmpty(connectionString))
                 {
-                    throw new Exception("DependencyContainer Neo4j Client connection string is null or empty!");
+                    throw new InternalServerErrorException("DependencyContainer Neo4j Client connection string is null or empty!");
                 }
 
                 _neoGraphClient = new GraphClient(new Uri(connectionString), username, password);

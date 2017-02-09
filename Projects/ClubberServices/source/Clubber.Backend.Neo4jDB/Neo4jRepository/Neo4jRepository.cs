@@ -3,6 +3,7 @@ using System;
 using Clubber.Backend.Neo4jDB.Models;
 using Clubber.Backend.Neo4jDB.DependencyInjectionContainer;
 using System.Collections.Generic;
+using Clubber.Common.Exceptions.Exceptions;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jRepository
 {
@@ -29,7 +30,7 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         {
             if (!DependencyContainer.Instance.Neo4jClient().IsConnected)
             {
-                throw new Exception("Neo4j client is not connected!");
+                throw new InternalServerErrorException("Neo4j client is not connected!");
             }
         }
 

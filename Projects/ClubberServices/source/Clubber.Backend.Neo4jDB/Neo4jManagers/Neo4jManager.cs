@@ -1,4 +1,5 @@
 ﻿using Clubber.Backend.Neo4jDB.Neo4jRepository;
+using Clubber.Common.Exceptions.Exceptions;
 using System;
 
 namespace Clubber.Backend.Neo4jDB.Neo4jManagers
@@ -26,17 +27,17 @@ namespace Clubber.Backend.Neo4jDB.Neo4jManagers
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                throw new Exception("Neo4j connection string is empty!");
+                throw new InternalServerErrorException("Neo4j connection string is empty!");
             }
 
             if (string.IsNullOrEmpty(username))
             {
-                throw new Exception("Neo4j username string is empty!");
+                throw new InternalServerErrorException("Neo4j username string is empty!");
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                throw new Exception("Neo4j password string is empty!");
+                throw new InternalServerErrorException("Neo4j password string is empty!");
             }
 
             _connectionString = connectionString;

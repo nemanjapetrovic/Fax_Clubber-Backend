@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Clubber.Common.Exceptions.Exceptions;
 
 namespace Clubber.Backend.MongoDB.MongoRepository
 {
@@ -21,7 +22,7 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         {
             if (string.IsNullOrEmpty(collectionName))
             {
-                throw new Exception("Mongo collection name is empty!");
+                throw new InternalServerErrorException("Mongo collection name is empty!");
             }
 
             _database = db;
@@ -30,12 +31,12 @@ namespace Clubber.Backend.MongoDB.MongoRepository
 
             if (_database == null)
             {
-                throw new Exception("Mongo database is null!");
+                throw new InternalServerErrorException("Mongo database is null!");
             }
 
             if (_collection == null)
             {
-                throw new Exception("Mongo collection is null!");
+                throw new InternalServerErrorException("Mongo collection is null!");
             }
         }
 

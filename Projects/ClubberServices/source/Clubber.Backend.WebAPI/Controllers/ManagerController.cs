@@ -6,6 +6,7 @@ using System.Configuration;
 using Clubber.Backend.Services.Logic.Services;
 using System;
 using System.Linq;
+using Clubber.Common.Exceptions.Exceptions;
 
 namespace Managerber.WebAPI.Controllers
 {
@@ -27,63 +28,107 @@ namespace Managerber.WebAPI.Controllers
         // GET: api/Manager/5
         public IEnumerable<Manager> Get(string id)
         {
-            var obj = _iManagerService.Get(id);
-            return obj;
+            try
+            {
+                var obj = _iManagerService.Get(id);
+                return obj;
+            }
+            catch (InternalServerErrorException ex)
+            {
+                return new List<Manager>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Manager>();
+            }
         }
 
         // POST: api/Manager
         public IHttpActionResult Post([FromBody]Manager value)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                            .SelectMany(x => x.Errors)
+                                            .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                _iManagerService.Add(value);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _iManagerService.Add(value);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // PUT: api/Manager/5
         public IHttpActionResult Put(string id, [FromBody]Manager value)
         {
-            // Validation
-            if (!ModelState.IsValid)
+            try
             {
-                string messages = string.Join(Environment.NewLine, ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage));
-                return BadRequest(messages);
+                // Validation
+                if (!ModelState.IsValid)
+                {
+                    string messages = string.Join(Environment.NewLine, ModelState.Values
+                                            .SelectMany(x => x.Errors)
+                                            .Select(x => x.ErrorMessage));
+                    return BadRequest(messages);
+                }
+
+                // Call
+                value._id = id;
+                _iManagerService.Update(value);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            value._id = id;
-            _iManagerService.Update(value);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         // DELETE: api/Manager/5
         public IHttpActionResult Delete(string id)
         {
-            // Validation
-            if (string.IsNullOrEmpty(id))
+            try
             {
-                return BadRequest("Id is empty");
+                // Validation
+                if (string.IsNullOrEmpty(id))
+                {
+                    return BadRequest("Id is empty");
+                }
+
+                // Call
+                _iManagerService.Delete(id);
+
+                // Ret
+                return Ok();
             }
-
-            // Call
-            _iManagerService.Delete(id);
-
-            // Ret
-            return Ok();
+            catch (InternalServerErrorException ex)
+            {
+                return InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
     }
 }

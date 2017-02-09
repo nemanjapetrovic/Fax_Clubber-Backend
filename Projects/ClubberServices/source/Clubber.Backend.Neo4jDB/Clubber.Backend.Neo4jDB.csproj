@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Clubber.Common.Exceptions">
+      <HintPath>..\..\..\ClubberCommon\source\Clubber.Common.Exceptions\bin\Debug\Clubber.Common.Exceptions.dll</HintPath>
+    </Reference>
     <Reference Include="Neo4jClient, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo4jClient.2.0.0.6\lib\net45\Neo4jClient.dll</HintPath>
       <Private>True</Private>

@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Clubber.Common.Exceptions">
+      <HintPath>..\..\..\ClubberCommon\source\Clubber.Common.Exceptions\bin\Debug\Clubber.Common.Exceptions.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.4.0.70, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.4.0\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>

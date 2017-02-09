@@ -1,4 +1,5 @@
 ﻿using Clubber.Backend.RedisDB.RedisRepository;
+using Clubber.Common.Exceptions.Exceptions;
 using System;
 
 namespace Clubber.Backend.RedisDB.RedisManagers
@@ -24,7 +25,7 @@ namespace Clubber.Backend.RedisDB.RedisManagers
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                throw new Exception("Redis connection string is empty!");
+                throw new InternalServerErrorException("Redis connection string is empty!");
             }
 
             _connectionString = connectionString;

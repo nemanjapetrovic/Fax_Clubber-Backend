@@ -1,6 +1,7 @@
 ﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.DependencyInjectionContainer;
 using Clubber.Backend.MongoDB.MongoRepository;
+using Clubber.Common.Exceptions.Exceptions;
 using MongoDB.Driver;
 using System;
 
@@ -27,12 +28,12 @@ namespace Clubber.Backend.MongoDB.MongoManagers
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                throw new Exception("Mongo connection string is empty!");
+                throw new InternalServerErrorException("Mongo connection string is empty!");
             }
 
             if (string.IsNullOrEmpty(databaseName))
             {
-                throw new Exception("Mongo database name is empty!");
+                throw new InternalServerErrorException("Mongo database name is empty!");
             }
 
             // Get a database

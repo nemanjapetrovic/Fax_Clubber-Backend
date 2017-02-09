@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using Clubber.Common.Exceptions.Exceptions;
+using StackExchange.Redis;
 using System;
 
 namespace Clubber.Backend.RedisDB.DependencyInjectionContainer
@@ -44,7 +45,7 @@ namespace Clubber.Backend.RedisDB.DependencyInjectionContainer
             {
                 if (string.IsNullOrEmpty(connectionString))
                 {
-                    throw new Exception("DependencyContainer Redis Client connection string is null or empty!");
+                    throw new InternalServerErrorException("DependencyContainer Redis Client connection string is null or empty!");
                 }
 
                 _redisClient = ConnectionMultiplexer.Connect(connectionString);
