@@ -55,7 +55,9 @@ namespace Clubber.Backend.MongoDB.Test
                 Website = "http://test.com",
                 Facebook = "http://test.com",
                 Instagram = "http://test.com",
-                Twitter = "http://test.com"
+                Twitter = "http://test.com",
+                City = "Nis",
+                PostalCode = "18220"
             };
             _club.ClubRepository.Add(club);
 
@@ -95,7 +97,9 @@ namespace Clubber.Backend.MongoDB.Test
                 Website = "http://test" + ran.ToString() + ".com",
                 Facebook = "http://test" + ran.ToString() + ".com",
                 Twitter = "http://test" + ran.ToString() + ".com",
-                Instagram = "http://test" + ran.ToString() + ".com"
+                Instagram = "http://test" + ran.ToString() + ".com",
+                City = "Nis",
+                PostalCode = "18220"
             };
             club._id = id;
             bool updated = _club.ClubRepository.Update(x => x._id, club._id, club);
