@@ -1,7 +1,6 @@
 ﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
-using MongoDB.Bson;
 using System.Collections.Generic;
 
 namespace Clubber.Backend.Services.Logic.Services

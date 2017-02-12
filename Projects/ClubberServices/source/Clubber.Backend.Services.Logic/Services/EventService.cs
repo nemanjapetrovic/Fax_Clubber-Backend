@@ -1,12 +1,10 @@
 ﻿using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
-using MongoDB.Bson;
 using Clubber.Backend.RedisDB.RedisManagers;
 using Clubber.Backend.Services.Logic.Helpers;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Text.RegularExpressions;
 
 namespace Clubber.Backend.Services.Logic.Services
 {
@@ -98,6 +96,10 @@ namespace Clubber.Backend.Services.Logic.Services
         {
             // Remove from MongoDB
             var entity = _mongoEventManager.EventRepository.Delete(item => item._id, id);
+            if (entity == null)
+            {
+                return;
+            }
             // Remove from RedisDB id cache
             _redisClubManager.ClubRepository.RemoveSet(
                 Constants.RedisDB.EventEntityName,

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Clubber.Backend.Models.Model;
 using Clubber.Backend.MongoDB.MongoManagers;
-using MongoDB.Bson;
 using Clubber.Backend.Services.Logic.Helpers;
 using Clubber.Backend.RedisDB.RedisManagers;
 using System.Collections.Generic;
@@ -98,6 +97,10 @@ namespace Clubber.Backend.Services.Logic.Services
         {
             // Remove from MongoDB
             var entity = _mongoClubManager.ClubRepository.Delete(item => item._id, id);
+            if (entity == null)
+            {
+                return;
+            }
             // Remove from RedisDB id cache
             _redisClubManager.ClubRepository.RemoveSet(
                 Constants.RedisDB.ClubEntityName,

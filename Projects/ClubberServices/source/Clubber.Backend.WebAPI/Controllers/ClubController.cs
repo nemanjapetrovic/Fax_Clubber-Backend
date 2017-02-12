@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Web.Http;
 using System;
 using Clubber.Common.Exceptions.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace Clubber.WebAPI.Controllers
 {
@@ -26,11 +27,11 @@ namespace Clubber.WebAPI.Controllers
         }
 
         // GET: api/Club/5
-        public IEnumerable<Club> Get(string id)
+        public IEnumerable<Club> Get(string name)
         {
             try
             {
-                var objs = _iClubService.Get(id);
+                var objs = _iClubService.Get(Regex.Replace(name, @"\s+", "").ToLower());
                 return objs;
             }
             catch (InternalServerErrorException ex)

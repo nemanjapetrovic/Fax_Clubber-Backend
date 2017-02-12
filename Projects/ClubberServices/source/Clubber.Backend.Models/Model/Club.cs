@@ -26,7 +26,7 @@ namespace Clubber.Backend.Models.Model
         public string Country { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "The postal code is required")]
-        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid postal code")]
+        [RegularExpression(@"(?i)^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$", ErrorMessage = "Invalid postal code")]
         public string PostalCode { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "The address is required")]

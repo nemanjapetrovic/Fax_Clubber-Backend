@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 
 namespace Eventber.WebAPI.Controllers
@@ -26,11 +27,11 @@ namespace Eventber.WebAPI.Controllers
         }
 
         // GET: api/Event/5
-        public IEnumerable<Event> Get(string id)
+        public IEnumerable<Event> Get(string name)
         {
             try
             {
-                var obj = _iEventService.Get(id);
+                var obj = _iEventService.Get(Regex.Replace(name, @"\s+", "").ToLower());
                 return obj;
             }
             catch (InternalServerErrorException ex)
