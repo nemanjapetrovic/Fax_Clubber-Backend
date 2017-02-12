@@ -14,7 +14,7 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         void RemoveRelationship(string relationshipTypeKey, string startNodeLabel, string endNodeLabel, string idBeginNode, string idEndNode);
 
         string GetNode(string nodeLabel, string id);
-        IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string idBeginNode);
+        IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string endNodeLabel, string idBeginNode);
 
         long CountRelationshipsEndNodes(string relationshipTypeKey, string startNodeLabel, string idBeginNode);
         bool IsInARelationship(string id, bool bothDirections = false);

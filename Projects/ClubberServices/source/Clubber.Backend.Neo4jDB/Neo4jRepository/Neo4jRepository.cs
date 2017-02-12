@@ -156,11 +156,11 @@ namespace Clubber.Backend.Neo4jDB.Neo4jRepository
         /// <param name="startNodeLabel">Type of the start node.</param>
         /// <param name="idBeginNode">Relationship direction from this node.</param>
         /// <returns>Returns node on the other side of the relationship.</returns>
-        public IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string idBeginNode)
+        public IList<string> GetNodesByRelationship(string relationshipTypeKey, string startNodeLabel, string endNodeLabel, string idBeginNode)
         {
             var nodes = DependencyContainer.Instance
                 .Neo4jClient().Cypher
-                .Match($"(n1)-[{relationshipTypeKey}]->(n2)")
+                .Match($"(n1:{startNodeLabel})-[{relationshipTypeKey}]->(n2:{endNodeLabel})")
                 .Where((NodeModel n1) => n1._id == idBeginNode)
                 .Return<NodeModel>("n2")
                 .Results;

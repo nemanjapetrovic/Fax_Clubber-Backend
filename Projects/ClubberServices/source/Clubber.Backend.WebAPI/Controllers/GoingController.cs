@@ -36,6 +36,7 @@ namespace Clubber.Backend.WebAPI.Controllers
                 var items = _relationshipService.GetElementsInRelationshipWith(
                     _RelationshipKey,
                     _BeginNodeLabel,
+                    _EndNodeLabel,
                     id);
 
                 return items;

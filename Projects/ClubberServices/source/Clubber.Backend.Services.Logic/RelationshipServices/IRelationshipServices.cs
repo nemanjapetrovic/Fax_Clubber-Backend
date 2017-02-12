@@ -18,6 +18,7 @@ namespace Clubber.Backend.Services.Logic.RelationshipServices
 
         IList<string> GetElementsInRelationshipWith(string relationshipKey,
             string beginNodeLabel,
+            string endNodeLabel,
             string beginNodeId);
     }
 }

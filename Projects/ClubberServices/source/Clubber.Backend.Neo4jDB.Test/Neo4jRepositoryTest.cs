@@ -69,7 +69,7 @@ namespace Clubber.Backend.Neo4jDB.Test
 
             _neo.Neo4jRepository.AddRelationship(relationship, nodeLabel, nodeLabel, nodeId1, nodeId3);
 
-            var relNode = _neo.Neo4jRepository.GetNodesByRelationship(relationship, nodeLabel, nodeId1);
+            var relNode = _neo.Neo4jRepository.GetNodesByRelationship(relationship, nodeLabel, nodeLabel, nodeId1);
 
             Assert.IsNotNull(relNode);
 
@@ -84,7 +84,7 @@ namespace Clubber.Backend.Neo4jDB.Test
         {
             _neo.Neo4jRepository.RemoveRelationship(relationship, nodeLabel, nodeLabel, nodeId1, nodeId3);
 
-            var relNode = _neo.Neo4jRepository.GetNodesByRelationship(relationship, nodeLabel, nodeId1);
+            var relNode = _neo.Neo4jRepository.GetNodesByRelationship(relationship, nodeLabel, nodeLabel, nodeId1);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace Clubber.Backend.Neo4jDB.Test
         [TestMethod]
         public void GetNodesByRelationship()
         {
-            _neo.Neo4jRepository.GetNodesByRelationship(relationship, nodeLabel, nodeId1);
+            _neo.Neo4jRepository.GetNodesByRelationship(relationship, nodeLabel, nodeLabel, nodeId1);
         }
 
         [TestMethod]

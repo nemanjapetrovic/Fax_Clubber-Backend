@@ -32,9 +32,9 @@ namespace Clubber.Backend.Services.Logic.RelationshipServices
             _neoManager.Neo4jRepository.AddRelationship(relationshipKey, beginNodeLabel, endNodeLabel, beginNodeId, endNodeId);
         }
 
-        public IList<string> GetElementsInRelationshipWith(string relationshipKey, string beginNodeLabel, string beginNodeId)
+        public IList<string> GetElementsInRelationshipWith(string relationshipKey, string beginNodeLabel, string endNodeLabel, string beginNodeId)
         {
-            return _neoManager.Neo4jRepository.GetNodesByRelationship(relationshipKey, beginNodeLabel, beginNodeId);
+            return _neoManager.Neo4jRepository.GetNodesByRelationship(relationshipKey, beginNodeLabel, endNodeLabel, beginNodeId);
         }
 
         public void RemoveRelationship(string relationshipKey, string beginNodeLabel, string endNodeLabel, string beginNodeId, string endNodeId)
