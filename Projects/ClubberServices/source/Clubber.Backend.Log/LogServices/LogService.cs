@@ -13,7 +13,7 @@ namespace Clubber.Backend.Log.LogServices
 
         public LogService()
         {
-            string mongoConStr = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
+            string mongoConStr = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBConectionString];
             string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
 
             _mongoLogManager = new LogMongoManager(mongoConStr, mongoDbName);
