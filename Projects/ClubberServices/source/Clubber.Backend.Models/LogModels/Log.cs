@@ -15,10 +15,10 @@ namespace Clubber.Backend.Models.LogModels
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public DateTime DateTime { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "The URL is required")]
-        public string URL { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "The method is required")]
+        public string Method { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "The Log message is required")]
-        public string LogMessage { get; set; }
+        public string Message { get; set; }
     }
 }
