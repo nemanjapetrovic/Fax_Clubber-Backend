@@ -67,6 +67,7 @@
     <Compile Include="DependencyInjectionContainer\DependencyContainer.cs" />
     <Compile Include="MongoManagers\ClubMongoManager.cs" />
     <Compile Include="MongoManagers\EventMongoManager.cs" />
+    <Compile Include="MongoManagers\LogMongoManager.cs" />
     <Compile Include="MongoManagers\ManagerMongoManager.cs" />
     <Compile Include="MongoManagers\UserMongoManager.cs" />
     <Compile Include="MongoRepository\IMongoRepository.cs" />

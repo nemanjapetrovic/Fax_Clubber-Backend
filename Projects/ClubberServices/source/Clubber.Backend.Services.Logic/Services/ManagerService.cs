@@ -25,7 +25,11 @@ namespace Clubber.Backend.Services.Logic.Services
         {
             var manager = _mongoManagerManager.ManagerRepository.Get(id);
             IList<Manager> list = new List<Manager>();
-            list.Add(manager);
+
+            if (manager != null)
+            {
+                list.Add(manager);
+            }
 
             return list.AsQueryable();
         }

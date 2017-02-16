@@ -25,7 +25,11 @@ namespace Clubber.Backend.Services.Logic.Services
         {
             var user = _mongoUserManager.UserRepository.Get(id);
             IList<User> list = new List<User>();
-            list.Add(user);
+
+            if (user != null)
+            {
+                list.Add(user);
+            }
 
             return list.AsQueryable();
         }
