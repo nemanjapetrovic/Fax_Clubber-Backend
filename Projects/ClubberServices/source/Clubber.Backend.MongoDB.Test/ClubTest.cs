@@ -14,7 +14,7 @@ namespace Clubber.Backend.MongoDB.Test
         [TestMethod]
         public void GetAll()
         {
-            var items = _club.ClubRepository.Get();
+            var items = _club.ClubRepository.Get(0, 1);
 
             Assert.IsNotNull(items);
         }
@@ -23,7 +23,7 @@ namespace Clubber.Backend.MongoDB.Test
         public void Get()
         {
             // Get all
-            var items = _club.ClubRepository.Get();
+            var items = _club.ClubRepository.Get(0, 1);
             Assert.IsNotNull(items);
 
             // Convert to list
@@ -68,7 +68,7 @@ namespace Clubber.Backend.MongoDB.Test
         public void Update()
         {
             // Get all
-            var items = _club.ClubRepository.Get();
+            var items = _club.ClubRepository.Get(0, 1);
             Assert.IsNotNull(items);
 
             // Convert to list
@@ -118,7 +118,7 @@ namespace Clubber.Backend.MongoDB.Test
         public void Delete()
         {
             // Get all
-            var items = _club.ClubRepository.Get();
+            var items = _club.ClubRepository.Get(0, 1);
             Assert.IsNotNull(items);
 
             // Convert to list

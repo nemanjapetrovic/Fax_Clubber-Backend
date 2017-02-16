@@ -24,9 +24,9 @@ namespace Clubber.Backend.Log.LogServices
             _mongoLogManager.LogRepository.Add(entity);
         }
 
-        public IQueryable<LogModel> Get()
+        public IQueryable<LogModel> Get(int skip, int limit)
         {
-            return _mongoLogManager.LogRepository.Get();
+            return _mongoLogManager.LogRepository.Get(skip, limit);
         }
 
         public IQueryable<LogModel> Get(string id)

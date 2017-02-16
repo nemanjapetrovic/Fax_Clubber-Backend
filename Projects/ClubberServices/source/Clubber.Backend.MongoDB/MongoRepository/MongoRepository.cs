@@ -51,6 +51,16 @@ namespace Clubber.Backend.MongoDB.MongoRepository
         }
 
         /// <summary>
+        /// Get all entities with paging.
+        /// </summary>
+        /// <returns>Returns list of all entities from the Mongo as IQueryable with paging.</returns>
+        public IQueryable<T> Get(int skip, int limit)
+        {
+            var data = _collection.Find(_ => true).Skip(skip).Limit(limit).ToList<T>();
+            return data.AsQueryable<T>();
+        }
+
+        /// <summary>
         /// Get entity by id.
         /// </summary>
         /// <param name="id">Id of the entity stored in database.</param>

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyInjectionContainer\LoggerDependencyContainer.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="LogServices\LogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
