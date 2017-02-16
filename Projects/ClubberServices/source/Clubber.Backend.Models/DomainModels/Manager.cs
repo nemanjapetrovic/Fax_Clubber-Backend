@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace Clubber.Backend.Models.Model
+namespace Clubber.Backend.Models.DomainModels
 {
     public class Manager
     {

@@ -60,10 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Club.cs" />
-    <Compile Include="Model\Event.cs" />
-    <Compile Include="Model\Manager.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="DomainModels\Club.cs" />
+    <Compile Include="DomainModels\Event.cs" />
+    <Compile Include="DomainModels\Manager.cs" />
+    <Compile Include="DomainModels\User.cs" />
     <Compile Include="ParameterModels\NodeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

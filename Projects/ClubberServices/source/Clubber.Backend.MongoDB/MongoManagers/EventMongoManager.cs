@@ -1,4 +1,4 @@
-﻿using Clubber.Backend.Models.Model;
+﻿using Clubber.Backend.Models.DomainModels;
 using Clubber.Backend.MongoDB.DependencyInjectionContainer;
 using Clubber.Backend.MongoDB.MongoRepository;
 using Clubber.Common.Exceptions.Exceptions;

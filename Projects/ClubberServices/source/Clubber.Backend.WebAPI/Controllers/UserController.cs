@@ -1,4 +1,4 @@
-﻿using Clubber.Backend.Models.Model;
+﻿using Clubber.Backend.Models.DomainModels;
 using System.Collections.Generic;
 using System.Web.Http;
 using Clubber.Backend.WebAPI.Helpers;

@@ -1,4 +1,4 @@
-﻿using Clubber.Backend.Models.Model;
+﻿using Clubber.Backend.Models.DomainModels;
 using Clubber.Backend.MongoDB.MongoManagers;
 using System.Linq;
 using System.Collections.Generic;

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 using Clubber.Common.ValidationAttributes.ValidationAttributes;
 
-namespace Clubber.Backend.Models.Model
+namespace Clubber.Backend.Models.DomainModels
 {
     public class Club
     {

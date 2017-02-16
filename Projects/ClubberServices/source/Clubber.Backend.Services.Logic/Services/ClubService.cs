@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Clubber.Backend.Models.Model;
+using Clubber.Backend.Models.DomainModels;
 using Clubber.Backend.MongoDB.MongoManagers;
 using Clubber.Backend.Services.Logic.Helpers;
 using Clubber.Backend.RedisDB.RedisManagers;

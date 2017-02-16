@@ -1,4 +1,4 @@
-﻿using Clubber.Backend.Models.Model;
+﻿using Clubber.Backend.Models.DomainModels;
 using Clubber.Backend.Services.Logic.Services;
 using Clubber.Backend.WebAPI.Helpers;
 using System.Linq;

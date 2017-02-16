@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Clubber.Backend.Models.Model
+namespace Clubber.Backend.Models.DomainModels
 {
     public class Event
     {
