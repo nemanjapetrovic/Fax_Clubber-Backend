@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clubber.Backend.RedisDB.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clubber.Backend.Neo4jDB.Test", "Clubber.Backend.Neo4jDB.Test\Clubber.Backend.Neo4jDB.Test.csproj", "{BE3EEA5A-4FD2-4108-8D33-982A567553BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clubber.Backend.Log", "Clubber.Backend.Log\Clubber.Backend.Log.csproj", "{C182791E-BBC8-45BB-82DF-D5C17BEB91DD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,10 +63,6 @@ Global
 		{BE3EEA5A-4FD2-4108-8D33-982A567553BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE3EEA5A-4FD2-4108-8D33-982A567553BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE3EEA5A-4FD2-4108-8D33-982A567553BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C182791E-BBC8-45BB-82DF-D5C17BEB91DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C182791E-BBC8-45BB-82DF-D5C17BEB91DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C182791E-BBC8-45BB-82DF-D5C17BEB91DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C182791E-BBC8-45BB-82DF-D5C17BEB91DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

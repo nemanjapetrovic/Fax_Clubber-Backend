@@ -353,10 +353,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Clubber.Backend.Log\Clubber.Backend.Log.csproj">
-      <Project>{C182791E-BBC8-45BB-82DF-D5C17BEB91DD}</Project>
-      <Name>Clubber.Backend.Log</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Clubber.Backend.Models\Clubber.Backend.Models.csproj">
       <Project>{6d6fc162-8142-435c-98b8-f9fa7fd60501}</Project>
       <Name>Clubber.Backend.Models</Name>

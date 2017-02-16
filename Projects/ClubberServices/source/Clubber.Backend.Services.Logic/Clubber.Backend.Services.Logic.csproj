@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="LogServices\LogService.cs" />
     <Compile Include="RelationshipServices\RelationshipService.cs" />
     <Compile Include="RelationshipServices\IRelationshipServices.cs" />
     <Compile Include="Services\ClubService.cs" />

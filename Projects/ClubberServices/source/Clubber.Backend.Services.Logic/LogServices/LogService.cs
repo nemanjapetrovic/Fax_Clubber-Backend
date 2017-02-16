@@ -1,21 +1,16 @@
 ﻿using Clubber.Backend.MongoDB.MongoManagers;
-using Clubber.Backend.WebAPI.Helpers;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using LogModel = Clubber.Backend.Models.LogModels.Log;
 
-namespace Clubber.Backend.Log.LogServices
+namespace Clubber.Backend.Services.Logic.LogServices
 {
     public class LogService
     {
         private readonly LogMongoManager _mongoLogManager;
 
-        public LogService()
+        public LogService(string mongoConStr, string mongoDbName)
         {
-            string mongoConStr = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBConectionString];
-            string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
-
             _mongoLogManager = new LogMongoManager(mongoConStr, mongoDbName);
         }
 
