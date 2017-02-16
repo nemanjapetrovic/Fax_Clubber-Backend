@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Clubber.Backend.WebAPI.Helpers;
 using System.Configuration;
-using Clubber.Backend.Services.Logic.Services;
+using Clubber.Backend.Services.Logic.DomainModelServices;
 using System;
 using System.Linq;
 using Clubber.Common.Exceptions.Exceptions;

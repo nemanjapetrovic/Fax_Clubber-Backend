@@ -1,9 +1,9 @@
 ﻿using Clubber.Backend.Models.DomainModels;
-using Clubber.Backend.MongoDB.MongoManagers;
+using Clubber.Backend.MongoDB.DomainModelMongoManagers;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Clubber.Backend.Services.Logic.Services
+namespace Clubber.Backend.Services.Logic.DomainModelServices
 {
     public class ManagerService : IService<Manager>
     {

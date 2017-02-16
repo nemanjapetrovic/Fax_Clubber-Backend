@@ -65,11 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyInjectionContainer\DependencyContainer.cs" />
-    <Compile Include="MongoManagers\ClubMongoManager.cs" />
-    <Compile Include="MongoManagers\EventMongoManager.cs" />
-    <Compile Include="MongoManagers\LogMongoManager.cs" />
-    <Compile Include="MongoManagers\ManagerMongoManager.cs" />
-    <Compile Include="MongoManagers\UserMongoManager.cs" />
+    <Compile Include="DomainModelMongoManagers\ClubMongoManager.cs" />
+    <Compile Include="DomainModelMongoManagers\EventMongoManager.cs" />
+    <Compile Include="LogMongoManagers\LogMongoManager.cs" />
+    <Compile Include="DomainModelMongoManagers\ManagerMongoManager.cs" />
+    <Compile Include="DomainModelMongoManagers\UserMongoManager.cs" />
     <Compile Include="MongoRepository\IMongoRepository.cs" />
     <Compile Include="MongoRepository\MongoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

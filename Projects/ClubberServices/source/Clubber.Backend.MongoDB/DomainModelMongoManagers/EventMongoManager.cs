@@ -3,28 +3,27 @@ using Clubber.Backend.MongoDB.DependencyInjectionContainer;
 using Clubber.Backend.MongoDB.MongoRepository;
 using Clubber.Common.Exceptions.Exceptions;
 using MongoDB.Driver;
-using System;
 
-namespace Clubber.Backend.MongoDB.MongoManagers
+namespace Clubber.Backend.MongoDB.DomainModelMongoManagers
 {
-    public class ManagerMongoManager
+    public class EventMongoManager
     {
         private IMongoDatabase _database;
 
-        protected IMongoRepository<Manager> _managerRepo = null;
-        public IMongoRepository<Manager> ManagerRepository
+        protected IMongoRepository<Event> _eventRepo = null;
+        public IMongoRepository<Event> EventRepository
         {
             get
             {
-                if (_managerRepo == null)
+                if (_eventRepo == null)
                 {
-                    _managerRepo = new MongoRepository<Manager>(_database, "manager");
+                    _eventRepo = new MongoRepository<Event>(_database, "event");
                 }
-                return _managerRepo;
+                return _eventRepo;
             }
         }
 
-        public ManagerMongoManager(string connectionString, string databaseName)
+        public EventMongoManager(string connectionString, string databaseName)
         {
             if (string.IsNullOrEmpty(connectionString))
             {

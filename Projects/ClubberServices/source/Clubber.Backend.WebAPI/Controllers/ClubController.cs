@@ -1,5 +1,5 @@
 ﻿using Clubber.Backend.Models.DomainModels;
-using Clubber.Backend.Services.Logic.Services;
+using Clubber.Backend.Services.Logic.DomainModelServices;
 using Clubber.Backend.WebAPI.Helpers;
 using System.Linq;
 using System.Collections.Generic;

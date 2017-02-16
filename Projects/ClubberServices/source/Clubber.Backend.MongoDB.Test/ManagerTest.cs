@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Clubber.Backend.Models.DomainModels;
-using Clubber.Backend.MongoDB.MongoManagers;
+using Clubber.Backend.MongoDB.DomainModelMongoManagers;
 using System.Linq;
 
 namespace Clubber.Backend.MongoDB.Test

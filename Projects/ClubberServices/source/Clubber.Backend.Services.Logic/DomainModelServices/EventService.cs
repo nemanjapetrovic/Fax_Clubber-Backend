@@ -1,12 +1,12 @@
 ﻿using Clubber.Backend.Models.DomainModels;
-using Clubber.Backend.MongoDB.MongoManagers;
+using Clubber.Backend.MongoDB.DomainModelMongoManagers;
 using System.Linq;
 using Clubber.Backend.RedisDB.RedisManagers;
 using Clubber.Backend.Services.Logic.Helpers;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Clubber.Backend.Services.Logic.Services
+namespace Clubber.Backend.Services.Logic.DomainModelServices
 {
     public class EventService : IService<Event>
     {

@@ -60,11 +60,11 @@
     <Compile Include="LogServices\LogService.cs" />
     <Compile Include="RelationshipServices\RelationshipService.cs" />
     <Compile Include="RelationshipServices\IRelationshipServices.cs" />
-    <Compile Include="Services\ClubService.cs" />
-    <Compile Include="Services\EventService.cs" />
-    <Compile Include="Services\IService.cs" />
-    <Compile Include="Services\ManagerService.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="DomainModelServices\ClubService.cs" />
+    <Compile Include="DomainModelServices\EventService.cs" />
+    <Compile Include="DomainModelServices\IService.cs" />
+    <Compile Include="DomainModelServices\ManagerService.cs" />
+    <Compile Include="DomainModelServices\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

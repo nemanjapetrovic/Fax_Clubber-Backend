@@ -1,30 +1,29 @@
-﻿using Clubber.Backend.Models.DomainModels;
+﻿using Clubber.Backend.Models.LogModels;
 using Clubber.Backend.MongoDB.DependencyInjectionContainer;
 using Clubber.Backend.MongoDB.MongoRepository;
 using Clubber.Common.Exceptions.Exceptions;
 using MongoDB.Driver;
-using System;
 
-namespace Clubber.Backend.MongoDB.MongoManagers
+namespace Clubber.Backend.MongoDB.DomainModelMongoManagers
 {
-    public class ClubMongoManager
+    public class LogMongoManager
     {
         private IMongoDatabase _database;
 
-        protected IMongoRepository<Club> _clubRepo = null;
-        public IMongoRepository<Club> ClubRepository
+        protected IMongoRepository<Log> _logRepo = null;
+        public IMongoRepository<Log> LogRepository
         {
             get
             {
-                if (_clubRepo == null)
+                if (_logRepo == null)
                 {
-                    _clubRepo = new MongoRepository<Club>(_database, "club");
+                    _logRepo = new MongoRepository<Log>(_database, "log");
                 }
-                return _clubRepo;
+                return _logRepo;
             }
         }
 
-        public ClubMongoManager(string connectionString, string databaseName)
+        public LogMongoManager(string connectionString, string databaseName)
         {
             if (string.IsNullOrEmpty(connectionString))
             {

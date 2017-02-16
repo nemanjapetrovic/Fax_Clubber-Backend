@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Clubber.Backend.Services.Logic.Services
+namespace Clubber.Backend.Services.Logic.DomainModelServices
 {
     public interface IService<T> where T : class
     {
