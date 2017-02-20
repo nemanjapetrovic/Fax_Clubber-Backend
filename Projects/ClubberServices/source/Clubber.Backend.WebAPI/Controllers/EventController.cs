@@ -31,6 +31,11 @@ namespace Eventber.WebAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(name))
+                {
+                    return new List<Event>();
+                }
+
                 var obj = _iEventService.Get(Regex.Replace(name, @"\s+", "").ToLower());
                 return obj;
             }

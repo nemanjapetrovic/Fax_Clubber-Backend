@@ -1,11 +1,13 @@
-﻿using Clubber.Backend.MongoDB.DomainModelMongoManagers;
+﻿using Clubber.Backend.Models.LogModels;
+using Clubber.Backend.MongoDB.DomainModelMongoManagers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using LogModel = Clubber.Backend.Models.LogModels.Log;
 
 namespace Clubber.Backend.Services.Logic.LogServices
 {
-    public class LogService
+    public class LogService : ILogService
     {
         private readonly LogMongoManager _mongoLogManager;
 
@@ -40,6 +42,19 @@ namespace Clubber.Backend.Services.Logic.LogServices
         public void Delete(string id)
         {
             _mongoLogManager.LogRepository.Delete(item => item._id, id);
+        }
+
+        public LogModel CreateLogModel(DateTime dateTime, string method, string message, LogType type)
+        {
+            var log = new LogModel()
+            {
+                DateTime = dateTime,
+                Method = method,
+                Message = message,
+                Type = type
+            };
+
+            return log;
         }
     }
 }

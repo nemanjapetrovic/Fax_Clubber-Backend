@@ -5,6 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Clubber.Backend.Models.LogModels
 {
+    public enum LogType
+    {
+        Information = 0,
+        Exception = 1
+    };
+
     public class Log
     {
         [BsonId]
@@ -20,5 +26,8 @@ namespace Clubber.Backend.Models.LogModels
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "The Log message is required")]
         public string Message { get; set; }
+
+        [Required(ErrorMessage = "The type of log is required")]
+        public LogType Type { get; set; }
     }
 }

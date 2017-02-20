@@ -1,7 +1,7 @@
 ﻿using Clubber.Backend.Models.DomainModels;
 using Clubber.Backend.MongoDB.DomainModelMongoManagers;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Clubber.Backend.Services.Logic.DomainModelServices
 {
@@ -21,9 +21,9 @@ namespace Clubber.Backend.Services.Logic.DomainModelServices
             _mongoUserManager.UserRepository.Add(entity);
         }
 
-        public IQueryable<User> Get(string id)
+        public IQueryable<User> Get(string value)
         {
-            var user = _mongoUserManager.UserRepository.Get(id);
+            var user = _mongoUserManager.UserRepository.Get(value);
             IList<User> list = new List<User>();
 
             if (user != null)

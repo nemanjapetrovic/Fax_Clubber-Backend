@@ -6,6 +6,8 @@
         {
             internal static string MongoDBConectionString = "MongoDBConectionString";
             internal static string MongoDBDatabaseName = "MongoDBDatabaseName";
+
+            internal static string LogMongoDBDatabaseName = "LogMongoDBDatabaseName";
         }
 
         internal class RedisDB

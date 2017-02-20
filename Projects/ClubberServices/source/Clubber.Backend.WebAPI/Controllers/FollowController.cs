@@ -1,12 +1,12 @@
 ﻿using Clubber.Backend.Models.ParameterModels;
 using Clubber.Backend.Services.Logic.RelationshipServices;
 using Clubber.Backend.WebAPI.Helpers;
+using Clubber.Common.Exceptions.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Web.Http;
 using System.Linq;
-using System;
-using Clubber.Common.Exceptions.Exceptions;
+using System.Web.Http;
 
 namespace Clubber.Backend.WebAPI.Controllers
 {
@@ -33,6 +33,11 @@ namespace Clubber.Backend.WebAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(id))
+                {
+                    return new List<string>();
+                }
+
                 var items = _relationshipService.GetElementsInRelationshipWith(
                 _RelationshipKey,
                 _BeginNodeLabel,

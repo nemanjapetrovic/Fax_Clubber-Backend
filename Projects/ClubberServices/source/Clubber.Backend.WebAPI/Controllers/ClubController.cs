@@ -1,13 +1,13 @@
 ﻿using Clubber.Backend.Models.DomainModels;
 using Clubber.Backend.Services.Logic.DomainModelServices;
 using Clubber.Backend.WebAPI.Helpers;
-using System.Linq;
+using Clubber.Common.Exceptions.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Web.Http;
-using System;
-using Clubber.Common.Exceptions.Exceptions;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web.Http;
 
 namespace Clubber.WebAPI.Controllers
 {
@@ -26,11 +26,16 @@ namespace Clubber.WebAPI.Controllers
             _iClubService = new ClubService(mongoConStr, mongoDbName, redisConStr);
         }
 
-        // GET: api/Club/5
+        // GET: api/Club/5        
         public IEnumerable<Club> Get(string name)
         {
             try
             {
+                if (string.IsNullOrEmpty(name))
+                {
+                    return new List<Club>();
+                }
+
                 var objs = _iClubService.Get(Regex.Replace(name, @"\s+", "").ToLower());
                 return objs;
             }

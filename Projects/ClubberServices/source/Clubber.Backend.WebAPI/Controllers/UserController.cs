@@ -1,12 +1,12 @@
 ﻿using Clubber.Backend.Models.DomainModels;
-using System.Collections.Generic;
-using System.Web.Http;
-using Clubber.Backend.WebAPI.Helpers;
-using System.Configuration;
 using Clubber.Backend.Services.Logic.DomainModelServices;
-using System;
-using System.Linq;
+using Clubber.Backend.WebAPI.Helpers;
 using Clubber.Common.Exceptions.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web.Http;
 
 namespace Userber.WebAPI.Controllers
 {
@@ -30,6 +30,11 @@ namespace Userber.WebAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(id))
+                {
+                    return new List<User>();
+                }
+
                 var obj = _iUserService.Get(id);
                 return obj;
             }

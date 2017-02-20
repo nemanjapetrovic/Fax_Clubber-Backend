@@ -1,7 +1,7 @@
 ﻿using Clubber.Backend.Models.DomainModels;
 using Clubber.Backend.MongoDB.DomainModelMongoManagers;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Clubber.Backend.Services.Logic.DomainModelServices
 {
@@ -21,9 +21,9 @@ namespace Clubber.Backend.Services.Logic.DomainModelServices
             _mongoManagerManager.ManagerRepository.Add(entity);
         }
 
-        public IQueryable<Manager> Get(string id)
+        public IQueryable<Manager> Get(string value)
         {
-            var manager = _mongoManagerManager.ManagerRepository.Get(id);
+            var manager = _mongoManagerManager.ManagerRepository.Get(value);
             IList<Manager> list = new List<Manager>();
 
             if (manager != null)
