@@ -1,4 +1,6 @@
-﻿using Clubber.Backend.Models.ParameterModels;
+﻿using Clubber.Backend.Models.LogModels;
+using Clubber.Backend.Models.ParameterModels;
+using Clubber.Backend.Services.Logic.LogServices;
 using Clubber.Backend.Services.Logic.RelationshipServices;
 using Clubber.Backend.WebAPI.Helpers;
 using Clubber.Common.Exceptions.Exceptions;
@@ -15,17 +17,23 @@ namespace Clubber.Backend.WebAPI.Controllers
         private readonly string _RelationshipKey = "FOLLOW";
         private readonly string _BeginNodeLabel = "User";
         private readonly string _EndNodeLabel = "Club";
+
         private readonly IRelationshipServices _relationshipService;
+        private readonly ILogService _logService;
 
         public FollowController()
         {
-            string conString = ConfigurationManager.ConnectionStrings[Constants.Neo4jDB.Neo4jDBConnectionString].ConnectionString;
+            string neo4jConnStr = ConfigurationManager.ConnectionStrings[Constants.Neo4jDB.Neo4jDBConnectionString].ConnectionString;
             string username = ConfigurationManager.AppSettings[Constants.Neo4jDB.Neo4jDBUsername];
             string password = ConfigurationManager.AppSettings[Constants.Neo4jDB.Neo4jDBPassword];
 
-            _relationshipService = new RelationshipService(conString,
-                                                           username,
-                                                           password);
+            // Connection strings
+            string mongoConStr = ConfigurationManager.ConnectionStrings[Constants.MongoDB.MongoDBConectionString].ConnectionString;
+            // MongoDB name
+            string logMongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.LogMongoDBDatabaseName];
+
+            _relationshipService = new RelationshipService(neo4jConnStr, username, password);
+            _logService = new LogService(mongoConStr, logMongoDbName);
         }
 
         // GET: api/Follow/5
@@ -48,10 +56,24 @@ namespace Clubber.Backend.WebAPI.Controllers
             }
             catch (InternalServerErrorException ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    $"Internal server error, {ex.Message}",
+                    LogType.Exception));
+
                 return new List<string>();
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    $"Exception error, {ex.Message}",
+                    LogType.Exception));
+
                 return new List<string>();
             }
         }
@@ -83,10 +105,24 @@ namespace Clubber.Backend.WebAPI.Controllers
             }
             catch (InternalServerErrorException ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    $"Internal server error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    $"Exception error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
         }
@@ -118,10 +154,24 @@ namespace Clubber.Backend.WebAPI.Controllers
             }
             catch (InternalServerErrorException ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    $"Internal server error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    $"Exception error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
         }

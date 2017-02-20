@@ -1,5 +1,7 @@
 ﻿using Clubber.Backend.Models.DomainModels;
+using Clubber.Backend.Models.LogModels;
 using Clubber.Backend.Services.Logic.DomainModelServices;
+using Clubber.Backend.Services.Logic.LogServices;
 using Clubber.Backend.WebAPI.Helpers;
 using Clubber.Common.Exceptions.Exceptions;
 using System;
@@ -14,16 +16,20 @@ namespace Eventber.WebAPI.Controllers
     public class EventController : ApiController
     {
         private readonly IService<Event> _iEventService;
+        private readonly ILogService _logService;
 
         public EventController()
         {
             // Connection strings
             string mongoConStr = ConfigurationManager.ConnectionStrings[Constants.MongoDB.MongoDBConectionString].ConnectionString;
             string redisConStr = ConfigurationManager.ConnectionStrings[Constants.RedisDB.RedisDBConectionString].ConnectionString;
+
             // MongoDB name
             string mongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.MongoDBDatabaseName];
+            string logMongoDbName = ConfigurationManager.AppSettings[Constants.MongoDB.LogMongoDBDatabaseName];
 
             _iEventService = new EventService(mongoConStr, mongoDbName, redisConStr);
+            _logService = new LogService(mongoConStr, logMongoDbName);
         }
 
         // GET: api/Event/5
@@ -41,10 +47,24 @@ namespace Eventber.WebAPI.Controllers
             }
             catch (InternalServerErrorException ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    $"Internal server error, {ex.Message}",
+                    LogType.Exception));
+
                 return new List<Event>();
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    $"Exception error, {ex.Message}",
+                    LogType.Exception));
+
                 return new List<Event>();
             }
         }
@@ -71,10 +91,23 @@ namespace Eventber.WebAPI.Controllers
             }
             catch (InternalServerErrorException ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    $"Internal server error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    $"Exception error, {ex.Message}",
+                    LogType.Exception));
                 return InternalServerError();
             }
         }
@@ -102,10 +135,24 @@ namespace Eventber.WebAPI.Controllers
             }
             catch (InternalServerErrorException ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "PUT",
+                    $"Internal server error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "PUT",
+                    $"Exception error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
         }
@@ -129,10 +176,24 @@ namespace Eventber.WebAPI.Controllers
             }
             catch (InternalServerErrorException ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    $"Internal server error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
             catch (Exception ex)
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    $"Exception error, {ex.Message}",
+                    LogType.Exception));
+
                 return InternalServerError();
             }
         }

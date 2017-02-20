@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using Clubber.Backend.Models.LogModels;
+using System;
+using System.Linq;
 using LogModel = Clubber.Backend.Models.LogModels.Log;
 
 namespace Clubber.Backend.Services.Logic.LogServices
@@ -9,5 +11,7 @@ namespace Clubber.Backend.Services.Logic.LogServices
         IQueryable<LogModel> Get(int skip, int limit);
         IQueryable<LogModel> Get(string id);
         void Delete(string id);
+
+        LogModel CreateLogModel(DateTime dateTime, string method, string message, LogType type);
     }
 }
