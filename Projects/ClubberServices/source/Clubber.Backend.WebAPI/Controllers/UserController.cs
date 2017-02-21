@@ -36,6 +36,13 @@ namespace Userber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    "User GET",
+                    LogType.Information));
+
                 if (string.IsNullOrEmpty(id))
                 {
                     return new List<User>();
@@ -73,6 +80,13 @@ namespace Userber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    "User POST",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
@@ -117,6 +131,13 @@ namespace Userber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "PUT",
+                    "User PUT",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
@@ -162,6 +183,13 @@ namespace Userber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    "User DELETE",
+                    LogType.Information));
+
                 // Validation
                 if (string.IsNullOrEmpty(id))
                 {

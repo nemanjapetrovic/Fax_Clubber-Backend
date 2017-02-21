@@ -36,6 +36,13 @@ namespace Managerber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    "Manager GET",
+                    LogType.Information));
+
                 if (string.IsNullOrEmpty(id))
                 {
                     return new List<Manager>();
@@ -73,6 +80,13 @@ namespace Managerber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    "Manager POST",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
@@ -117,6 +131,13 @@ namespace Managerber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "PUT",
+                    "Manager PUT",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
@@ -162,6 +183,13 @@ namespace Managerber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    "Manager DELETE",
+                    LogType.Information));
+
                 // Validation
                 if (string.IsNullOrEmpty(id))
                 {

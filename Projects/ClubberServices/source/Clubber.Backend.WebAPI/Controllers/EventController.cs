@@ -37,6 +37,13 @@ namespace Eventber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    "Event GET",
+                    LogType.Information));
+
                 if (string.IsNullOrEmpty(name))
                 {
                     return new List<Event>();
@@ -74,6 +81,13 @@ namespace Eventber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    "Event POST",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
@@ -117,6 +131,13 @@ namespace Eventber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "PUT",
+                    "Event PUT",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
@@ -162,6 +183,13 @@ namespace Eventber.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    "Event DELETE",
+                    LogType.Information));
+
                 // Validation
                 if (string.IsNullOrEmpty(id))
                 {

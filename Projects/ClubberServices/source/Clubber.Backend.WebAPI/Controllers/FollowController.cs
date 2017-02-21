@@ -41,6 +41,13 @@ namespace Clubber.Backend.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "GET",
+                    "FOLLOW GET",
+                    LogType.Information));
+
                 if (string.IsNullOrEmpty(id))
                 {
                     return new List<string>();
@@ -83,6 +90,13 @@ namespace Clubber.Backend.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "POST",
+                    "FOLLOW POST",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
@@ -132,6 +146,13 @@ namespace Clubber.Backend.WebAPI.Controllers
         {
             try
             {
+                // Log
+                _logService.Add(
+                    _logService.CreateLogModel(DateTime.Now,
+                    "DELETE",
+                    "FOLLOW DELETE",
+                    LogType.Information));
+
                 // Validation
                 if (!ModelState.IsValid)
                 {
