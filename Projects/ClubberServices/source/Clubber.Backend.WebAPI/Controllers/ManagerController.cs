@@ -57,7 +57,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "GET",
-                    $"Internal server error, {ex.Message}",
+                    $"Internal server error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return new List<Manager>();
@@ -68,7 +68,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "GET",
-                    $"Exception error, {ex.Message}",
+                    $"Exception error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return new List<Manager>();
@@ -108,7 +108,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "POST",
-                    $"Internal server error, {ex.Message}",
+                    $"Internal server error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return InternalServerError();
@@ -119,7 +119,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "POST",
-                    $"Exception error, {ex.Message}",
+                    $"Exception error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return InternalServerError();
@@ -160,7 +160,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "PUT",
-                    $"Internal server error, {ex.Message}",
+                    $"Internal server error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return InternalServerError();
@@ -171,7 +171,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "PUT",
-                    $"Exception error, {ex.Message}",
+                    $"Exception error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return InternalServerError();
@@ -208,7 +208,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "DELETE",
-                    $"Internal server error, {ex.Message}",
+                    $"Internal server error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return InternalServerError();
@@ -219,7 +219,7 @@ namespace Managerber.WebAPI.Controllers
                 _logService.Add(
                     _logService.CreateLogModel(DateTime.Now,
                     "DELETE",
-                    $"Exception error, {ex.Message}",
+                    $"Exception error, {ex.Message} {Environment.NewLine}, Inner: {ex.InnerException} {Environment.NewLine}, StackTrace: {ex.StackTrace}",
                     LogType.Exception));
 
                 return InternalServerError();

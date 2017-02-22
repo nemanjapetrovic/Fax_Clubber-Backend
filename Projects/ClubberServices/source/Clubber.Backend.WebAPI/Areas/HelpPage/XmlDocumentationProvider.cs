@@ -107,7 +107,7 @@ namespace Clubber.Backend.WebAPI.Areas.HelpPage
             if (parameters.Length != 0)
             {
                 string[] parameterTypeNames = parameters.Select(param => GetTypeName(param.ParameterType)).ToArray();
-                name += String.Format(CultureInfo.InvariantCulture, "({0})", String.Join(",", parameterTypeNames));
+                name += String.Format(CultureInfo.InvariantCulture, "({0})", String.Join(", parameterTypeNames));
             }
 
             return name;
@@ -147,7 +147,7 @@ namespace Clubber.Backend.WebAPI.Areas.HelpPage
                 // Trim the generic parameter counts from the name
                 genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
                 string[] argumentTypeNames = genericArguments.Select(t => GetTypeName(t)).ToArray();
-                name = String.Format(CultureInfo.InvariantCulture, "{0}{{{1}}}", genericTypeName, String.Join(",", argumentTypeNames));
+                name = String.Format(CultureInfo.InvariantCulture, "{0}{{{1}}}", genericTypeName, String.Join(", argumentTypeNames));
             }
             if (type.IsNested)
             {
