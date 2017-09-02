@@ -5,8 +5,6 @@
 
 This software is made by Nemanja Petrović student @ Faculty of Electronic Engineering, University of Niš, Serbia.
 
-##### ```The course **Advanced Databases**```
-
 ## Mentors
 - Prof. dr Aleksandar Stanimirović (aleksandar.stanimirovic@elfak.ni.ac.rs).
 - dr Miloš Bogdanović (milos.bogdanovic@elfak.ni.ac.rs).
@@ -24,3 +22,15 @@ This software is made by Nemanja Petrović student @ Faculty of Electronic Engin
  - E-mail: nemanjapetrovic1794@gmail.com
  - Linkedin: nemanjapetrovic1994
  - Github: nemanjapetrovic
+ 
+# README
+
+IDE: Vusal Studio 2015
+
+Platform: Windows/IIS
+
+Language: C#/ASP.NET
+
+College: Napredne baze podataka - Prof. dr Aleksandar Stanimirovic
+
+Project: Clubber backend using Redis+MongoDb+Neo4j for creating social network for nightlife.
